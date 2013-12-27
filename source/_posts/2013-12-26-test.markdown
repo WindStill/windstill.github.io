@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "test"
+title: "Octopress安装与配置"
 date: 2013-12-26 21:07:44 +0800
 comments: true
-categories: 
+categories: "Octopress"
 ---
