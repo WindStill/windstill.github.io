@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Octopress | 风依旧]]></title>
-  <link href="http://windstill.lue.so/blog/categories/octopress/atom.xml" rel="self"/>
-  <link href="http://windstill.lue.so/"/>
-  <updated>2013-12-27T23:26:54+08:00</updated>
-  <id>http://windstill.lue.so/</id>
+  <link href="http://blog.47zb.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://blog.47zb.com/"/>
+  <updated>2013-12-28T17:35:25+08:00</updated>
+  <id>http://blog.47zb.com/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
     
@@ -14,11 +14,256 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Octopress安装与配置]]></title>
-    <link href="http://windstill.lue.so/blog/2013/12/26/test/"/>
+    <title type="html"><![CDATA[用Octopress和Github-pages搭建博客]]></title>
+    <link href="http://blog.47zb.com/blog/2013/12/26/octopress-with-github-pages/"/>
     <updated>2013-12-26T21:07:44+08:00</updated>
-    <id>http://windstill.lue.so/blog/2013/12/26/test</id>
-    <content type="html"><![CDATA[
+    <id>http://blog.47zb.com/blog/2013/12/26/octopress-with-github-pages</id>
+    <content type="html"><![CDATA[<h3>1 相关介绍</h3>
+
+<h4>Octopress</h4>
+
+<p><a href="http://octopress.org/"><code>Octopress</code></a>是利用<a href="http://github.com/mojombo/jekyll"><code>Jekyll</code></a>博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。如果用<a href="http://github.com/mojombo/jekyll"><code>Jekyll</code></a>写博客的话，得要自己写HTML模板、CSS、Javascript，并且要自己做配置。但是如果用<a href="http://octopress.org/"><code>Octopress</code></a>，这些都帮你做好了，只要<a href="https://github.com/imathis/octopress"><code>clone or fork Octopress</code></a>，安装些依赖的库和主题就行了。</p>
+
+<!-- more -->
+
+
+<h4>Github pages</h4>
+
+<p><a href="https://github.com/"><code>GitHub</code></a>是全球最大的社交编程及代码托管网站，GitHub可以托管、分享各种代码库或项目，并提供一个web界面。</p>
+
+<p><a href="http://pages.github.com/"><code>Github Pages</code></a>就是为你或你的项目提供一个静态的网站。原理就是把你的一个特殊的repository (yourname.github.io)，或者某个repository特殊分支(gh-pages)的静态文件以网页形式展现出来，前者一般作为个人主页，后面一般作为项目的主页，这两种情况后面会说到。</p>
+
+<p>这种方案优势：1.搭建、发布简单；2.免费、无限流量，3.绑定自己域名</p>
+
+<h3>2 安装Octopress</h3>
+
+<h4>安装前准备</h4>
+
+<ul>
+<li><a href="http://git-scm.com/">安装 Git</a></li>
+<li>安装 Ruby 1.9.3</li>
+</ul>
+
+
+<p>可以通过安装RVM，来安装、管理ruby版本</p>
+
+<p><code>
+curl -L https://get.rvm.io | bash -s stable --ruby
+</code></p>
+
+<p>接着是安装Ruby 1.9.3</p>
+
+<p><code>
+rvm install 1.9.3
+rvm use 1.9.3
+</code></p>
+
+<h4>安装Octopress</h4>
+
+<p>克隆Octopress的代码库</p>
+
+<p><code>
+git clone git://github.com/imathis/octopress.git octopress
+cd octopress
+</code></p>
+
+<p>安装依赖库</p>
+
+<p><code>
+gem install bundler
+rbenv rehash    # If you use rbenv, rehash to be able to run the bundle command
+bundle install
+</code></p>
+
+<p>安装Octopress默认主题</p>
+
+<p><code>
+rake install
+</code></p>
+
+<h3>3 配置Octopress</h3>
+
+<p>Octopress的作者已经让配置尽量简化了，一般情况只需要配置<code>_config.yml</code>和<code>Rakefile</code>文件即可。下面是Octopress的配置文件列表。</p>
+
+<p>```</p>
+
+<pre><code>_config.yml       # 主要配置文件 (Jekyll的设置)
+Rakefile          # 部署相关配置
+config.rb         # Compass config
+config.ru         # Rack config
+</code></pre>
+
+<p>```</p>
+
+<p><code>_config.yml</code>文件中主要有三大配置段：<code>Main Configs</code>、<code>Jekyll &amp; Plugins</code>和<code>3rd Party Settings</code>。一般，该文件中其中url是必须要填写的，这里的url是在github上创建的一个仓库地址，具体请看第四步中创建的地址。另外再修改一下title、subtitle和author，根据需求，再开启一些第三方组件服务。</p>
+
+<p>参见 <a href="http://octopress.org/docs/configuring/">Configuring Octopress</a></p>
+
+<h3>4 部署到Github Pages</h3>
+
+<h4>Github User/Organization pages</h4>
+
+<p>如果想放到<code>http://username.github.io</code>域名下，就用这种方式。以前是<code>.com</code>域名，现在改成<code>.io</code>了。不过可以配置自己的域名，这个后面会说到。</p>
+
+<p>首先需要在GitHub上创建一个<a href="https://github.com/repositories/new">新的仓库</a>，命名为<code>username.github.io</code>，<code>username</code>就是你在Github的用户名。等后面配置好部署到Github上以后，就可以通过<code>http://username.github.io</code>访问了。这种方式需要一个master分支来存放生成的博客内容（_deploy目录），source分支存放整个源码。用octopress的一个<code>rake任务</code>可以自动完成以上配置。</p>
+
+<p><code>
+rake setup_github_pages
+</code></p>
+
+<p>这条rake任务会让你输入仓库的地址，SSH和HTTPS的URL都可以。执行后，会做以下事情：<br/>
+1. 存储Github Pages的仓库地址<br/>
+2. 将octopress的远程仓库<code>origin</code>重命名为<code>octopress</code><br/>
+3. 将Github Pages仓库作为默认的远程origin<br/>
+4. 将当前分支从<code>master</code>切换到<code>source</code><br/>
+5. 根据仓库地址配置博客的URL<br/>
+6. 在部署目录<code>_deploy</code>中创建<code>master</code>分支</p>
+
+<p>然后执行：</p>
+
+<p><code>
+rake generate
+rake deploy
+</code></p>
+
+<p>这两条命令会生成博客系统的主要文件并拷贝到<code>_deploy/</code>目录，然后添加到git版本控制，提交并推送到远程主分支。过一会就可以访问<code>http://username.github.com</code>了。</p>
+
+<p>然后把源码提交到<code>source</code>分支</p>
+
+<p><code>
+git add .
+git commit -m 'your message'
+git push origin source
+</code></p>
+
+<h4>Github Project pages (gh-pages分支)</h4>
+
+<p>Github的Project Pages服务可以为项目提供网站页面。它会在项目仓库中寻找<code>gh-pages</code>分支，然后通过<code>http://username.github.io/project</code>访问项目网站。</p>
+
+<p>执行Octopress的rake任务命令</p>
+
+<p><code>
+rake setup_github_pages
+</code></p>
+
+<p>然后执行</p>
+
+<p><code>
+rake generate
+rake deploy
+</code></p>
+
+<p>这几条命令的执行结果基本与上面的类似。</p>
+
+<p>参见 <a href="http://octopress.org/docs/deploying/github/">Deploying to Github Pages</a></p>
+
+<h4>自定义域名</h4>
+
+<p>首先在<code>source/</code>目录下新建一个名为<code>CNAME</code>的文件，并填入你的域名，比如<code>example.com</code>或<code>blog.example.com</code>。</p>
+
+<p>然后到你的域名登记或DNS管理网站添加一条域名记录</p>
+
+<ul>
+<li>如果是顶级域名，比如<code>example.com</code>，那么需要创建一条A记录，并指向<code>204.232.175.78</code>。</li>
+<li>如果是二级域名，比如<code>blog.example.com</code>，那么创建一条CNAME记录，并指向<code>username.github.io</code>。</li>
+</ul>
+
+
+<p>然后执行</p>
+
+<p><code>
+rake generate
+rake deploy
+</code></p>
+
+<p>大概过个10分钟，就可以用新的域名访问了。</p>
+
+<h3>5 开始写博客</h3>
+
+<p>Octopress提供了一些rake任务来创建博文和页面。博文必须存储在source/_posts目录下，其中预置了一些元数据，并且以Jekyll的命名规范命名：YYYY-MM-DD-post-title.markdown。博文的名字会被当做url的一部分，而其中的日期用于对博文的区分和排序。</p>
+
+<h4>创建博文</h4>
+
+<p>通过Octopress提供的rake任务可以正确的按照命名规范创建博文，并且在博文中会预知一些常用的yaml元数据。</p>
+
+<p><code>
+rake new_post["title"]
+</code></p>
+
+<p>其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：source/_posts/2013-08-03-title.markdown。用文本编辑器打开这个文件，可以看到里面有一块yaml元数据(Jekyll博客引擎会根据这些内容处理博文和页面)：</p>
+
+<h2>```</h2>
+
+<p>layout: post
+title: &ldquo;Zombie Ninjas Attack: A survivor&rsquo;s retrospective&rdquo;
+date: 2011-07-03 5:59
+comments: true
+external-url:</p>
+
+<h2>categories:</h2>
+
+<p>```</p>
+
+<h4>设置博文</h4>
+
+<p>在以上的yaml元数据块里可以：</p>
+
+<ul>
+<li>关闭评论</li>
+<li>给博文添加分类</li>
+<li>如果是多人博客，可以添加<code>author: Your Name</code>到元数据</li>
+<li>如果只是想作为草稿，不想在发布后公开，那么可以添加<code>published: false</code></li>
+<li>如果是想发布个外链博文，只要为博文添加个<code>external-url</code></li>
+</ul>
+
+
+<p>你还可以想下面这样添加一个或多个分类：</p>
+
+<p>```</p>
+
+<h1>一个分类</h1>
+
+<p>categories: Sass</p>
+
+<h1>多个分类，示例1</h1>
+
+<p>categories: [CSS3, Sass, Media Queries]</p>
+
+<h1>多个分类，示例2</h1>
+
+<p>categories:
+&ndash; CSS3
+&ndash; Sass
+&ndash; Media Queries
+```</p>
+
+<h4>撰写博文</h4>
+
+<p>在元数据块下面就可以撰写博文正文了。</p>
+
+<p>如果想在首页中只显示博文的部分正文，可以在博文中写入<code>&lt;!--more--&gt;</code>，这样首页的博文就只显示<code>&lt;!--more--&gt;</code>标识之前的内容，并在每篇博文底下加一个<code>Read on</code>超链接。</p>
+
+<h4>生成并预览</h4>
+
+<p><code>
+rake generate   # 生成post和page到public目录
+rake preview    # 启动服务并预览 http://localhost:4000
+</code>
+预览无勿的话，就可以部署了</p>
+
+<p><code>
+rake deploy
+</code></p>
+
+<p>参见 <a href="http://octopress.org/docs/blogging">Start blogging with Octopress</a></p>
+
+<h3>参考文章</h3>
+
+<ul>
+<li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">利用Octopress搭建一个Github博客</a></li>
+<li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
+</ul>
+
 ]]></content>
   </entry>
   
