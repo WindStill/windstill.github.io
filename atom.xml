@@ -4,7 +4,7 @@
   <title><![CDATA[风依旧]]></title>
   <link href="http://blog.47zb.com/atom.xml" rel="self"/>
   <link href="http://blog.47zb.com/"/>
-  <updated>2013-12-29T21:38:48+08:00</updated>
+  <updated>2013-12-29T22:25:40+08:00</updated>
   <id>http://blog.47zb.com/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -47,7 +47,7 @@
 
 <p>vim 有好多方便、实用的插件，作为一个普通开发人员，经常使用的就有一二十个，若一个一个去安装确实有点麻烦。</p>
 
-<p><a href="https://github.com/carlhuda/janus"><code>Janus</code></a>可以为我们解决这个烦恼，它是一个为<code>Vim</code>、<code>Gvim</code>、<code>MacVim</code>准备的插件和映射的集合。Janus用一些最流行的插件和最常用的映射组合成一个最小型的开发环境。</p>
+<p><a href="https://github.com/carlhuda/janus"><code>Janus</code></a>可以为我们解决这个烦恼，它是一个为<code>Vim</code>、<code>Gvim</code>、<code>MacVim</code>准备的插件和映射的集合。Janus用一些最流行的插件和最常用的映射组合成一个最小型的开发环境。参见 <a href="https://github.com/carlhuda/janus">Janus的Github页面</a>。</p>
 
 <p>1、安装</p>
 
