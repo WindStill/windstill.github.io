@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mavericks | 风依旧]]></title>
   <link href="http://blog.47zb.com/blog/categories/mavericks/atom.xml" rel="self"/>
   <link href="http://blog.47zb.com/"/>
-  <updated>2013-12-29T22:25:40+08:00</updated>
+  <updated>2013-12-30T10:03:39+08:00</updated>
   <id>http://blog.47zb.com/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -89,6 +89,8 @@ colorscheme Sunburst
 <p><code>
 " 设置主题（配色方案）
 colorscheme Sunburst
+" 设置字体字号
+set guifont=Menlo:h16
 " 启用缩进高亮对齐（下图中明暗相间的竖条）
 autocm vimenter * :IndentGuidesEnable
 " 设置缩进距离单位
