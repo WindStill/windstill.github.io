@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://blog.47zb.com/sitemap.xml 
+Sitemap: http://windstill.me/sitemap.xml 

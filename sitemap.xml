@@ -1,27 +1,27 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://blog.47zb.com/blog/2013/12/26/octopress-with-github-pages/</loc>
+        <loc>http://windstill.me/blog/2013/12/26/octopress-with-github-pages/</loc>
         <lastmod>2013-12-28T17:32:07+08:00</lastmod>
     </url>
     <url>
-        <loc>http://blog.47zb.com/blog/2013/12/29/macvim-osx-mavericks/</loc>
+        <loc>http://windstill.me/blog/2013/12/29/macvim-osx-mavericks/</loc>
         <lastmod>2013-12-30T10:03:26+08:00</lastmod>
     </url>
     <url>
-        <loc>http://blog.47zb.com/about/</loc>
+        <loc>http://windstill.me/about/</loc>
         <lastmod>2013-12-27T15:07:15+08:00</lastmod>
     </url>
     <url>
-        <loc>http://blog.47zb.com/blog/archives/</loc>
+        <loc>http://windstill.me/blog/archives/</loc>
         <lastmod>2013-12-30T10:03:26+08:00</lastmod>
     </url>
     <url>
-        <loc>http://blog.47zb.com/</loc>
+        <loc>http://windstill.me/</loc>
         <lastmod>2013-12-30T10:03:26+08:00</lastmod>
     </url>
     <url>
-        <loc>http://blog.47zb.com/robots.txt</loc>
+        <loc>http://windstill.me/robots.txt</loc>
         <lastmod>2013-12-26T18:42:47+08:00</lastmod>
     </url>
 </urlset>

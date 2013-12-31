@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Mavericks | 风依旧]]></title>
-  <link href="http://blog.47zb.com/blog/categories/mavericks/atom.xml" rel="self"/>
-  <link href="http://blog.47zb.com/"/>
-  <updated>2013-12-31T21:36:21+08:00</updated>
-  <id>http://blog.47zb.com/</id>
+  <link href="http://windstill.me/blog/categories/mavericks/atom.xml" rel="self"/>
+  <link href="http://windstill.me/"/>
+  <updated>2013-12-31T21:53:29+08:00</updated>
+  <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Mac OSX 10.9 Mavericks系统安装MacVim]]></title>
-    <link href="http://blog.47zb.com/blog/2013/12/29/macvim-osx-mavericks/"/>
+    <link href="http://windstill.me/blog/2013/12/29/macvim-osx-mavericks/"/>
     <updated>2013-12-29T18:26:08+08:00</updated>
-    <id>http://blog.47zb.com/blog/2013/12/29/macvim-osx-mavericks</id>
+    <id>http://windstill.me/blog/2013/12/29/macvim-osx-mavericks</id>
     <content type="html"><![CDATA[<p>今天下午把Mac系统从Lion直接升级到了Mavericks，增加了不少新的功能和体验，具体参考官方说明 <a href="https://help.apple.com/osx-mavericks/whats-new-from-lion">OS X Mavericks的全新功能</a>。这次升级基本保持了原有的数据和配置，但是个别应用会因为系统升级瘦到影响，比如这次所说的<code>MacVim</code>应用。</p>
 
 <!-- more -->

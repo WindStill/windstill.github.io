@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Octopress | 风依旧]]></title>
-  <link href="http://blog.47zb.com/blog/categories/octopress/atom.xml" rel="self"/>
-  <link href="http://blog.47zb.com/"/>
-  <updated>2013-12-31T21:36:21+08:00</updated>
-  <id>http://blog.47zb.com/</id>
+  <link href="http://windstill.me/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://windstill.me/"/>
+  <updated>2013-12-31T21:53:29+08:00</updated>
+  <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[用Octopress和Github-pages搭建博客]]></title>
-    <link href="http://blog.47zb.com/blog/2013/12/26/octopress-with-github-pages/"/>
+    <link href="http://windstill.me/blog/2013/12/26/octopress-with-github-pages/"/>
     <updated>2013-12-26T21:07:44+08:00</updated>
-    <id>http://blog.47zb.com/blog/2013/12/26/octopress-with-github-pages</id>
+    <id>http://windstill.me/blog/2013/12/26/octopress-with-github-pages</id>
     <content type="html"><![CDATA[<h3>1 相关介绍</h3>
 
 <h4>Octopress</h4>
