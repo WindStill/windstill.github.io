@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Linux | 风依旧]]></title>
+  <link href="http://windstill.me/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://windstill.me/"/>
+  <updated>2014-01-02T14:04:44+08:00</updated>
+  <id>http://windstill.me/</id>
+  <author>
+    <name><![CDATA[WindStill]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Linux设置系统时间和硬件时间]]></title>
+    <link href="http://windstill.me/blog/2014/01/02/linux-set-time/"/>
+    <updated>2014-01-02T11:46:08+08:00</updated>
+    <id>http://windstill.me/blog/2014/01/02/linux-set-time</id>
+    <content type="html"><![CDATA[<p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
+
+<!-- more -->
+
+
+<p>Linux中的所有命令都是采用的系统时钟设置。在Linux中，用于时钟查看和设置的命令主要有<code>date</code>、<code>hwclock</code>和<code>clock</code>。其中，<code>clock</code>和<code>hwclock</code>用法相近，只用一个就行，只不过clock命令除了支持x86硬件体系外，还支持Alpha硬件体系。看了下我们的测试环境止只有hwclock可用，clock没有安装。</p>
+
+<h3>1. date</h3>
+
+<ul>
+<li>查看系统时间</li>
+</ul>
+
+
+<p>```</p>
+
+<h1>date</h1>
+
+<p>```</p>
+
+<ul>
+<li>设置系统时间</li>
+</ul>
+
+
+<p>```</p>
+
+<h1>date &mdash;set &ldquo;01/02/14 10:19:20&rdquo; (月/日/年 时:分:秒)</h1>
+
+<p>```</p>
+
+<h3>2. hwclock/clock</h3>
+
+<ul>
+<li>查看硬件时间</li>
+</ul>
+
+
+<p>```</p>
+
+<h1>hwclock &mdash;show</h1>
+
+<p>或者</p>
+
+<h1>clock &mdash;show</h1>
+
+<p>```</p>
+
+<ul>
+<li>设置硬件时间</li>
+</ul>
+
+
+<p>```</p>
+
+<h1>hwclock &mdash;set &mdash;date=&ldquo;01/02/14 10:19:20&rdquo;  (月/日/年 时:分:秒)</h1>
+
+<p>或者</p>
+
+<h1>clock &mdash;set &mdash;date=&ldquo;01/02/14 10:19:20&rdquo;  (月/日/年 时:分:秒)</h1>
+
+<p>```</p>
+
+<h3>3. 硬件时间和系统时间的同步</h3>
+
+<p>硬件时钟同步到系统时钟：</p>
+
+<p>```</p>
+
+<h1>hwclock &mdash;hctosys（hc代表硬件时间，sys代表系统时间）</h1>
+
+<p>或者</p>
+
+<h1>clock &mdash;hctosys</h1>
+
+<p>```</p>
+
+<p>系统时钟同步到硬件时钟：</p>
+
+<p>```</p>
+
+<h1>hwclock &mdash;systohc</h1>
+
+<p>或者</p>
+
+<h1>clock &mdash;systohc</h1>
+
+<p>```</p>
+
+<h3>4. 时区的设置</h3>
+
+<p>```
+root@testserver-01:~# tzselect
+Please identify a location so that time zone rules can be set correctly.
+Please select a continent or ocean.
+ 1) Africa
+ 2) Americas
+ 3) Antarctica
+ 4) Arctic Ocean
+ 5) Asia
+ 6) Atlantic Ocean
+ 7) Australia
+ 8) Europe
+ 9) Indian Ocean
+10) Pacific Ocean
+11) none &ndash; I want to specify the time zone using the Posix TZ format.</p>
+
+<h1>? 5 (输入5，亚洲)</h1>
+
+<p>Please select a country.
+ 1) Afghanistan       18) Israel            35) Palestine
+ 2) Armenia       19) Japan         36) Philippines
+ 3) Azerbaijan        20) Jordan            37) Qatar
+ 4) Bahrain       21) Kazakhstan        38) Russia
+ 5) Bangladesh        22) Korea (North)     39) Saudi Arabia
+ 6) Bhutan        23) Korea (South)     40) Singapore
+ 7) Brunei        24) Kuwait            41) Sri Lanka
+ 8) Cambodia          25) Kyrgyzstan        42) Syria
+ 9) China         26) Laos          43) Taiwan
+10) Cyprus        27) Lebanon           44) Tajikistan
+11) East Timor        28) Macau         45) Thailand
+12) Georgia       29) Malaysia          46) Turkmenistan
+13) Hong Kong         30) Mongolia          47) United Arab Emirates
+14) India         31) Myanmar (Burma)       48) Uzbekistan
+15) Indonesia         32) Nepal         49) Vietnam
+16) Iran          33) Oman          50) Yemen
+17) Iraq          34) Pakistan</p>
+
+<h1>? 9 (输入9，中国)</h1>
+
+<p>Please select one of the following time zone regions.
+1) east China &ndash; Beijing, Guangdong, Shanghai, etc.
+2) Heilongjiang (except Mohe), Jilin
+3) central China &ndash; Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.
+4) most of Tibet &amp; Xinjiang
+5) west Tibet &amp; Xinjiang</p>
+
+<h1>? 1 (输入1，北京时间)</h1>
+
+<p>The following information has been given:</p>
+
+<pre><code>China
+east China - Beijing, Guangdong, Shanghai, etc.
+</code></pre>
+
+<p>Therefore TZ=&lsquo;Asia/Shanghai&rsquo; will be used.
+Local time is now:  Thu Jan  2 11:55:36 CST 2014.
+Universal Time is now:  Thu Jan  2 03:55:36 UTC 2014.
+Is the above information OK?
+1) Yes
+2) No</p>
+
+<h1>? Yes</h1>
+
+<p>Please enter 1 for Yes, or 2 for No.</p>
+
+<h1>? 1 (输入1，确认)</h1>
+
+<p>```</p>
+
+<h3>参考文章</h3>
+
+<p><a href="http://os.51cto.com/art/200703/43943.htm">Linux操作系统下的时间设置方法介绍</a></p>
+]]></content>
+  </entry>
+  
+</feed>

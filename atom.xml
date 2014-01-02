@@ -4,7 +4,7 @@
   <title><![CDATA[风依旧]]></title>
   <link href="http://windstill.me/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-01-01T21:21:15+08:00</updated>
+  <updated>2014-01-02T14:04:44+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -12,6 +12,214 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Linux设置系统时间和硬件时间]]></title>
+    <link href="http://windstill.me/blog/2014/01/02/linux-set-time/"/>
+    <updated>2014-01-02T11:46:08+08:00</updated>
+    <id>http://windstill.me/blog/2014/01/02/linux-set-time</id>
+    <content type="html"><![CDATA[<p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
+
+<!-- more -->
+
+
+<p>Linux中的所有命令都是采用的系统时钟设置。在Linux中，用于时钟查看和设置的命令主要有<code>date</code>、<code>hwclock</code>和<code>clock</code>。其中，<code>clock</code>和<code>hwclock</code>用法相近，只用一个就行，只不过clock命令除了支持x86硬件体系外，还支持Alpha硬件体系。看了下我们的测试环境止只有hwclock可用，clock没有安装。</p>
+
+<h3>1. date</h3>
+
+<ul>
+<li>查看系统时间</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># date</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>设置系统时间</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># date --set "01/02/14 10:19:20" (月/日/年 时:分:秒)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2. hwclock/clock</h3>
+
+<ul>
+<li>查看硬件时间</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --show
+</span><span class='line'>或者
+</span><span class='line'># clock --show</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>设置硬件时间</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --set --date="01/02/14 10:19:20"  (月/日/年 时:分:秒)
+</span><span class='line'>或者
+</span><span class='line'># clock --set --date="01/02/14 10:19:20"  (月/日/年 时:分:秒)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3. 硬件时间和系统时间的同步</h3>
+
+<p>硬件时钟同步到系统时钟：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --hctosys（hc代表硬件时间，sys代表系统时间）
+</span><span class='line'>或者
+</span><span class='line'># clock --hctosys</span></code></pre></td></tr></table></div></figure>
+
+
+<p>系统时钟同步到硬件时钟：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --systohc
+</span><span class='line'>或者
+</span><span class='line'># clock --systohc</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>4. 时区的设置</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@testserver-01:~# tzselect
+</span><span class='line'>Please identify a location so that time zone rules can be set correctly.
+</span><span class='line'>Please select a continent or ocean.
+</span><span class='line'> 1) Africa
+</span><span class='line'> 2) Americas
+</span><span class='line'> 3) Antarctica
+</span><span class='line'> 4) Arctic Ocean
+</span><span class='line'> 5) Asia
+</span><span class='line'> 6) Atlantic Ocean
+</span><span class='line'> 7) Australia
+</span><span class='line'> 8) Europe
+</span><span class='line'> 9) Indian Ocean
+</span><span class='line'>10) Pacific Ocean
+</span><span class='line'>11) none - I want to specify the time zone using the Posix TZ format.
+</span><span class='line'>#? 5 (输入5，亚洲)
+</span><span class='line'>
+</span><span class='line'>Please select a country.
+</span><span class='line'> 1) Afghanistan         18) Israel            35) Palestine
+</span><span class='line'> 2) Armenia         19) Japan         36) Philippines
+</span><span class='line'> 3) Azerbaijan          20) Jordan            37) Qatar
+</span><span class='line'> 4) Bahrain         21) Kazakhstan        38) Russia
+</span><span class='line'> 5) Bangladesh          22) Korea (North)     39) Saudi Arabia
+</span><span class='line'> 6) Bhutan          23) Korea (South)     40) Singapore
+</span><span class='line'> 7) Brunei          24) Kuwait            41) Sri Lanka
+</span><span class='line'> 8) Cambodia        25) Kyrgyzstan        42) Syria
+</span><span class='line'> 9) China       26) Laos          43) Taiwan
+</span><span class='line'>10) Cyprus          27) Lebanon           44) Tajikistan
+</span><span class='line'>11) East Timor          28) Macau         45) Thailand
+</span><span class='line'>12) Georgia         29) Malaysia          46) Turkmenistan
+</span><span class='line'>13) Hong Kong       30) Mongolia          47) United Arab Emirates
+</span><span class='line'>14) India       31) Myanmar (Burma)       48) Uzbekistan
+</span><span class='line'>15) Indonesia       32) Nepal         49) Vietnam
+</span><span class='line'>16) Iran        33) Oman          50) Yemen
+</span><span class='line'>17) Iraq        34) Pakistan
+</span><span class='line'>#? 9 (输入9，中国)
+</span><span class='line'>
+</span><span class='line'>Please select one of the following time zone regions.
+</span><span class='line'>1) east China - Beijing, Guangdong, Shanghai, etc.
+</span><span class='line'>2) Heilongjiang (except Mohe), Jilin
+</span><span class='line'>3) central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.
+</span><span class='line'>4) most of Tibet & Xinjiang
+</span><span class='line'>5) west Tibet & Xinjiang
+</span><span class='line'>#? 1 (输入1，北京时间)
+</span><span class='line'>
+</span><span class='line'>The following information has been given:
+</span><span class='line'>
+</span><span class='line'>  China
+</span><span class='line'>  east China - Beijing, Guangdong, Shanghai, etc.
+</span><span class='line'>
+</span><span class='line'>Therefore TZ='Asia/Shanghai' will be used.
+</span><span class='line'>Local time is now:    Thu Jan  2 11:55:36 CST 2014.
+</span><span class='line'>Universal Time is now:    Thu Jan  2 03:55:36 UTC 2014.
+</span><span class='line'>Is the above information OK?
+</span><span class='line'>1) Yes
+</span><span class='line'>2) No
+</span><span class='line'>#? Yes
+</span><span class='line'>Please enter 1 for Yes, or 2 for No.
+</span><span class='line'>#? 1 (输入1，确认)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考文章</h3>
+
+<p><a href="http://os.51cto.com/art/200703/43943.htm">Linux操作系统下的时间设置方法介绍</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mac OSX 10.9 Mavericks系统安装MacVim]]></title>

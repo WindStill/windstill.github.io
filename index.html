@@ -9,7 +9,7 @@
   <meta name="author" content="WindStill">
 
   
-  <meta name="description" content="今天下午把Mac系统从Lion直接升级到了Mavericks，增加了不少新的功能和体验，具体参考官方说明 OS X Mavericks的全新功能。这次升级基本保持了原有的数据和配置，但是个别应用会因为系统升级瘦到影响，比如这次所说的MacVim应用。 ">
+  <meta name="description" content="今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 系统时钟（System Clock）和 硬件时钟（Real Time Clock，简称RTC）。系统时钟是指当前Linux Kernel中的时钟， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/02/linux-set-time/">Linux设置系统时间和硬件时间</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-02T11:46:08+08:00" pubdate data-updated="true">2014-01-02</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/01/02/linux-set-time/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -178,11 +219,15 @@
   
     <section>
   <h1>标签云</h1>
-  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+50.0%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmavericks%27+style%3D%27font-size%3A+50.0%25%27%3EMavericks%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+50.0%25%27%3EOctopress%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
+  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+50.0%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+50.0%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+50.0%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
 </section>
 <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/01/02/linux-set-time/">Linux设置系统时间和硬件时间</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/12/29/macvim-osx-mavericks/">Mac OSX 10.9 Mavericks系统安装MacVim</a>
@@ -196,7 +241,7 @@
 </section>
 <section>
   <h1>分类目录</h1>
-    <ul id="category-list"><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/mavericks/'>Mavericks (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/linux/'>Linux (1)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (1)</a></li></ul>
 </section>
 
 

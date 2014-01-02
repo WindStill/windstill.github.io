@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Linux设置系统时间和硬件时间 - 风依旧</title>
+  <meta name="author" content="WindStill">
+
+  
+  <meta name="description" content="今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 系统时钟（System Clock）和 硬件时钟（Real Time Clock，简称RTC）。系统时钟是指当前Linux Kernel中的时钟， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://windstill.me/blog/2014/01/02/linux-set-time">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/atom.xml" rel="alternate" title="风依旧" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46781558-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">风依旧</a></h1>
+  
+    <h2>此刻打盹，你会做梦；此刻学习，你将圆梦</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:windstill.me" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档</a></li>
+  <li><a href="/about">关于</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Linux设置系统时间和硬件时间</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-02T11:46:08+08:00" pubdate data-updated="true">2014-01-02</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
+
+<!-- more -->
+
+
+<p>Linux中的所有命令都是采用的系统时钟设置。在Linux中，用于时钟查看和设置的命令主要有<code>date</code>、<code>hwclock</code>和<code>clock</code>。其中，<code>clock</code>和<code>hwclock</code>用法相近，只用一个就行，只不过clock命令除了支持x86硬件体系外，还支持Alpha硬件体系。看了下我们的测试环境止只有hwclock可用，clock没有安装。</p>
+
+<h3>1. date</h3>
+
+<ul>
+<li>查看系统时间</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># date</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>设置系统时间</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># date --set "01/02/14 10:19:20" (月/日/年 时:分:秒)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2. hwclock/clock</h3>
+
+<ul>
+<li>查看硬件时间</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --show
+</span><span class='line'>或者
+</span><span class='line'># clock --show</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>设置硬件时间</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --set --date="01/02/14 10:19:20"  (月/日/年 时:分:秒)
+</span><span class='line'>或者
+</span><span class='line'># clock --set --date="01/02/14 10:19:20"  (月/日/年 时:分:秒)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3. 硬件时间和系统时间的同步</h3>
+
+<p>硬件时钟同步到系统时钟：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --hctosys（hc代表硬件时间，sys代表系统时间）
+</span><span class='line'>或者
+</span><span class='line'># clock --hctosys</span></code></pre></td></tr></table></div></figure>
+
+
+<p>系统时钟同步到硬件时钟：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --systohc
+</span><span class='line'>或者
+</span><span class='line'># clock --systohc</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>4. 时区的设置</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@testserver-01:~# tzselect
+</span><span class='line'>Please identify a location so that time zone rules can be set correctly.
+</span><span class='line'>Please select a continent or ocean.
+</span><span class='line'> 1) Africa
+</span><span class='line'> 2) Americas
+</span><span class='line'> 3) Antarctica
+</span><span class='line'> 4) Arctic Ocean
+</span><span class='line'> 5) Asia
+</span><span class='line'> 6) Atlantic Ocean
+</span><span class='line'> 7) Australia
+</span><span class='line'> 8) Europe
+</span><span class='line'> 9) Indian Ocean
+</span><span class='line'>10) Pacific Ocean
+</span><span class='line'>11) none - I want to specify the time zone using the Posix TZ format.
+</span><span class='line'>#? 5 (输入5，亚洲)
+</span><span class='line'>
+</span><span class='line'>Please select a country.
+</span><span class='line'> 1) Afghanistan         18) Israel            35) Palestine
+</span><span class='line'> 2) Armenia         19) Japan         36) Philippines
+</span><span class='line'> 3) Azerbaijan          20) Jordan            37) Qatar
+</span><span class='line'> 4) Bahrain         21) Kazakhstan        38) Russia
+</span><span class='line'> 5) Bangladesh          22) Korea (North)     39) Saudi Arabia
+</span><span class='line'> 6) Bhutan          23) Korea (South)     40) Singapore
+</span><span class='line'> 7) Brunei          24) Kuwait            41) Sri Lanka
+</span><span class='line'> 8) Cambodia        25) Kyrgyzstan        42) Syria
+</span><span class='line'> 9) China       26) Laos          43) Taiwan
+</span><span class='line'>10) Cyprus          27) Lebanon           44) Tajikistan
+</span><span class='line'>11) East Timor          28) Macau         45) Thailand
+</span><span class='line'>12) Georgia         29) Malaysia          46) Turkmenistan
+</span><span class='line'>13) Hong Kong       30) Mongolia          47) United Arab Emirates
+</span><span class='line'>14) India       31) Myanmar (Burma)       48) Uzbekistan
+</span><span class='line'>15) Indonesia       32) Nepal         49) Vietnam
+</span><span class='line'>16) Iran        33) Oman          50) Yemen
+</span><span class='line'>17) Iraq        34) Pakistan
+</span><span class='line'>#? 9 (输入9，中国)
+</span><span class='line'>
+</span><span class='line'>Please select one of the following time zone regions.
+</span><span class='line'>1) east China - Beijing, Guangdong, Shanghai, etc.
+</span><span class='line'>2) Heilongjiang (except Mohe), Jilin
+</span><span class='line'>3) central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.
+</span><span class='line'>4) most of Tibet & Xinjiang
+</span><span class='line'>5) west Tibet & Xinjiang
+</span><span class='line'>#? 1 (输入1，北京时间)
+</span><span class='line'>
+</span><span class='line'>The following information has been given:
+</span><span class='line'>
+</span><span class='line'>  China
+</span><span class='line'>  east China - Beijing, Guangdong, Shanghai, etc.
+</span><span class='line'>
+</span><span class='line'>Therefore TZ='Asia/Shanghai' will be used.
+</span><span class='line'>Local time is now:    Thu Jan  2 11:55:36 CST 2014.
+</span><span class='line'>Universal Time is now:    Thu Jan  2 03:55:36 UTC 2014.
+</span><span class='line'>Is the above information OK?
+</span><span class='line'>1) Yes
+</span><span class='line'>2) No
+</span><span class='line'>#? Yes
+</span><span class='line'>Please enter 1 for Yes, or 2 for No.
+</span><span class='line'>#? 1 (输入1，确认)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考文章</h3>
+
+<p><a href="http://os.51cto.com/art/200703/43943.htm">Linux操作系统下的时间设置方法介绍</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">WindStill</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-02T11:46:08+08:00" pubdate data-updated="true">2014-01-02</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>Linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/29/macvim-osx-mavericks/" title="Previous Post: Mac OSX 10.9 Mavericks系统安装MacVim">&laquo; Mac OSX 10.9 Mavericks系统安装MacVim</a>
+      
+      
+    </p>
+    
+      <section>
+        <div id="duoshuo_thread" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"  data-title="Linux设置系统时间和硬件时间"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"windstill"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- Duoshuo Comment END -->
+</div>
+      </section>
+    
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>标签云</h1>
+  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+50.0%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+50.0%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+50.0%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
+</section>
+<section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/01/02/linux-set-time/">Linux设置系统时间和硬件时间</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/29/macvim-osx-mavericks/">Mac OSX 10.9 Mavericks系统安装MacVim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/26/octopress-with-github-pages/">用Octopress和Github-pages搭建博客</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>分类目录</h1>
+    <ul id="category-list"><li><a href='/blog/categories/linux/'>Linux (1)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (1)</a></li></ul>
+</section>
+
+
+
+<section>
+  <h1>最近评论</h1>
+  <div class="ds-recent-comments" data-num-items="10"></div>
+  
+</section>
+<section>
+  <h1>新浪微博</h1>
+  <ul id="weibo">
+    <li>
+      <iframe width="100%" height="350" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=350&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2128377840&verifier=7b807bb3&dpc=1"></iframe>
+    </li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - WindStill -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc2377bd43bab7e31d111aed1293031fd' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+</body>
+</html>
