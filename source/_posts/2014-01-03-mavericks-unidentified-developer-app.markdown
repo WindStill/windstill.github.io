@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mac Mavericks系统因为'来自身份不明开发者'不能打开软件的解决方法"
+title: "Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法"
 date: 2014-01-03 17:29:52 +0800
 comments: true
 categories: [OS X]
