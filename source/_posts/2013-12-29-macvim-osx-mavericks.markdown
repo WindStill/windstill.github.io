@@ -3,7 +3,7 @@ layout: post
 title: "Mac OSX 10.9 Mavericks系统安装MacVim"
 date: 2013-12-29 18:26:08 +0800
 comments: true
-categories: [MacVim, Mavericks]
+categories: [MacVim, OS X]
 ---
 
 今天下午把Mac系统从Lion直接升级到了Mavericks，增加了不少新的功能和体验，具体参考官方说明 [OS X Mavericks的全新功能](https://help.apple.com/osx-mavericks/whats-new-from-lion)。这次升级基本保持了原有的数据和配置，但是个别应用会因为系统升级瘦到影响，比如这次所说的`MacVim`应用。
