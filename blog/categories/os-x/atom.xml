@@ -4,7 +4,7 @@
   <title><![CDATA[Category: OS X | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/os-x/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-01-02T22:47:56+08:00</updated>
+  <updated>2014-01-03T20:32:31+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Mac Mavericks系统因为'来自身份不明开发者'不能打开软件的解决方法]]></title>
+    <link href="http://windstill.me/blog/2014/01/03/mavericks-unidentified-developer-app/"/>
+    <updated>2014-01-03T17:29:52+08:00</updated>
+    <id>http://windstill.me/blog/2014/01/03/mavericks-unidentified-developer-app</id>
+    <content type="html"><![CDATA[<p>自从 <code>10.7 Lion</code> 升级到新系统<code>10.9 Mavericks</code> 后，一些小问题也就跟着来了。听说苹果是从 <code>10.8 Mountain Lion</code> （这个版本系统我没装过）系统开始启用了新的安全机制，默认只信任 App Store 下载的软件和拥有开发者 ID 签名的应用程序。也就是说新系统默认只能安装正规渠道（App Store 或被认可的开发人员）的软件，否则安装的时候就会弹出下图所示警告框：<code>打不开“xxx”，因为它来自身份不明的开发者</code>，如下图所示：</p>
+
+<!-- more -->
+
+
+<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/94C990E2-7FC8-4117-B9EC-F17C338A2F96.png">http://blog-picture.qiniudn.com/94C990E2-7FC8-4117-B9EC-F17C338A2F96.png</a>"></p>
+
+<p>这个问题解决方法就是到 <code>系统偏好设置</code> 里设置一下就行了，步骤如下：</p>
+
+<ul>
+<li>点击 Mac 屏幕左上角的苹果标志，在下拉菜单里选择 <code>系统偏好设置…</code>，或者到 <code>应用程序</code> 里找到 <code>系统偏好设置</code> 应用。在弹出的设置面板里，点击第一行的小房子图标 <code>安全性与隐私</code> 。</li>
+</ul>
+
+
+<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/02FAD525-62C0-450B-8C99-CBC9DD6ED1F5.png">http://blog-picture.qiniudn.com/02FAD525-62C0-450B-8C99-CBC9DD6ED1F5.png</a>"></p>
+
+<ul>
+<li>在 <code>安全性与隐私</code> 设置面板里选择 <code>通用</code> 标签。可以看到上面截图里中间红框标出的几个选项了，把“允许从一下位置下载的应用程序”从默认的 <code>Mac App Store 和被认可的开发者</code> 改选为 <code>任何来源</code> 就行了。但按钮是灰的不能选，需要点击左下角红框内的锁按钮解锁。</li>
+</ul>
+
+
+<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/4302E326-1889-4017-93F2-4C5ED6932168.png">http://blog-picture.qiniudn.com/4302E326-1889-4017-93F2-4C5ED6932168.png</a>"></p>
+
+<ul>
+<li>系统会要求你输一下密码确认，解锁后就可以选择 <code>任何来源</code> 了，然后会如下图所示：</li>
+</ul>
+
+
+<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/4E81CF94-FAC6-43C5-9707-9CD3F9EA17EA.png">http://blog-picture.qiniudn.com/4E81CF94-FAC6-43C5-9707-9CD3F9EA17EA.png</a>"></p>
+
+<ul>
+<li>点击 <code>允许来自任何来源</code> 按钮就 OK 了，这样被警告的应用程序就能正常安装、打开了。</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mac OSX 10.9 Mavericks系统安装MacVim]]></title>
