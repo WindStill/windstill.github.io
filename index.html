@@ -9,7 +9,7 @@
   <meta name="author" content="WindStill">
 
   
-  <meta name="description" content="自从 10.7 Lion 升级到新系统10.9 Mavericks 后，一些小问题也就跟着来了。听说苹果是从 10.8 Mountain Lion （这个版本系统我没装过）系统开始启用了新的安全机制，默认只信任 App Store 下载的软件和拥有开发者 ID 签名的应用程序。 &hellip;">
+  <meta name="description" content="问题原因 今天发现MySQL数据库中没有写入新数据，于是看了下Rails后端的日志，发现报了一个Error: Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM plays错误。网上搜了一通说是空间不足造成的 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/02/mysql2-error-got-error-28-from-storage-enginewen-ti-jie-jue/">&#8216;Mysql2::Error: Got Error 28 From Storage Engine&#8217;问题解决</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-02T10:35:17+08:00" pubdate data-updated="true">2014-07-02</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>问题原因</h3>
+
+<p>今天发现MySQL数据库中没有写入新数据，于是看了下Rails后端的日志，发现报了一个<code>Error: Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM plays</code>错误。网上搜了一通说是空间不足造成的。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/07/02/mysql2-error-got-error-28-from-storage-enginewen-ti-jie-jue/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -260,11 +303,15 @@
   
     <section>
   <h1>标签云</h1>
-  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+30.0%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+30.0%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+30.0%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
+  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+50.0%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+30.0%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmysql%27+style%3D%27font-size%3A+30.0%25%27%3EMySQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+30.0%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
 </section>
 <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/mysql2-error-got-error-28-from-storage-enginewen-ti-jie-jue/">&#8216;Mysql2::Error: Got Error 28 From Storage Engine&#8217;问题解决</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/01/03/mavericks-unidentified-developer-app/">Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法</a>
@@ -286,7 +333,7 @@
 </section>
 <section>
   <h1>分类目录</h1>
-    <ul id="category-list"><li><a href='/blog/categories/linux/'>Linux (1)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (2)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/linux/'>Linux (2)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/mysql/'>MySQL (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (2)</a></li></ul>
 </section>
 
 
