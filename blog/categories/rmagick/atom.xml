@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: RMagick | 风依旧]]></title>
+  <link href="http://windstill.me/blog/categories/rmagick/atom.xml" rel="self"/>
+  <link href="http://windstill.me/"/>
+  <updated>2014-07-16T11:28:20+08:00</updated>
+  <id>http://windstill.me/</id>
+  <author>
+    <name><![CDATA[WindStill]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[解决ImageMagick和RMagick在OS X下使用出现的问题]]></title>
+    <link href="http://windstill.me/blog/2014/07/16/imagemagick-rmagick-osx/"/>
+    <updated>2014-07-16T10:50:42+08:00</updated>
+    <id>http://windstill.me/blog/2014/07/16/imagemagick-rmagick-osx</id>
+    <content type="html"><![CDATA[<p>每次安装 <code>RMagick</code> 这个gem都会遇到问题，并且每次的问题还都不一样，有的时候是 <code>ImageMagick</code> 的问题，有时候是 <code>RMagick</code> 不能安装，这次是安装了以后，启动Rails的时候，报错说是 <code>libMagickCore-6.Q16.2.dylib</code> 版本不对。错误详情如下：</p>
+
+<!-- more -->
+
+
+<p><code>``
+/Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in</code>require': dlopen(/Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle, 9): Library not loaded: /usr/local/lib/libltdl.7.dylib (LoadError)
+  Referenced from: /usr/local/lib/libMagickCore-6.Q16.2.dylib
+  Reason: Incompatible library version: libMagickCore-6.Q16.2.dylib requires version 11.0.0 or later, but libltdl.7.dylib provides version 10.0.0 &ndash; /Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle</p>
+
+<pre><code>from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `block in require'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:236:in `load_dependency'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `require'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/rmagick-2.13.2/lib/rmagick.rb:11:in `&lt;top (required)&gt;'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:76:in `require'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:76:in `block (2 levels) in require'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:72:in `each'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:72:in `block in require'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:61:in `each'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:61:in `require'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler.rb:132:in `require'
+from /Users/windstill/dev/rails/movie/config/application.rb:13:in `&lt;top (required)&gt;'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/railties-3.2.12/lib/rails/commands.rb:39:in `require'
+from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/railties-3.2.12/lib/rails/commands.rb:39:in `&lt;top (required)&gt;'
+from script/rails:6:in `require'
+from script/rails:6:in `&lt;main&gt;'
+</code></pre>
+
+<p>```</p>
+
+<p>使用 <code>brew unlink libtool &amp;&amp; brew link libtool</code> 命令解决问题。可能会出现如下问题：</p>
+
+<p>```<br/>
+Linking /usr/local/Cellar/libtool/2.4.2&hellip;
+Error: Could not symlink include/ltdl.h
+Target /usr/local/include/ltdl.h
+already exists. You may want to remove it:
+  rm /usr/local/include/ltdl.h</p>
+
+<p>To force the link and overwrite all conflicting files:
+  brew link &mdash;overwrite libtool</p>
+
+<p>To list all files that would be deleted:
+  brew link &mdash;overwrite &mdash;dry-run libtool
+```</p>
+
+<p>按照提示输入 <code>brew link --overwrite libtool</code>。</p>
+
+<h3>参考文章</h3>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/7412208/imagemagick-and-os-x-lion-trouble">ImageMagick and OS X Lion trouble</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

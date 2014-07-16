@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-07-02T11:22:23+08:00</updated>
+  <updated>2014-07-16T11:28:20+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA['Mysql2::Error: Got Error 28 From Storage Engine'问题解决]]></title>
-    <link href="http://windstill.me/blog/2014/07/02/mysql2-error-got-error-28-from-storage-enginewen-ti-jie-jue/"/>
+    <link href="http://windstill.me/blog/2014/07/02/mysql2-error-28-storage-enginewen/"/>
     <updated>2014-07-02T10:35:17+08:00</updated>
-    <id>http://windstill.me/blog/2014/07/02/mysql2-error-got-error-28-from-storage-enginewen-ti-jie-jue</id>
+    <id>http://windstill.me/blog/2014/07/02/mysql2-error-28-storage-enginewen</id>
     <content type="html"><![CDATA[<h3>问题原因</h3>
 
 <p>今天发现MySQL数据库中没有写入新数据，于是看了下Rails后端的日志，发现报了一个<code>Error: Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM plays</code>错误。网上搜了一通说是空间不足造成的。</p>

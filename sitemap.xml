@@ -2,40 +2,42 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://windstill.me/blog/2013/12/26/octopress-with-github-pages/</loc>
-        <lastmod>2013-12-28T17:32:07+08:00</lastmod>
+        <lastmod>2014-07-16T10:40:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://windstill.me/blog/2013/12/29/macvim-osx-mavericks/</loc>
-        <lastmod>2014-01-02T13:57:53+08:00</lastmod>
+        <lastmod>2014-07-16T10:40:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://windstill.me/blog/2014/01/02/linux-set-time/</loc>
-        <lastmod>2014-01-02T14:04:00+08:00</lastmod>
+        <lastmod>2014-07-16T10:40:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://windstill.me/blog/2014/01/03/mavericks-unidentified-developer-app/</loc>
-        <lastmod>2014-01-03T20:34:22+08:00</lastmod>
+        <lastmod>2014-07-16T10:40:39+08:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://windstill.me/blog/2014/07/02/mysql2-error-got-error-28-from-storage-enginewen-ti-jie-jue/
-        </loc>
-        <lastmod>2014-07-02T11:20:31+08:00</lastmod>
+        <loc>http://windstill.me/blog/2014/07/02/mysql2-error-28-storage-enginewen/</loc>
+        <lastmod>2014-07-16T10:40:39+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://windstill.me/blog/2014/07/16/imagemagick-rmagick-osx/</loc>
+        <lastmod>2014-07-16T11:28:07+08:00</lastmod>
     </url>
     <url>
         <loc>http://windstill.me/about/</loc>
-        <lastmod>2013-12-27T15:07:15+08:00</lastmod>
+        <lastmod>2014-07-16T10:40:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://windstill.me/blog/archives/</loc>
-        <lastmod>2014-07-02T11:20:31+08:00</lastmod>
+        <lastmod>2014-07-16T11:28:07+08:00</lastmod>
     </url>
     <url>
         <loc>http://windstill.me/</loc>
-        <lastmod>2014-07-02T11:20:31+08:00</lastmod>
+        <lastmod>2014-07-16T11:28:07+08:00</lastmod>
     </url>
     <url>
         <loc>http://windstill.me/robots.txt</loc>
-        <lastmod>2013-12-26T18:42:47+08:00</lastmod>
+        <lastmod>2014-07-16T10:40:39+08:00</lastmod>
     </url>
 </urlset>
