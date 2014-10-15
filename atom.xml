@@ -4,7 +4,7 @@
   <title><![CDATA[风依旧]]></title>
   <link href="http://windstill.me/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-07-16T11:28:20+08:00</updated>
+  <updated>2014-10-15T17:42:56+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -12,6 +12,290 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[使用Rails和Postgis开发基于地理位置应用的安装与配置]]></title>
+    <link href="http://windstill.me/blog/2014/10/15/rails-with-postgis/"/>
+    <updated>2014-10-15T15:24:58+08:00</updated>
+    <id>http://windstill.me/blog/2014/10/15/rails-with-postgis</id>
+    <content type="html"><![CDATA[<p><a href="http://postgis.refractions.net/"><code>PostGIS</code></a> 是关系型数据库 <a href="http://www.postgresql.org/"><code>PostgreSQL</code></a> 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。所以处理地理空间数据还是比较简单的，但是开发环境配置还有不少工作要做。</p>
+
+<!-- more -->
+
+
+<h3>环境依赖</h3>
+
+<p>本文以 Mac OS X系统为例，需要安装以下内容：</p>
+
+<ul>
+<li> XCode</li>
+<li> Homebrew</li>
+<li> Postgresql</li>
+<li> Postgis</li>
+<li> Ruby</li>
+<li> Rails</li>
+</ul>
+
+
+<p>下面单说 Postgresql 及 Postgis 安装</p>
+
+<h4>安装 Postgresql 和 Postgis</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install postgresql
+</span><span class='line'>brew install postgis</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>检查系统是否正确安装 postgis</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>~$ psql -U username
+</span><span class='line'>=# select pg_available_extensions where name like ‘postgis%’;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Mac 用户还可以直接下载 <a href="http://postgresapp.com/"><code>Postgres.app</code></a>，拖入applications文件夹。Postgres.app 包含 PostgreSQL 常用的扩展和工具：</p>
+
+<ul>
+<li>PostgreSQL 9.3.5</li>
+<li>PostGIS 2.1.3</li>
+<li>Procedural languages: PL/pgSQL, PL/Perl, PL/Python, and PLV8 (Javascript)</li>
+<li>Popular extensions, including hstore and uuid-ossp, and more</li>
+<li>A number of command-line utilities for managing PostgreSQL and working with GIS data</li>
+</ul>
+
+
+<h3>Rails 相关配置</h3>
+
+<h4>新建 Rails 应用</h4>
+
+<p>先使用 postgresql 适配器新建应用（database参数可选，默认sqlite）</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails new my_app --database=postgresql</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>配置 Gemfile</h4>
+
+<p>打开gemfile文件，添加如下 gem ：</p>
+
+<ul>
+<li> pg</li>
+<li> rgeo</li>
+<li> activerecord-postgis-adapter</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'pg'
+</span><span class='line'>gem 'rgeo'
+</span><span class='line'>gem 'activerecord-postgis-adapter'</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>配置 database.yml</h4>
+
+<p>打开 database.yml 使用 postgis 数据库适配器：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>development:
+</span><span class='line'>  username:           your_username
+</span><span class='line'>  adapter:            postgis
+</span><span class='line'>  host:               localhost
+</span><span class='line'>  schema_search_path: public</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果 postgis extension 不是安装在 public schema，还得把 postgis 的 schema 添加到 <code>schema_search_path</code>：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>development:
+</span><span class='line'>  schema_search_path: public, postgis</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以下所有支持的选项：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>development:
+</span><span class='line'>  adapter: postgis
+</span><span class='line'>  encoding: unicode
+</span><span class='line'>  postgis_extension: postgis      # default is postgis
+</span><span class='line'>  schema_search_path: public,postgis
+</span><span class='line'>  pool: 5
+</span><span class='line'>  database: my_app_development    # your database name
+</span><span class='line'>  username: my_app_user           # the username your app will use to connect
+</span><span class='line'>  password: my_app_password       # the user's password
+</span><span class='line'>  su_username: my_global_user     # a superuser for the database
+</span><span class='line'>  su_password: my_global_pasword  # the superuser's password</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>创建 model 和 table</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails g model earthquake location:point</span></code></pre></td></tr></table></div></figure>
+
+
+<p>要存储空间数据，必须得创建空间类型的字段。Postgis 提供了很多空间类型，包括：point, linestring, polygon以及不同类型的集合。activerecord-postgis-adapter 继承了 ActiveRecord 的 migration 句法，可以支持空间类型。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class CreateEarthquakes &lt; ActiveRecord::Migration  
+</span><span class='line'>  def change    
+</span><span class='line'>      create_table :earthquakes do |t|   
+</span><span class='line'>          t.column :shape1, :geometry
+</span><span class='line'>          t.geometry :shape2
+</span><span class='line'>          t.line_string :path, :srid =&gt; 3785   
+</span><span class='line'>          t.point :location, :geographic =&gt; true
+</span><span class='line'>          t.point :lonlatheight, :geographic =&gt; true, :has_z =&gt; true    
+</span><span class='line'>          t.timestamps    
+</span><span class='line'>      end  
+</span><span class='line'>      
+</span><span class='line'>      add_index :earthquakes, :location, :spatial =&gt; true
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第一个字段“shape1”，使用的是“geometry”类型，这是空间数据的基础类型（base class），表明可以容纳任何空间类型的数据。</p>
+
+<p>第二个字段“shape2”，使用的是第一个字段定义的简写句法。</p>
+
+<p>第三个字段“path”，使用了一个明确的几何类型 <code>line_string</code>，并且定义了srid（spatial reference ID）。表明这个字段只接受 <code>line_string</code> 类型的数据，而且SRID等于3785。</p>
+
+<p>第四个字段“location”，是 <code>point</code>类型，同时定义了“geographic”，表明这个字段接受 经度/纬度 数据，并且以球型做相关计算（比如两点之间的距离）。</p>
+
+<p>第五个字段“lonlatheight”，包含了“z”坐标，一般用来记录高度。</p>
+
+<p>以下是activerecord-postgis-adapter所支持的postgis类型：</p>
+
+<ul>
+<li>:geometry &mdash; Any geometric type</li>
+<li>:point &mdash; Point data</li>
+<li>:line_string &mdash; LineString data</li>
+<li>:polygon &mdash; Polygon data</li>
+<li>:geometry_collection &mdash; Any collection type</li>
+<li>:multi_point &mdash; A collection of Points</li>
+<li>:multi_line_string &mdash; A collection of LineStrings</li>
+<li>:multi_polygon &mdash; A collection of Polygons</li>
+</ul>
+
+
+<p>最后，还支持创建空间索引：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def change
+</span><span class='line'>  add_index :earthquakes, :location, :spatial =&gt; true
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>配置 Model</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class Earthquake &lt; ActiveRecord::Base
+</span><span class='line'>
+</span><span class='line'>  # 默认使用 Geos 空间字段实现
+</span><span class='line'>  self.rgeo_factory_generator = RGeo::Geos.factory_generator
+</span><span class='line'>
+</span><span class='line'>  # 也可以设置某个字段为 geographic 空间字段实现
+</span><span class='line'>  set_rgeo_factory_for_column(:location, RGeo::Geographic.spherical_factory(:srid =&gt; 4326))
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>空间数据操作</h3>
+
+<p>一旦安装了以上gem，并且配置了数据库以及执行了migration，就可以以RGeo对象与model中的空间数据交互了。</p>
+
+<p><a href="https://github.com/rgeo/rgeo"><code>RGeo</code></a> 是Opengis Simple Features 标准的 Ruby 实现。它是一个空间数据类型结合，包括points, lines, polygons, 和 collections。还提供标准的空间数据分析操作，比如计算交集或包含关系，计算长度或区域等等。</p>
+
+<h4>空间数据读写</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>record = Earthquake.find(1)
+</span><span class='line'>p = record.location                # Returns an RGeo::Feature::Point
+</span><span class='line'>puts p.x                           # displays the x coordinate
+</span><span class='line'>puts p.geometry_type.type_name     # displays "Point"
+</span><span class='line'>
+</span><span class='line'>record.location = 'POINT(-122 47)'    # sets the value with WKT string
+</span><span class='line'>record.save
+</span><span class='line'>
+</span><span class='line'>factory = p.factory                # returns a spherical factory
+</span><span class='line'># factory = Earthquake.rgeo_factory_for_column(:location)
+</span><span class='line'>p2 = factory.point(-122, 47)       # p2 is a point in a spherical factory
+</span><span class='line'>record.lonlat = p2                 # sets the value to the given point
+</span><span class='line'>record.shape1 = p2                 # shape1 uses a flat geos factory, so it
+</span><span class='line'>                                   # will cast p2 into that coordinate system
+</span><span class='line'>                                   # before setting the value
+</span><span class='line'>record.save</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>空间数据查询</h4>
+
+<p>location 距离坐标(116.458104 39.966293)一公里以内的Earthquake：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Earthquake.where("st_dwithin(location, 'point(116.458104 39.966293)', 1000)").count</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考文章</h3>
+
+<ul>
+<li><a href="https://github.com/rgeo/activerecord-postgis-adapter">ActiveRecord connection adapter for PostGIS, based on postgresql and rgeo</a></li>
+<li><a href="http://www.waratuman.com/2012/10/26/postgis_and_rails/">POSTGIS AND RAILS</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[解决ImageMagick和RMagick在OS X下使用出现的问题]]></title>

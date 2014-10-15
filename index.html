@@ -9,7 +9,7 @@
   <meta name="author" content="WindStill">
 
   
-  <meta name="description" content="每次安装 RMagick 这个gem都会遇到问题，并且每次的问题还都不一样，有的时候是 ImageMagick 的问题，有时候是 RMagick 不能安装，这次是安装了以后，启动Rails的时候，报错说是 libMagickCore-6.Q16.2.dylib 版本不对。错误详情如下： ">
+  <meta name="description" content="PostGIS 是关系型数据库 PostgreSQL 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/15/rails-with-postgis/">使用Rails和Postgis开发基于地理位置应用的安装与配置</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-15T15:24:58+08:00" pubdate data-updated="true">2014-10-15</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://postgis.refractions.net/"><code>PostGIS</code></a> 是关系型数据库 <a href="http://www.postgresql.org/"><code>PostgreSQL</code></a> 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。所以处理地理空间数据还是比较简单的，但是开发环境配置还有不少工作要做。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/10/15/rails-with-postgis/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -344,11 +385,15 @@
   
     <section>
   <h1>标签云</h1>
-  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fimagemagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EImageMagick%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+36.66666666666667%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmysql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMySQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frails%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ERails%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frmagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ERMagick%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
+  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fimagemagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EImageMagick%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flbs%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ELBS%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+36.66666666666667%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmysql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMySQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fpostgis%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EPostgis%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frails%27+style%3D%27font-size%3A+36.66666666666667%25%27%3ERails%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frmagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ERMagick%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
 </section>
 <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/15/rails-with-postgis/">使用Rails和Postgis开发基于地理位置应用的安装与配置</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/07/16/imagemagick-rmagick-osx/">解决ImageMagick和RMagick在OS X下使用出现的问题</a>
@@ -366,15 +411,11 @@
         <a href="/blog/2014/01/02/linux-set-time/">Linux设置系统时间和硬件时间</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/12/29/macvim-osx-mavericks/">Mac OSX 10.9 Mavericks系统安装MacVim</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>分类目录</h1>
-    <ul id="category-list"><li><a href='/blog/categories/imagemagick/'>ImageMagick (1)</a></li><li><a href='/blog/categories/linux/'>Linux (2)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/mysql/'>MySQL (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (3)</a></li><li><a href='/blog/categories/rails/'>Rails (1)</a></li><li><a href='/blog/categories/rmagick/'>RMagick (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/imagemagick/'>ImageMagick (1)</a></li><li><a href='/blog/categories/lbs/'>LBS (1)</a></li><li><a href='/blog/categories/linux/'>Linux (2)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/mysql/'>MySQL (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (3)</a></li><li><a href='/blog/categories/postgis/'>Postgis (1)</a></li><li><a href='/blog/categories/rails/'>Rails (2)</a></li><li><a href='/blog/categories/rmagick/'>RMagick (1)</a></li></ul>
 </section>
 
 
