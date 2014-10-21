@@ -4,7 +4,7 @@
   <title><![CDATA[风依旧]]></title>
   <link href="http://windstill.me/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T11:34:27+08:00</updated>
+  <updated>2014-10-21T11:52:06+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -291,11 +291,25 @@
 
 <h4>空间数据查询</h4>
 
-<p>location 距离坐标(116.458104 39.966293)一公里以内的Earthquake：</p>
+<p>location距离坐标(116.458104 39.966293) 10公里以内的Earthquake：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Earthquake.where("st_dwithin(location, 'point(116.458104 39.966293)', 1000)").count</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Earthquake.where("st_dwithin(location, 'point(116.458104 39.966293)', 10000)").count</span></code></pre></td></tr></table></div></figure>
 
+
+<p>location距离坐标(116.458104 39.966293) 10公里以内的Earthquake，并按距离排序：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Order.select("orders.*, st_distance(location, 'point(116.458104 39.966293)') as distance").where("st_dwithin(location, 'point(116.458104 39.966293)', 10000)").order("distance”)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>location在矩形区域POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))内的Earthquake：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Order.where("ST_Intersects('SRID=4326;POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))',location)")</span></code></pre></td></tr></table></div></figure>
+
+
+<p><small>说明：矩形是由4个点组成，但是使用POLYGON需要5个点，其中第一个和最后一个是同一个点，个人理解是为了形成一个闭合</small></p>
 
 <h3>参考文章</h3>
 

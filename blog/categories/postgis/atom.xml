@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Postgis | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/postgis/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T11:34:27+08:00</updated>
+  <updated>2014-10-21T11:52:06+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -241,11 +241,22 @@ record.shape1 = p2                 # shape1 uses a flat geos factory, so it</p>
 
 <h4>空间数据查询</h4>
 
-<p>location 距离坐标(116.458104 39.966293)一公里以内的Earthquake：</p>
+<p>location距离坐标(116.458104 39.966293) 10公里以内的Earthquake：</p>
 
 <p><code>
-Earthquake.where("st_dwithin(location, 'point(116.458104 39.966293)', 1000)").count
-</code></p>
+Earthquake.where("st_dwithin(location, 'point(116.458104 39.966293)', 10000)").count
+</code>
+location距离坐标(116.458104 39.966293) 10公里以内的Earthquake，并按距离排序：</p>
+
+<p><code>
+Order.select("orders.*, st_distance(location, 'point(116.458104 39.966293)') as distance").where("st_dwithin(location, 'point(116.458104 39.966293)', 10000)").order("distance”)
+</code>
+location在矩形区域POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))内的Earthquake：</p>
+
+<p><code>
+Order.where("ST_Intersects('SRID=4326;POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))',location)")
+</code>
+<small>说明：矩形是由4个点组成，但是使用POLYGON需要5个点，其中第一个和最后一个是同一个点，个人理解是为了形成一个闭合</small></p>
 
 <h3>参考文章</h3>
 
