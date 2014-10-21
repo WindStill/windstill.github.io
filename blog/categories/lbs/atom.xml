@@ -4,7 +4,7 @@
   <title><![CDATA[Category: LBS | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/lbs/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T11:52:06+08:00</updated>
+  <updated>2014-10-21T11:54:20+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -256,7 +256,7 @@ location在矩形区域POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.
 <p><code>
 Order.where("ST_Intersects('SRID=4326;POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))',location)")
 </code>
-<small>说明：矩形是由4个点组成，但是使用POLYGON需要5个点，其中第一个和最后一个是同一个点，个人理解是为了形成一个闭合</small></p>
+<small>说明：矩形是由4个点组成，但是使用POLYGON需要5个点，其中第一个和最后一个是同一个点，个人理解是为了形成一个闭合。另外使用此方法可以构建任意的多边形。</small></p>
 
 <h3>参考文章</h3>
 
