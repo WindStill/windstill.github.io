@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Linux设置系统时间和硬件时间 - 风依旧</title>
+  <title>在Rails中使用hstore和Array类型 - 风依旧</title>
   <meta name="author" content="WindStill">
 
   
-  <meta name="description" content="今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 系统时钟（System Clock）和 硬件时钟（Real Time Clock，简称RTC）。系统时钟是指当前Linux Kernel中的时钟， &hellip;">
+  <meta name="description" content="最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://windstill.me/blog/2014/01/02/linux-set-time">
+  <link rel="canonical" href="http://windstill.me/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -84,7 +84,7 @@
   
   <header>
     
-      <h1 class="entry-title">Linux设置系统时间和硬件时间</h1>
+      <h1 class="entry-title">在Rails中使用hstore和Array类型</h1>
     
     
       <p class="meta">
@@ -100,91 +100,67 @@
   
 
 
-<time datetime="2014-01-02T11:46:08+08:00" pubdate data-updated="true">2014-01-02</time>
+<time datetime="2014-10-21T12:05:15+08:00" pubdate data-updated="true">2014-10-21</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
+<div class="entry-content"><p>最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于，一般编辑联系人的时候，会同时增删改N个号码 + N条地址，这是再去操作三个表逻辑上也会复杂不少。但是如果把多个号码和多个地址以 JSON 的 array 及 key-value 形式存储在同一个字段中，这样曾删改的时候会方便很多。索性PostgreSQL，也有相应的字段类型来支持此场景，比如 hstore。</p>
 
 <!-- more -->
 
 
-<p>Linux中的所有命令都是采用的系统时钟设置。在Linux中，用于时钟查看和设置的命令主要有<code>date</code>、<code>hwclock</code>和<code>clock</code>。其中，<code>clock</code>和<code>hwclock</code>用法相近，只用一个就行，只不过clock命令除了支持x86硬件体系外，还支持Alpha硬件体系。看了下我们的测试环境止只有hwclock可用，clock没有安装。</p>
+<p>Rails 4.1 中的一个新特性就是对 PostgreSQL 的hstore类型的支持。而 Rails 之前的版本需要安装 <a href="https://github.com/diogob/activerecord-postgres-hstore"><code>activerecord-postgres-hstore</code></a> gem。下面说说 Rails 中使用 hstore 的方法。</p>
 
-<h3>1. date</h3>
+<h3>增加 hstore extenstion</h3>
 
-<ul>
-<li>查看系统时间</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># date</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>设置系统时间</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># date --set "01/02/14 10:19:20" (月/日/年 时:分:秒)</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>2. hwclock/clock</h3>
-
-<ul>
-<li>查看硬件时间</li>
-</ul>
-
+<p>首先创建一个migration，启用 hstore extension。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --show
-</span><span class='line'>或者
-</span><span class='line'># clock --show</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class AddHstoreExtension &lt; ActiveRecord::Migration
+</span><span class='line'>  def self.up
+</span><span class='line'>    execute "CREATE EXTENSION IF NOT EXISTS hstore"
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def self.down
+</span><span class='line'>    execute "DROP EXTENSION IF EXISTS hstore"
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<ul>
-<li>设置硬件时间</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --set --date="01/02/14 10:19:20"  (月/日/年 时:分:秒)
-</span><span class='line'>或者
-</span><span class='line'># clock --set --date="01/02/14 10:19:20"  (月/日/年 时:分:秒)</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>3. 硬件时间和系统时间的同步</h3>
-
-<p>硬件时钟同步到系统时钟：</p>
+<p>还有一种更简便的写法，不需要用 execute 执行原生的 SQL 语句。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --hctosys（hc代表硬件时间，sys代表系统时间）
-</span><span class='line'>或者
-</span><span class='line'># clock --hctosys</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class AddHstoreExtension &lt; ActiveRecord::Migration
+</span><span class='line'>  def self.up
+</span><span class='line'>    enable_extension :hstore
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def self.down
+</span><span class='line'>    disable_extension :hstore
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>系统时钟同步到硬件时钟：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># hwclock --systohc
-</span><span class='line'>或者
-</span><span class='line'># clock --systohc</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>4. 时区的设置</h3>
+<h3>使用 hstore 创建 model</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -199,114 +175,115 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>root@testserver-01:~# tzselect
-</span><span class='line'>Please identify a location so that time zone rules can be set correctly.
-</span><span class='line'>Please select a continent or ocean.
-</span><span class='line'> 1) Africa
-</span><span class='line'> 2) Americas
-</span><span class='line'> 3) Antarctica
-</span><span class='line'> 4) Arctic Ocean
-</span><span class='line'> 5) Asia
-</span><span class='line'> 6) Atlantic Ocean
-</span><span class='line'> 7) Australia
-</span><span class='line'> 8) Europe
-</span><span class='line'> 9) Indian Ocean
-</span><span class='line'>10) Pacific Ocean
-</span><span class='line'>11) none - I want to specify the time zone using the Posix TZ format.
-</span><span class='line'>#? 5 (输入5，亚洲)
+</pre></td><td class='code'><pre><code class=''><span class='line'>class CreateContacts &lt; ActiveRecord::Migration
+</span><span class='line'>  def change
+</span><span class='line'>    create_table :contacts do |t|
+</span><span class='line'>      t.references :user, index: true
+</span><span class='line'>      t.string :name
+</span><span class='line'>      t.string :gender
+</span><span class='line'>      t.hstore :telphones, :array =&gt; true
+</span><span class='line'>      t.hstore :settings
 </span><span class='line'>
-</span><span class='line'>Please select a country.
-</span><span class='line'> 1) Afghanistan         18) Israel            35) Palestine
-</span><span class='line'> 2) Armenia         19) Japan         36) Philippines
-</span><span class='line'> 3) Azerbaijan          20) Jordan            37) Qatar
-</span><span class='line'> 4) Bahrain         21) Kazakhstan        38) Russia
-</span><span class='line'> 5) Bangladesh          22) Korea (North)     39) Saudi Arabia
-</span><span class='line'> 6) Bhutan          23) Korea (South)     40) Singapore
-</span><span class='line'> 7) Brunei          24) Kuwait            41) Sri Lanka
-</span><span class='line'> 8) Cambodia        25) Kyrgyzstan        42) Syria
-</span><span class='line'> 9) China       26) Laos          43) Taiwan
-</span><span class='line'>10) Cyprus          27) Lebanon           44) Tajikistan
-</span><span class='line'>11) East Timor          28) Macau         45) Thailand
-</span><span class='line'>12) Georgia         29) Malaysia          46) Turkmenistan
-</span><span class='line'>13) Hong Kong       30) Mongolia          47) United Arab Emirates
-</span><span class='line'>14) India       31) Myanmar (Burma)       48) Uzbekistan
-</span><span class='line'>15) Indonesia       32) Nepal         49) Vietnam
-</span><span class='line'>16) Iran        33) Oman          50) Yemen
-</span><span class='line'>17) Iraq        34) Pakistan
-</span><span class='line'>#? 9 (输入9，中国)
+</span><span class='line'>      t.timestamps
+</span><span class='line'>    end        
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>:array =&gt; true</code> 表示当前字段是数组类型。字段 <code>telphones</code> 是 <code>hstore</code> 类型的数组，字段 <code>settings</code> 是 <code>hstore</code> 类型。</p>
+
+<h3>使用示例</h3>
+
+<h4>创建 model</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>contact = Contact.create(user_id: 1, name: 'windstill', gender: '先生', telphones: 
+</span><span class='line'>[{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}], 
+</span><span class='line'>settings: {theme: 'white', language: 'cn'})</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>获取字段</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>contact.settings                     # =&gt; {theme: 'white', language: 'cn'}
+</span><span class='line'>contact.settings["theme"]             # =&gt; "white"
 </span><span class='line'>
-</span><span class='line'>Please select one of the following time zone regions.
-</span><span class='line'>1) east China - Beijing, Guangdong, Shanghai, etc.
-</span><span class='line'>2) Heilongjiang (except Mohe), Jilin
-</span><span class='line'>3) central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.
-</span><span class='line'>4) most of Tibet & Xinjiang
-</span><span class='line'>5) west Tibet & Xinjiang
-</span><span class='line'>#? 1 (输入1，北京时间)
+</span><span class='line'>contact.telphones                     # =&gt; [{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}]
+</span><span class='line'>contact.telphones[0]              # =&gt; {type: '手机', num: '15155556666'}
+</span><span class='line'>contact.telphones[0]["num"]       # =&gt; "15155556666"</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>更新字段</h4>
+
+<p>如果是直接对 contact 的字段（比如name、settings、telphones）进行赋值，那么可以直接 save。
+但是如果对 settings 和 telphones 里面的 hash 值进行修改，需要用 <code>attr_will_change</code> 通知 rails，因为 hash 的key-value不是 Active Record model 对象。如下所示：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>contact.settings = {theme: 'blue', language: 'en'}
+</span><span class='line'>contact.save
 </span><span class='line'>
-</span><span class='line'>The following information has been given:
-</span><span class='line'>
-</span><span class='line'>  China
-</span><span class='line'>  east China - Beijing, Guangdong, Shanghai, etc.
-</span><span class='line'>
-</span><span class='line'>Therefore TZ='Asia/Shanghai' will be used.
-</span><span class='line'>Local time is now:    Thu Jan  2 11:55:36 CST 2014.
-</span><span class='line'>Universal Time is now:    Thu Jan  2 03:55:36 UTC 2014.
-</span><span class='line'>Is the above information OK?
-</span><span class='line'>1) Yes
-</span><span class='line'>2) No
-</span><span class='line'>#? Yes
-</span><span class='line'>Please enter 1 for Yes, or 2 for No.
-</span><span class='line'>#? 1 (输入1，确认)</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>contact.telphones[1]["type"] = "手机"
+</span><span class='line'>contact.telphones[1]["num"] = "137700001111"
+</span><span class='line'>contact.telphones_will_change!
+</span><span class='line'>contact.save</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>查询</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Contact.where("settings -&gt; 'language' = 'en'")
+</span><span class='line'>Contact.where("'15155556666' = ANY (SELECT unnest(telphones) -&gt; 'num')")</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以写个 scope：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scope :where_any, -&gt;(column, key, value) { where("? = ANY (SELECT unnest(#{column}) -&gt; ?)", value, key) }
+</span><span class='line'>scope :where_all, -&gt;(column, key, value) { where("? = ALL (SELECT unnest(#{column}) -&gt; ?)", value, key) }</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>建立索引</h3>
+
+<p>在 PostgreSQL 中可以对普通的 array 建立索引，可以对 hstore 建立索引。但是要对 hstore 类型的 array 建立索引就会有问题，会提示你要对 hstore[] 定义 operator class。</p>
+
+<p>下面是对 hstore 建立索引的示例：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>add_index :contacts, :telphones, :using =&gt; :gin</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里有两种索引可以选择：gist 和 gin。他们的性能区别如下：</p>
+
+<ul>
+<li>GIN index lookups are about three times faster than GiST</li>
+<li>GIN indexes take about three times longer to build than GiST</li>
+<li>GIN indexes are about ten times slower to update than GiST</li>
+<li>GIN indexes are two-to-three times larger than GiST</li>
+</ul>
 
 
 <h3>参考文章</h3>
 
-<p><a href="http://os.51cto.com/art/200703/43943.htm">Linux操作系统下的时间设置方法介绍</a></p>
+<ul>
+<li><a href="http://inopinatus.org/2013/07/12/using-arrays-of-hstore-with-rails-4/">Using arrays of hstore with Rails 4</a></li>
+<li><a href="http://jes.al/2013/11/using-postgres-hstore-rails4/">Using Postgres Hstore with Rails 4</a></li>
+</ul>
+
 </div>
 
 
@@ -329,12 +306,12 @@
   
 
 
-<time datetime="2014-01-02T11:46:08+08:00" pubdate data-updated="true">2014-01-02</time>
+<time datetime="2014-10-21T12:05:15+08:00" pubdate data-updated="true">2014-10-21</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/linux/'>Linux</a>
+    <a class='category' href='/blog/categories/hstore/'>Hstore</a>, <a class='category' href='/blog/categories/postgresql/'>PostgreSQL</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
   
 </span>
 
@@ -350,16 +327,14 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/29/macvim-osx-mavericks/" title="Previous Post: Mac OSX 10.9 Mavericks系统安装MacVim">&laquo; Mac OSX 10.9 Mavericks系统安装MacVim</a>
+        <a class="basic-alignment left" href="/blog/2014/10/15/rails-with-postgis/" title="Previous Post: 使用Rails和Postgis开发基于地理位置应用的安装与配置">&laquo; 使用Rails和Postgis开发基于地理位置应用的安装与配置</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/01/03/mavericks-unidentified-developer-app/" title="Next Post: Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法">Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法 &raquo;</a>
       
     </p>
     
       <section>
         <div id="duoshuo_thread" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
-<div class="ds-thread"  data-title="Linux设置系统时间和硬件时间"></div>
+<div class="ds-thread"  data-title="在Rails中使用hstore和Array类型"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"windstill"};
 	(function() {

@@ -9,9 +9,9 @@
   <meta name="author" content="WindStill">
 
   
-  <meta name="description" content="Blog Archive 2014 使用Rails和Postgis开发基于地理位置应用的安装与配置
-Oct 15 2014 posted in LBS, Postgis, Rails 解决ImageMagick和RMagick在OS X下使用出现的问题
-Jul 16 2014 posted in &hellip;">
+  <meta name="description" content="Blog Archive 2014 在Rails中使用hstore和Array类型
+Oct 21 2014 posted in Hstore, PostgreSQL, Rails 使用Rails和Postgis开发基于地理位置应用的安装与配置
+Oct 15 2014 posted in LBS &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +95,20 @@ Jul 16 2014 posted in &hellip;">
 
   
   <h2>2014</h2>
+
+<article>
+  
+<h1><a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/">在Rails中使用hstore和Array类型</a></h1>
+<time datetime="2014-10-21T12:05:15+08:00" pubdate><span class='month'>Oct</span> <span class='day'>21</span> <span class='year'>2014</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/hstore/'>Hstore</a>, <a class='category' href='/blog/categories/postgresql/'>PostgreSQL</a>, <a class='category' href='/blog/categories/rails/'>Rails</a></span>
+</footer>
+
+
+</article>
+
+
 
 <article>
   
@@ -206,11 +220,15 @@ Jul 16 2014 posted in &hellip;">
   
     <section>
   <h1>标签云</h1>
-  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fimagemagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EImageMagick%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flbs%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ELBS%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+36.66666666666667%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmysql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMySQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fpostgis%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EPostgis%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frails%27+style%3D%27font-size%3A+36.66666666666667%25%27%3ERails%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frmagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ERMagick%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
+  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fhstore%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EHstore%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fimagemagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EImageMagick%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flbs%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ELBS%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+36.66666666666667%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmysql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMySQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fpostgis%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EPostgis%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fpostgresql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EPostgreSQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frails%27+style%3D%27font-size%3A+50.0%25%27%3ERails%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frmagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ERMagick%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
 </section>
 <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/">在Rails中使用hstore和Array类型</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/15/rails-with-postgis/">使用Rails和Postgis开发基于地理位置应用的安装与配置</a>
@@ -228,15 +246,11 @@ Jul 16 2014 posted in &hellip;">
         <a href="/blog/2014/01/03/mavericks-unidentified-developer-app/">Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/01/02/linux-set-time/">Linux设置系统时间和硬件时间</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>分类目录</h1>
-    <ul id="category-list"><li><a href='/blog/categories/imagemagick/'>ImageMagick (1)</a></li><li><a href='/blog/categories/lbs/'>LBS (1)</a></li><li><a href='/blog/categories/linux/'>Linux (2)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/mysql/'>MySQL (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (3)</a></li><li><a href='/blog/categories/postgis/'>Postgis (1)</a></li><li><a href='/blog/categories/rails/'>Rails (2)</a></li><li><a href='/blog/categories/rmagick/'>RMagick (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/hstore/'>Hstore (1)</a></li><li><a href='/blog/categories/imagemagick/'>ImageMagick (1)</a></li><li><a href='/blog/categories/lbs/'>LBS (1)</a></li><li><a href='/blog/categories/linux/'>Linux (2)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/mysql/'>MySQL (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (3)</a></li><li><a href='/blog/categories/postgis/'>Postgis (1)</a></li><li><a href='/blog/categories/postgresql/'>PostgreSQL (1)</a></li><li><a href='/blog/categories/rails/'>Rails (3)</a></li><li><a href='/blog/categories/rmagick/'>RMagick (1)</a></li></ul>
 </section>
 
 

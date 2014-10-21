@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Hstore | 风依旧]]></title>
+  <link href="http://windstill.me/blog/categories/hstore/atom.xml" rel="self"/>
+  <link href="http://windstill.me/"/>
+  <updated>2014-10-21T17:39:45+08:00</updated>
+  <id>http://windstill.me/</id>
+  <author>
+    <name><![CDATA[WindStill]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[在Rails中使用hstore和Array类型]]></title>
+    <link href="http://windstill.me/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/"/>
+    <updated>2014-10-21T12:05:15+08:00</updated>
+    <id>http://windstill.me/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails</id>
+    <content type="html"><![CDATA[<p>最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于，一般编辑联系人的时候，会同时增删改N个号码 + N条地址，这是再去操作三个表逻辑上也会复杂不少。但是如果把多个号码和多个地址以 JSON 的 array 及 key-value 形式存储在同一个字段中，这样曾删改的时候会方便很多。索性PostgreSQL，也有相应的字段类型来支持此场景，比如 hstore。</p>
+
+<!-- more -->
+
+
+<p>Rails 4.1 中的一个新特性就是对 PostgreSQL 的hstore类型的支持。而 Rails 之前的版本需要安装 <a href="https://github.com/diogob/activerecord-postgres-hstore"><code>activerecord-postgres-hstore</code></a> gem。下面说说 Rails 中使用 hstore 的方法。</p>
+
+<h3>增加 hstore extenstion</h3>
+
+<p>首先创建一个migration，启用 hstore extension。</p>
+
+<p>```
+class AddHstoreExtension &lt; ActiveRecord::Migration
+  def self.up</p>
+
+<pre><code>execute "CREATE EXTENSION IF NOT EXISTS hstore"
+</code></pre>
+
+<p>  end</p>
+
+<p>  def self.down</p>
+
+<pre><code>execute "DROP EXTENSION IF EXISTS hstore"
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>还有一种更简便的写法，不需要用 execute 执行原生的 SQL 语句。</p>
+
+<p>```
+class AddHstoreExtension &lt; ActiveRecord::Migration
+  def self.up</p>
+
+<pre><code>enable_extension :hstore
+</code></pre>
+
+<p>  end</p>
+
+<p>  def self.down</p>
+
+<pre><code>disable_extension :hstore
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<h3>使用 hstore 创建 model</h3>
+
+<p>```
+class CreateContacts &lt; ActiveRecord::Migration
+  def change</p>
+
+<pre><code>create_table :contacts do |t|
+  t.references :user, index: true
+  t.string :name
+  t.string :gender
+  t.hstore :telphones, :array =&gt; true
+  t.hstore :settings
+
+  t.timestamps
+end        
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p><code>:array =&gt; true</code> 表示当前字段是数组类型。字段 <code>telphones</code> 是 <code>hstore</code> 类型的数组，字段 <code>settings</code> 是 <code>hstore</code> 类型。</p>
+
+<h3>使用示例</h3>
+
+<h4>创建 model</h4>
+
+<p><code>
+contact = Contact.create(user_id: 1, name: 'windstill', gender: '先生', telphones:
+[{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}],
+settings: {theme: 'white', language: 'cn'})
+</code></p>
+
+<h4>获取字段</h4>
+
+<p>```
+contact.settings                    # => {theme: &lsquo;white&rsquo;, language: &lsquo;cn&rsquo;}
+contact.settings[&ldquo;theme&rdquo;]           # => &ldquo;white&rdquo;</p>
+
+<p>contact.telphones                   # => [{type: &lsquo;手机&rsquo;, num: &lsquo;15155556666&rsquo;}, {type: &lsquo;工作&rsquo;, num: &lsquo;010-86118233&rsquo;}]
+contact.telphones[0]                # => {type: &lsquo;手机&rsquo;, num: &lsquo;15155556666&rsquo;}
+contact.telphones[0][&ldquo;num&rdquo;]         # => &ldquo;15155556666&rdquo;
+```</p>
+
+<h4>更新字段</h4>
+
+<p>如果是直接对 contact 的字段（比如name、settings、telphones）进行赋值，那么可以直接 save。
+但是如果对 settings 和 telphones 里面的 hash 值进行修改，需要用 <code>attr_will_change</code> 通知 rails，因为 hash 的key-value不是 Active Record model 对象。如下所示：</p>
+
+<p>```
+contact.settings = {theme: &lsquo;blue&rsquo;, language: &lsquo;en&rsquo;}
+contact.save</p>
+
+<p>contact.telphones[1][&ldquo;type&rdquo;] = &ldquo;手机&rdquo;
+contact.telphones[1][&ldquo;num&rdquo;] = &ldquo;137700001111&rdquo;
+contact.telphones_will_change!
+contact.save
+```</p>
+
+<h4>查询</h4>
+
+<p><code>
+Contact.where("settings -&gt; 'language' = 'en'")
+Contact.where("'15155556666' = ANY (SELECT unnest(telphones) -&gt; 'num')")
+</code></p>
+
+<p>也可以写个 scope：</p>
+
+<p><code>
+scope :where_any, -&gt;(column, key, value) { where("? = ANY (SELECT unnest(#{column}) -&gt; ?)", value, key) }
+scope :where_all, -&gt;(column, key, value) { where("? = ALL (SELECT unnest(#{column}) -&gt; ?)", value, key) }
+</code></p>
+
+<h3>建立索引</h3>
+
+<p>在 PostgreSQL 中可以对普通的 array 建立索引，可以对 hstore 建立索引。但是要对 hstore 类型的 array 建立索引就会有问题，会提示你要对 hstore[] 定义 operator class。</p>
+
+<p>下面是对 hstore 建立索引的示例：</p>
+
+<p><code>
+add_index :contacts, :telphones, :using =&gt; :gin
+</code></p>
+
+<p>这里有两种索引可以选择：gist 和 gin。他们的性能区别如下：</p>
+
+<ul>
+<li>GIN index lookups are about three times faster than GiST</li>
+<li>GIN indexes take about three times longer to build than GiST</li>
+<li>GIN indexes are about ten times slower to update than GiST</li>
+<li>GIN indexes are two-to-three times larger than GiST</li>
+</ul>
+
+
+<h3>参考文章</h3>
+
+<ul>
+<li><a href="http://inopinatus.org/2013/07/12/using-arrays-of-hstore-with-rails-4/">Using arrays of hstore with Rails 4</a></li>
+<li><a href="http://jes.al/2013/11/using-postgres-hstore-rails4/">Using Postgres Hstore with Rails 4</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
