@@ -4,7 +4,7 @@
   <title><![CDATA[Category: LBS | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/lbs/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-15T17:57:18+08:00</updated>
+  <updated>2014-10-21T11:34:27+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -110,7 +110,7 @@ CREATE SCHEMA postgis;
 CREATE EXTENSION postgis WITH SCHEMA postgis;
 </code></p>
 
-<p>如果 postgis extension 不是安装在 public schema (默认安装在 postgis schema)，还得把 postgis 的 schema 添加到 <code>schema_search_path</code>：</p>
+<p>如果 postgis extension 不是安装在 public schema (默认安装在 public schema)，还得把 postgis 的 schema 添加到 <code>schema_search_path</code>：</p>
 
 <p><code>
 development:
