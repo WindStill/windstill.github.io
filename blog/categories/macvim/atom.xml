@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: MacVim | 风依旧]]></title>
+  <title><![CDATA[Category: Macvim | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/macvim/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T17:39:45+08:00</updated>
+  <updated>2014-10-24T16:48:46+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -27,12 +27,11 @@
 
 <p>升级完系统后，终端输入<code>mvim .</code>会出现以下错误信息：</p>
 
-<p><code>
-dyld: Library not loaded: /System/Library/Perl/lib/5.10/libperl.dylib
+<pre><code>dyld: Library not loaded: /System/Library/Perl/lib/5.10/libperl.dylib
 Referenced from: /Applications/MacVim.app/Contents/MacOS/Vim
 Reason: image not found
 Trace/BPT trap: 5
-</code></p>
+</code></pre>
 
 <p>原因是Mac X Mavericks 只有5.12 、5.16 已经没有了5.10。解决办法就是下载最新的Mavericks版本的MacVim <a href="https://github.com/b4winckler/macvim/releases/download/snapshot-72/MacVim-snapshot-72-Mavericks.tbz">MacVim-snapshot-72-Mavericks.tbz</a>。</p>
 
@@ -48,9 +47,8 @@ Trace/BPT trap: 5
 
 <p>1、安装</p>
 
-<p><code>
-$ curl -Lo- https://bit.ly/janus-bootstrap | bash
-</code></p>
+<pre><code>$ curl -Lo- https://bit.ly/janus-bootstrap | bash
+</code></pre>
 
 <p>2、自定义</p>
 
@@ -58,17 +56,15 @@ $ curl -Lo- https://bit.ly/janus-bootstrap | bash
 
 <p>如果想安装其他的插件，就要创建一个<code>~/.janus</code>目录存放插件。也可以使用<code>git clone</code>，例如：</p>
 
-<p><code>
-$ cd ~/.janus
+<pre><code>$ cd ~/.janus
 $ git clone https://github.com/nathanaelkane/vim-indent-guides.git
-</code></p>
+</code></pre>
 
 <p>这是一个缩进对齐插件（效果参见配图中明暗相间的竖条），需要在下面所说的<code>~/.vimrc.before</code>文件中添加：</p>
 
-<p><code>
-autocm vimenter * :IndentGuidesEnable
+<pre><code>autocm vimenter * :IndentGuidesEnable
 let g:indent_guides_guide_size = 1
-</code></p>
+</code></pre>
 
 <h3>安装主题(theme)</h3>
 
@@ -76,9 +72,8 @@ let g:indent_guides_guide_size = 1
 
 <p>在<code>~/.vim</code>目录下新建<code>colors/</code>目录，将<code>Railscast.vim</code>或<code>Sunburst.vim</code>放到此目录中，然后在<code>~/.vimrc.before</code>文件中添加启用此主题的设置项：</p>
 
-<p><code>
-colorscheme Sunburst
-</code></p>
+<pre><code>colorscheme Sunburst 
+</code></pre>
 
 <p>其他配色方案请参考 <a href="http://www.oschina.net/news/32306/10-vim-color-schemes-you-need-to-own">10 个你值得拥有的 Vim 配色方案</a> ，设置与上面一样。</p>
 
@@ -86,12 +81,11 @@ colorscheme Sunburst
 
 <p>一般情况下Janus安装插件的时候已经做了许多默认的设置，下面是根据我自己的需求做的设置<code>~/.vimrc.before</code>：</p>
 
-<p><code>
-" 设置主题（配色方案）
+<pre><code>" 设置主题（配色方案）
 colorscheme Sunburst
 " 设置字体字号
 set guifont=Menlo:h16
-" 启用缩进高亮对齐（下图中明暗相间的竖条）
+" 启用缩进高亮对齐（下图中明暗相间的竖条） 
 autocm vimenter * :IndentGuidesEnable
 " 设置缩进距离单位
 let g:indent_guides_guide_size = 1
@@ -99,7 +93,7 @@ let g:indent_guides_guide_size = 1
 let mapleader = ","
 " 设置文件打开时代码段默认为折叠状态
 set foldmethod=indent
-</code></p>
+</code></pre>
 
 <h3>示例配图</h3>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Octopress | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T17:39:45+08:00</updated>
+  <updated>2014-10-24T16:48:46+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -47,53 +47,44 @@
 
 <p>可以通过安装RVM，来安装、管理ruby版本</p>
 
-<p><code>
-curl -L https://get.rvm.io | bash -s stable --ruby
-</code></p>
+<pre><code>curl -L https://get.rvm.io | bash -s stable --ruby
+</code></pre>
 
 <p>接着是安装Ruby 1.9.3</p>
 
-<p><code>
-rvm install 1.9.3
+<pre><code>rvm install 1.9.3
 rvm use 1.9.3
-</code></p>
+</code></pre>
 
 <h4>安装Octopress</h4>
 
 <p>克隆Octopress的代码库</p>
 
-<p><code>
-git clone git://github.com/imathis/octopress.git octopress
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
 cd octopress
-</code></p>
+</code></pre>
 
 <p>安装依赖库</p>
 
-<p><code>
-gem install bundler
+<pre><code>gem install bundler
 rbenv rehash    # If you use rbenv, rehash to be able to run the bundle command
 bundle install
-</code></p>
+</code></pre>
 
 <p>安装Octopress默认主题</p>
 
-<p><code>
-rake install
-</code></p>
+<pre><code>rake install
+</code></pre>
 
 <h3>3 配置Octopress</h3>
 
 <p>Octopress的作者已经让配置尽量简化了，一般情况只需要配置<code>_config.yml</code>和<code>Rakefile</code>文件即可。下面是Octopress的配置文件列表。</p>
 
-<p>```</p>
-
-<pre><code>_config.yml       # 主要配置文件 (Jekyll的设置)
-Rakefile          # 部署相关配置
-config.rb         # Compass config
-config.ru         # Rack config
+<pre><code>    _config.yml       # 主要配置文件 (Jekyll的设置)
+    Rakefile          # 部署相关配置
+    config.rb         # Compass config
+    config.ru         # Rack config
 </code></pre>
-
-<p>```</p>
 
 <p><code>_config.yml</code>文件中主要有三大配置段：<code>Main Configs</code>、<code>Jekyll &amp; Plugins</code>和<code>3rd Party Settings</code>。一般，该文件中其中url是必须要填写的，这里的url是在github上创建的一个仓库地址，具体请看第四步中创建的地址。另外再修改一下title、subtitle和author，根据需求，再开启一些第三方组件服务。</p>
 
@@ -107,9 +98,8 @@ config.ru         # Rack config
 
 <p>首先需要在GitHub上创建一个<a href="https://github.com/repositories/new">新的仓库</a>，命名为<code>username.github.io</code>，<code>username</code>就是你在Github的用户名。等后面配置好部署到Github上以后，就可以通过<code>http://username.github.io</code>访问了。这种方式需要一个master分支来存放生成的博客内容（_deploy目录），source分支存放整个源码。用octopress的一个<code>rake任务</code>可以自动完成以上配置。</p>
 
-<p><code>
-rake setup_github_pages
-</code></p>
+<pre><code>rake setup_github_pages
+</code></pre>
 
 <p>这条rake任务会让你输入仓库的地址，SSH和HTTPS的URL都可以。执行后，会做以下事情：<br/>
 1. 存储Github Pages的仓库地址<br/>
@@ -121,20 +111,18 @@ rake setup_github_pages
 
 <p>然后执行：</p>
 
-<p><code>
-rake generate
+<pre><code>rake generate
 rake deploy
-</code></p>
+</code></pre>
 
 <p>这两条命令会生成博客系统的主要文件并拷贝到<code>_deploy/</code>目录，然后添加到git版本控制，提交并推送到远程主分支。过一会就可以访问<code>http://username.github.com</code>了。</p>
 
 <p>然后把源码提交到<code>source</code>分支</p>
 
-<p><code>
-git add .
+<pre><code>git add .
 git commit -m 'your message'
 git push origin source
-</code></p>
+</code></pre>
 
 <h4>Github Project pages (gh-pages分支)</h4>
 
@@ -142,16 +130,14 @@ git push origin source
 
 <p>执行Octopress的rake任务命令</p>
 
-<p><code>
-rake setup_github_pages
-</code></p>
+<pre><code>rake setup_github_pages
+</code></pre>
 
 <p>然后执行</p>
 
-<p><code>
-rake generate
+<pre><code>rake generate
 rake deploy
-</code></p>
+</code></pre>
 
 <p>这几条命令的执行结果基本与上面的类似。</p>
 
@@ -171,10 +157,9 @@ rake deploy
 
 <p>然后执行</p>
 
-<p><code>
-rake generate
+<pre><code>rake generate
 rake deploy
-</code></p>
+</code></pre>
 
 <p>大概过个10分钟，就可以用新的域名访问了。</p>
 
@@ -186,23 +171,20 @@ rake deploy
 
 <p>通过Octopress提供的rake任务可以正确的按照命名规范创建博文，并且在博文中会预知一些常用的yaml元数据。</p>
 
-<p><code>
-rake new_post["title"]
-</code></p>
+<pre><code>rake new_post["title"]
+</code></pre>
 
 <p>其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：source/_posts/2013-08-03-title.markdown。用文本编辑器打开这个文件，可以看到里面有一块yaml元数据(Jekyll博客引擎会根据这些内容处理博文和页面)：</p>
 
-<h2>```</h2>
-
-<p>layout: post
-title: &ldquo;Zombie Ninjas Attack: A survivor&rsquo;s retrospective&rdquo;
+<pre><code>---
+layout: post
+title: "Zombie Ninjas Attack: A survivor's retrospective"
 date: 2011-07-03 5:59
 comments: true
-external-url:</p>
-
-<h2>categories:</h2>
-
-<p>```</p>
+external-url:
+categories:
+---
+</code></pre>
 
 <h4>设置博文</h4>
 
@@ -219,23 +201,18 @@ external-url:</p>
 
 <p>你还可以想下面这样添加一个或多个分类：</p>
 
-<p>```</p>
+<pre><code># 一个分类
+categories: Sass
 
-<h1>一个分类</h1>
+# 多个分类，示例1
+categories: [CSS3, Sass, Media Queries]
 
-<p>categories: Sass</p>
-
-<h1>多个分类，示例1</h1>
-
-<p>categories: [CSS3, Sass, Media Queries]</p>
-
-<h1>多个分类，示例2</h1>
-
-<p>categories:
-&ndash; CSS3
-&ndash; Sass
-&ndash; Media Queries
-```</p>
+# 多个分类，示例2
+categories:
+- CSS3
+- Sass
+- Media Queries
+</code></pre>
 
 <h4>撰写博文</h4>
 
@@ -245,15 +222,14 @@ external-url:</p>
 
 <h4>生成并预览</h4>
 
-<p><code>
-rake generate   # 生成post和page到public目录
+<pre><code>rake generate   # 生成post和page到public目录
 rake preview    # 启动服务并预览 http://localhost:4000
-</code>
-预览无勿的话，就可以部署了</p>
+</code></pre>
 
-<p><code>
-rake deploy
-</code></p>
+<p>预览无勿的话，就可以部署了</p>
+
+<pre><code>rake deploy
+</code></pre>
 
 <p>参见 <a href="http://octopress.org/docs/blogging">Start blogging with Octopress</a></p>
 

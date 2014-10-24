@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Hstore | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/hstore/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T17:39:45+08:00</updated>
+  <updated>2014-10-24T16:48:46+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -29,64 +29,46 @@
 
 <p>首先创建一个migration，启用 hstore extension。</p>
 
-<p>```
-class AddHstoreExtension &lt; ActiveRecord::Migration
-  def self.up</p>
+<pre><code class="ruby">class AddHstoreExtension &lt; ActiveRecord::Migration
+  def self.up
+    execute "CREATE EXTENSION IF NOT EXISTS hstore"
+  end
 
-<pre><code>execute "CREATE EXTENSION IF NOT EXISTS hstore"
-</code></pre>
-
-<p>  end</p>
-
-<p>  def self.down</p>
-
-<pre><code>execute "DROP EXTENSION IF EXISTS hstore"
-</code></pre>
-
-<p>  end
+  def self.down
+    execute "DROP EXTENSION IF EXISTS hstore"
+  end
 end
-```</p>
+</code></pre>
 
 <p>还有一种更简便的写法，不需要用 execute 执行原生的 SQL 语句。</p>
 
-<p>```
-class AddHstoreExtension &lt; ActiveRecord::Migration
-  def self.up</p>
+<pre><code>class AddHstoreExtension &lt; ActiveRecord::Migration
+  def self.up
+    enable_extension :hstore
+  end
 
-<pre><code>enable_extension :hstore
-</code></pre>
-
-<p>  end</p>
-
-<p>  def self.down</p>
-
-<pre><code>disable_extension :hstore
-</code></pre>
-
-<p>  end
+  def self.down
+    disable_extension :hstore
+  end
 end
-```</p>
+</code></pre>
 
 <h3>使用 hstore 创建 model</h3>
 
-<p>```
-class CreateContacts &lt; ActiveRecord::Migration
-  def change</p>
+<pre><code>class CreateContacts &lt; ActiveRecord::Migration
+  def change
+    create_table :contacts do |t|
+      t.references :user, index: true
+      t.string :name
+      t.string :gender
+      t.hstore :telphones, :array =&gt; true
+      t.hstore :settings
 
-<pre><code>create_table :contacts do |t|
-  t.references :user, index: true
-  t.string :name
-  t.string :gender
-  t.hstore :telphones, :array =&gt; true
-  t.hstore :settings
-
-  t.timestamps
-end        
-</code></pre>
-
-<p>  end
+      t.timestamps
+    end        
+  end
 end
-```</p>
+</code></pre>
 
 <p><code>:array =&gt; true</code> 表示当前字段是数组类型。字段 <code>telphones</code> 是 <code>hstore</code> 类型的数组，字段 <code>settings</code> 是 <code>hstore</code> 类型。</p>
 
@@ -94,51 +76,46 @@ end
 
 <h4>创建 model</h4>
 
-<p><code>
-contact = Contact.create(user_id: 1, name: 'windstill', gender: '先生', telphones:
-[{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}],
+<pre><code class="ruby">contact = Contact.create(user_id: 1, name: 'windstill', gender: '先生', telphones: 
+[{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}], 
 settings: {theme: 'white', language: 'cn'})
-</code></p>
+</code></pre>
 
 <h4>获取字段</h4>
 
-<p>```
-contact.settings                    # => {theme: &lsquo;white&rsquo;, language: &lsquo;cn&rsquo;}
-contact.settings[&ldquo;theme&rdquo;]           # => &ldquo;white&rdquo;</p>
+<pre><code>contact.settings                    # =&gt; {theme: 'white', language: 'cn'}
+contact.settings["theme"]           # =&gt; "white"
 
-<p>contact.telphones                   # => [{type: &lsquo;手机&rsquo;, num: &lsquo;15155556666&rsquo;}, {type: &lsquo;工作&rsquo;, num: &lsquo;010-86118233&rsquo;}]
-contact.telphones[0]                # => {type: &lsquo;手机&rsquo;, num: &lsquo;15155556666&rsquo;}
-contact.telphones[0][&ldquo;num&rdquo;]         # => &ldquo;15155556666&rdquo;
-```</p>
+contact.telphones                   # =&gt; [{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}]
+contact.telphones[0]                # =&gt; {type: '手机', num: '15155556666'}
+contact.telphones[0]["num"]         # =&gt; "15155556666"
+</code></pre>
 
 <h4>更新字段</h4>
 
 <p>如果是直接对 contact 的字段（比如name、settings、telphones）进行赋值，那么可以直接 save。
 但是如果对 settings 和 telphones 里面的 hash 值进行修改，需要用 <code>attr_will_change</code> 通知 rails，因为 hash 的key-value不是 Active Record model 对象。如下所示：</p>
 
-<p>```
-contact.settings = {theme: &lsquo;blue&rsquo;, language: &lsquo;en&rsquo;}
-contact.save</p>
+<pre><code>contact.settings = {theme: 'blue', language: 'en'}
+contact.save
 
-<p>contact.telphones[1][&ldquo;type&rdquo;] = &ldquo;手机&rdquo;
-contact.telphones[1][&ldquo;num&rdquo;] = &ldquo;137700001111&rdquo;
+contact.telphones[1]["type"] = "手机"
+contact.telphones[1]["num"] = "137700001111"
 contact.telphones_will_change!
 contact.save
-```</p>
+</code></pre>
 
 <h4>查询</h4>
 
-<p><code>
-Contact.where("settings -&gt; 'language' = 'en'")
+<pre><code>Contact.where("settings -&gt; 'language' = 'en'")
 Contact.where("'15155556666' = ANY (SELECT unnest(telphones) -&gt; 'num')")
-</code></p>
+</code></pre>
 
 <p>也可以写个 scope：</p>
 
-<p><code>
-scope :where_any, -&gt;(column, key, value) { where("? = ANY (SELECT unnest(#{column}) -&gt; ?)", value, key) }
+<pre><code>scope :where_any, -&gt;(column, key, value) { where("? = ANY (SELECT unnest(#{column}) -&gt; ?)", value, key) }
 scope :where_all, -&gt;(column, key, value) { where("? = ALL (SELECT unnest(#{column}) -&gt; ?)", value, key) }
-</code></p>
+</code></pre>
 
 <h3>建立索引</h3>
 
@@ -146,9 +123,8 @@ scope :where_all, -&gt;(column, key, value) { where("? = ALL (SELECT unnest(#{co
 
 <p>下面是对 hstore 建立索引的示例：</p>
 
-<p><code>
-add_index :contacts, :telphones, :using =&gt; :gin
-</code></p>
+<pre><code>add_index :contacts, :telphones, :using =&gt; :gin
+</code></pre>
 
 <p>这里有两种索引可以选择：gist 和 gin。他们的性能区别如下：</p>
 

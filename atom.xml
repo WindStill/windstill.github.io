@@ -4,7 +4,7 @@
   <title><![CDATA[风依旧]]></title>
   <link href="http://windstill.me/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T17:39:45+08:00</updated>
+  <updated>2014-10-24T16:48:46+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -29,7 +29,7 @@
 
 <p>首先创建一个migration，启用 hstore extension。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -38,20 +38,21 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class AddHstoreExtension &lt; ActiveRecord::Migration
-</span><span class='line'>  def self.up
-</span><span class='line'>    execute "CREATE EXTENSION IF NOT EXISTS hstore"
-</span><span class='line'>  end
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddHstoreExtension</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">execute</span> <span class="s2">&quot;CREATE EXTENSION IF NOT EXISTS hstore&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
 </span><span class='line'>
-</span><span class='line'>  def self.down
-</span><span class='line'>    execute "DROP EXTENSION IF EXISTS hstore"
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">execute</span> <span class="s2">&quot;DROP EXTENSION IF EXISTS hstore&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>还有一种更简便的写法，不需要用 execute 执行原生的 SQL 语句。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -60,20 +61,21 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class AddHstoreExtension &lt; ActiveRecord::Migration
-</span><span class='line'>  def self.up
-</span><span class='line'>    enable_extension :hstore
-</span><span class='line'>  end
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddHstoreExtension</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">enable_extension</span> <span class="ss">:hstore</span>
+</span><span class='line'>  <span class="k">end</span>
 </span><span class='line'>
-</span><span class='line'>  def self.down
-</span><span class='line'>    disable_extension :hstore
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">disable_extension</span> <span class="ss">:hstore</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>使用 hstore 创建 model</h3>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -86,19 +88,20 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class CreateContacts &lt; ActiveRecord::Migration
-</span><span class='line'>  def change
-</span><span class='line'>    create_table :contacts do |t|
-</span><span class='line'>      t.references :user, index: true
-</span><span class='line'>      t.string :name
-</span><span class='line'>      t.string :gender
-</span><span class='line'>      t.hstore :telphones, :array =&gt; true
-</span><span class='line'>      t.hstore :settings
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateContacts</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
+</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:contacts</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="ss">:user</span><span class="p">,</span> <span class="ss">index</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:gender</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">hstore</span> <span class="ss">:telphones</span><span class="p">,</span> <span class="ss">:array</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">hstore</span> <span class="ss">:settings</span>
 </span><span class='line'>
-</span><span class='line'>      t.timestamps
-</span><span class='line'>    end        
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p><code>:array =&gt; true</code> 表示当前字段是数组类型。字段 <code>telphones</code> 是 <code>hstore</code> 类型的数组，字段 <code>settings</code> 是 <code>hstore</code> 类型。</p>
@@ -107,28 +110,30 @@
 
 <h4>创建 model</h4>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>contact = Contact.create(user_id: 1, name: 'windstill', gender: '先生', telphones: 
-</span><span class='line'>[{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}], 
-</span><span class='line'>settings: {theme: 'white', language: 'cn'})</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">contact</span> <span class="o">=</span> <span class="no">Contact</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;windstill&#39;</span><span class="p">,</span> <span class="ss">gender</span><span class="p">:</span> <span class="s1">&#39;先生&#39;</span><span class="p">,</span> <span class="ss">telphones</span><span class="p">:</span>
+</span><span class='line'><span class="o">[</span><span class="p">{</span><span class="ss">type</span><span class="p">:</span> <span class="s1">&#39;手机&#39;</span><span class="p">,</span> <span class="ss">num</span><span class="p">:</span> <span class="s1">&#39;15155556666&#39;</span><span class="p">},</span> <span class="p">{</span><span class="ss">type</span><span class="p">:</span> <span class="s1">&#39;工作&#39;</span><span class="p">,</span> <span class="ss">num</span><span class="p">:</span> <span class="s1">&#39;010-86118233&#39;</span><span class="p">}</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'><span class="ss">settings</span><span class="p">:</span> <span class="p">{</span><span class="ss">theme</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="ss">language</span><span class="p">:</span> <span class="s1">&#39;cn&#39;</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h4>获取字段</h4>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>contact.settings                     # =&gt; {theme: 'white', language: 'cn'}
-</span><span class='line'>contact.settings["theme"]             # =&gt; "white"
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">settings</span>                    <span class="c1"># =&gt; {theme: &#39;white&#39;, language: &#39;cn&#39;}</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">settings</span><span class="o">[</span><span class="s2">&quot;theme&quot;</span><span class="o">]</span>            <span class="c1"># =&gt; &quot;white&quot;</span>
 </span><span class='line'>
-</span><span class='line'>contact.telphones                     # =&gt; [{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}]
-</span><span class='line'>contact.telphones[0]              # =&gt; {type: '手机', num: '15155556666'}
-</span><span class='line'>contact.telphones[0]["num"]       # =&gt; "15155556666"</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span>                    <span class="c1"># =&gt; [{type: &#39;手机&#39;, num: &#39;15155556666&#39;}, {type: &#39;工作&#39;, num: &#39;010-86118233&#39;}]</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>               <span class="c1"># =&gt; {type: &#39;手机&#39;, num: &#39;15155556666&#39;}</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="s2">&quot;num&quot;</span><span class="o">]</span>       <span class="c1"># =&gt; &quot;15155556666&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h4>更新字段</h4>
@@ -136,36 +141,39 @@
 <p>如果是直接对 contact 的字段（比如name、settings、telphones）进行赋值，那么可以直接 save。
 但是如果对 settings 和 telphones 里面的 hash 值进行修改，需要用 <code>attr_will_change</code> 通知 rails，因为 hash 的key-value不是 Active Record model 对象。如下所示：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>contact.settings = {theme: 'blue', language: 'en'}
-</span><span class='line'>contact.save
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="p">{</span><span class="ss">theme</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="ss">language</span><span class="p">:</span> <span class="s1">&#39;en&#39;</span><span class="p">}</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">save</span>
 </span><span class='line'>
-</span><span class='line'>contact.telphones[1]["type"] = "手机"
-</span><span class='line'>contact.telphones[1]["num"] = "137700001111"
-</span><span class='line'>contact.telphones_will_change!
-</span><span class='line'>contact.save</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;手机&quot;</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="s2">&quot;num&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;137700001111&quot;</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones_will_change!</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">save</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h4>查询</h4>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Contact.where("settings -&gt; 'language' = 'en'")
-</span><span class='line'>Contact.where("'15155556666' = ANY (SELECT unnest(telphones) -&gt; 'num')")</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Contact</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;settings -&gt; &#39;language&#39; = &#39;en&#39;&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">Contact</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;&#39;15155556666&#39; = ANY (SELECT unnest(telphones) -&gt; &#39;num&#39;)&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>也可以写个 scope：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>scope :where_any, -&gt;(column, key, value) { where("? = ANY (SELECT unnest(#{column}) -&gt; ?)", value, key) }
-</span><span class='line'>scope :where_all, -&gt;(column, key, value) { where("? = ALL (SELECT unnest(#{column}) -&gt; ?)", value, key) }</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scope</span> <span class="ss">:where_any</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="s2">&quot;? = ANY (SELECT unnest(</span><span class="si">#{</span><span class="n">column</span><span class="si">}</span><span class="s2">) -&gt; ?)&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'><span class="n">scope</span> <span class="ss">:where_all</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="s2">&quot;? = ALL (SELECT unnest(</span><span class="si">#{</span><span class="n">column</span><span class="si">}</span><span class="s2">) -&gt; ?)&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>建立索引</h3>
@@ -174,8 +182,9 @@
 
 <p>下面是对 hstore 建立索引的示例：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>add_index :contacts, :telphones, :using =&gt; :gin</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">add_index</span> <span class="ss">:contacts</span><span class="p">,</span> <span class="ss">:telphones</span><span class="p">,</span> <span class="ss">:using</span> <span class="o">=&gt;</span> <span class="ss">:gin</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>这里有两种索引可以选择：gist 和 gin。他们的性能区别如下：</p>
@@ -391,14 +400,14 @@
 <p>以下是activerecord-postgis-adapter所支持的postgis类型：</p>
 
 <ul>
-<li>:geometry &mdash; Any geometric type</li>
-<li>:point &mdash; Point data</li>
-<li>:line_string &mdash; LineString data</li>
-<li>:polygon &mdash; Polygon data</li>
-<li>:geometry_collection &mdash; Any collection type</li>
-<li>:multi_point &mdash; A collection of Points</li>
-<li>:multi_line_string &mdash; A collection of LineStrings</li>
-<li>:multi_polygon &mdash; A collection of Polygons</li>
+<li>:geometry &ndash; Any geometric type</li>
+<li>:point &ndash; Point data</li>
+<li>:line_string &ndash; LineString data</li>
+<li>:polygon &ndash; Polygon data</li>
+<li>:geometry_collection &ndash; Any collection type</li>
+<li>:multi_point &ndash; A collection of Points</li>
+<li>:multi_line_string &ndash; A collection of LineStrings</li>
+<li>:multi_polygon &ndash; A collection of Polygons</li>
 </ul>
 
 

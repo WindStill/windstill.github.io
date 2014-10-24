@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: OS X | 风依旧]]></title>
+  <title><![CDATA[Category: Os X | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/os-x/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T17:39:45+08:00</updated>
+  <updated>2014-10-24T16:48:46+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -23,46 +23,41 @@
 <!-- more -->
 
 
-<p><code>``
-/Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in</code>require': dlopen(/Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle, 9): Library not loaded: /usr/local/lib/libltdl.7.dylib (LoadError)
+<pre><code>/Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `require': dlopen(/Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle, 9): Library not loaded: /usr/local/lib/libltdl.7.dylib (LoadError)
   Referenced from: /usr/local/lib/libMagickCore-6.Q16.2.dylib
-  Reason: Incompatible library version: libMagickCore-6.Q16.2.dylib requires version 11.0.0 or later, but libltdl.7.dylib provides version 10.0.0 &ndash; /Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle</p>
-
-<pre><code>from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `block in require'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:236:in `load_dependency'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `require'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/rmagick-2.13.2/lib/rmagick.rb:11:in `&lt;top (required)&gt;'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:76:in `require'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:76:in `block (2 levels) in require'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:72:in `each'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:72:in `block in require'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:61:in `each'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:61:in `require'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler.rb:132:in `require'
-from /Users/windstill/dev/rails/movie/config/application.rb:13:in `&lt;top (required)&gt;'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/railties-3.2.12/lib/rails/commands.rb:39:in `require'
-from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/railties-3.2.12/lib/rails/commands.rb:39:in `&lt;top (required)&gt;'
-from script/rails:6:in `require'
-from script/rails:6:in `&lt;main&gt;'
+  Reason: Incompatible library version: libMagickCore-6.Q16.2.dylib requires version 11.0.0 or later, but libltdl.7.dylib provides version 10.0.0 - /Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `block in require'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:236:in `load_dependency'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `require'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/rmagick-2.13.2/lib/rmagick.rb:11:in `&lt;top (required)&gt;'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:76:in `require'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:76:in `block (2 levels) in require'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:72:in `each'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:72:in `block in require'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:61:in `each'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler/runtime.rb:61:in `require'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194@global/gems/bundler-1.6.3/lib/bundler.rb:132:in `require'
+    from /Users/windstill/dev/rails/movie/config/application.rb:13:in `&lt;top (required)&gt;'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/railties-3.2.12/lib/rails/commands.rb:39:in `require'
+    from /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/railties-3.2.12/lib/rails/commands.rb:39:in `&lt;top (required)&gt;'
+    from script/rails:6:in `require'
+    from script/rails:6:in `&lt;main&gt;'
 </code></pre>
-
-<p>```</p>
 
 <p>使用 <code>brew unlink libtool &amp;&amp; brew link libtool</code> 命令解决问题。可能会出现如下问题：</p>
 
-<p>```<br/>
-Linking /usr/local/Cellar/libtool/2.4.2&hellip;
+<pre><code class="">Linking /usr/local/Cellar/libtool/2.4.2...
 Error: Could not symlink include/ltdl.h
 Target /usr/local/include/ltdl.h
 already exists. You may want to remove it:
-  rm /usr/local/include/ltdl.h</p>
+  rm /usr/local/include/ltdl.h
 
-<p>To force the link and overwrite all conflicting files:
-  brew link &mdash;overwrite libtool</p>
+To force the link and overwrite all conflicting files:
+  brew link --overwrite libtool
 
-<p>To list all files that would be deleted:
-  brew link &mdash;overwrite &mdash;dry-run libtool
-```</p>
+To list all files that would be deleted:
+  brew link --overwrite --dry-run libtool
+</code></pre>
 
 <p>按照提示输入 <code>brew link --overwrite libtool</code>。</p>
 
@@ -85,7 +80,7 @@ already exists. You may want to remove it:
 <!-- more -->
 
 
-<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/94C990E2-7FC8-4117-B9EC-F17C338A2F96.png">http://blog-picture.qiniudn.com/94C990E2-7FC8-4117-B9EC-F17C338A2F96.png</a>"></p>
+<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/94C990E2-7FC8-4117-B9EC-F17C338A2F96.png">http://blog-picture.qiniudn.com/94C990E2-7FC8-4117-B9EC-F17C338A2F96.png</a>&#8221;></p>
 
 <p>这个问题解决方法就是到 <code>系统偏好设置</code> 里设置一下就行了，步骤如下：</p>
 
@@ -94,21 +89,21 @@ already exists. You may want to remove it:
 </ul>
 
 
-<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/02FAD525-62C0-450B-8C99-CBC9DD6ED1F5.png">http://blog-picture.qiniudn.com/02FAD525-62C0-450B-8C99-CBC9DD6ED1F5.png</a>"></p>
+<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/02FAD525-62C0-450B-8C99-CBC9DD6ED1F5.png">http://blog-picture.qiniudn.com/02FAD525-62C0-450B-8C99-CBC9DD6ED1F5.png</a>&#8221;></p>
 
 <ul>
 <li>在 <code>安全性与隐私</code> 设置面板里选择 <code>通用</code> 标签。可以看到上面截图里中间红框标出的几个选项了，把“允许从一下位置下载的应用程序”从默认的 <code>Mac App Store 和被认可的开发者</code> 改选为 <code>任何来源</code> 就行了。但按钮是灰的不能选，需要点击左下角红框内的锁按钮解锁。</li>
 </ul>
 
 
-<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/4302E326-1889-4017-93F2-4C5ED6932168.png">http://blog-picture.qiniudn.com/4302E326-1889-4017-93F2-4C5ED6932168.png</a>"></p>
+<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/4302E326-1889-4017-93F2-4C5ED6932168.png">http://blog-picture.qiniudn.com/4302E326-1889-4017-93F2-4C5ED6932168.png</a>&#8221;></p>
 
 <ul>
 <li>系统会要求你输一下密码确认，解锁后就可以选择 <code>任何来源</code> 了，然后会如下图所示：</li>
 </ul>
 
 
-<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/4E81CF94-FAC6-43C5-9707-9CD3F9EA17EA.png">http://blog-picture.qiniudn.com/4E81CF94-FAC6-43C5-9707-9CD3F9EA17EA.png</a>"></p>
+<p><img class="center <a" src="href="http://blog-picture.qiniudn.com/4E81CF94-FAC6-43C5-9707-9CD3F9EA17EA.png">http://blog-picture.qiniudn.com/4E81CF94-FAC6-43C5-9707-9CD3F9EA17EA.png</a>&#8221;></p>
 
 <ul>
 <li>点击 <code>允许来自任何来源</code> 按钮就 OK 了，这样被警告的应用程序就能正常安装、打开了。</li>
@@ -131,12 +126,11 @@ already exists. You may want to remove it:
 
 <p>升级完系统后，终端输入<code>mvim .</code>会出现以下错误信息：</p>
 
-<p><code>
-dyld: Library not loaded: /System/Library/Perl/lib/5.10/libperl.dylib
+<pre><code>dyld: Library not loaded: /System/Library/Perl/lib/5.10/libperl.dylib
 Referenced from: /Applications/MacVim.app/Contents/MacOS/Vim
 Reason: image not found
 Trace/BPT trap: 5
-</code></p>
+</code></pre>
 
 <p>原因是Mac X Mavericks 只有5.12 、5.16 已经没有了5.10。解决办法就是下载最新的Mavericks版本的MacVim <a href="https://github.com/b4winckler/macvim/releases/download/snapshot-72/MacVim-snapshot-72-Mavericks.tbz">MacVim-snapshot-72-Mavericks.tbz</a>。</p>
 
@@ -152,9 +146,8 @@ Trace/BPT trap: 5
 
 <p>1、安装</p>
 
-<p><code>
-$ curl -Lo- https://bit.ly/janus-bootstrap | bash
-</code></p>
+<pre><code>$ curl -Lo- https://bit.ly/janus-bootstrap | bash
+</code></pre>
 
 <p>2、自定义</p>
 
@@ -162,17 +155,15 @@ $ curl -Lo- https://bit.ly/janus-bootstrap | bash
 
 <p>如果想安装其他的插件，就要创建一个<code>~/.janus</code>目录存放插件。也可以使用<code>git clone</code>，例如：</p>
 
-<p><code>
-$ cd ~/.janus
+<pre><code>$ cd ~/.janus
 $ git clone https://github.com/nathanaelkane/vim-indent-guides.git
-</code></p>
+</code></pre>
 
 <p>这是一个缩进对齐插件（效果参见配图中明暗相间的竖条），需要在下面所说的<code>~/.vimrc.before</code>文件中添加：</p>
 
-<p><code>
-autocm vimenter * :IndentGuidesEnable
+<pre><code>autocm vimenter * :IndentGuidesEnable
 let g:indent_guides_guide_size = 1
-</code></p>
+</code></pre>
 
 <h3>安装主题(theme)</h3>
 
@@ -180,9 +171,8 @@ let g:indent_guides_guide_size = 1
 
 <p>在<code>~/.vim</code>目录下新建<code>colors/</code>目录，将<code>Railscast.vim</code>或<code>Sunburst.vim</code>放到此目录中，然后在<code>~/.vimrc.before</code>文件中添加启用此主题的设置项：</p>
 
-<p><code>
-colorscheme Sunburst
-</code></p>
+<pre><code>colorscheme Sunburst 
+</code></pre>
 
 <p>其他配色方案请参考 <a href="http://www.oschina.net/news/32306/10-vim-color-schemes-you-need-to-own">10 个你值得拥有的 Vim 配色方案</a> ，设置与上面一样。</p>
 
@@ -190,12 +180,11 @@ colorscheme Sunburst
 
 <p>一般情况下Janus安装插件的时候已经做了许多默认的设置，下面是根据我自己的需求做的设置<code>~/.vimrc.before</code>：</p>
 
-<p><code>
-" 设置主题（配色方案）
+<pre><code>" 设置主题（配色方案）
 colorscheme Sunburst
 " 设置字体字号
 set guifont=Menlo:h16
-" 启用缩进高亮对齐（下图中明暗相间的竖条）
+" 启用缩进高亮对齐（下图中明暗相间的竖条） 
 autocm vimenter * :IndentGuidesEnable
 " 设置缩进距离单位
 let g:indent_guides_guide_size = 1
@@ -203,7 +192,7 @@ let g:indent_guides_guide_size = 1
 let mapleader = ","
 " 设置文件打开时代码段默认为折叠状态
 set foldmethod=indent
-</code></p>
+</code></pre>
 
 <h3>示例配图</h3>
 

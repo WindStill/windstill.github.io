@@ -3,111 +3,134 @@
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
 <head>
-  <meta charset="utf-8">
-  <title>在Rails中使用hstore和Array类型 - 风依旧</title>
-  <meta name="author" content="WindStill">
+
+
+<meta charset="utf-8">
+<meta http-equiv="cleartype" content="on">
+
+<title>在Rails中使用hstore和Array类型 - 风依旧</title>
+<meta name="author" content="WindStill">
+
+
+
+
+<meta name="description" content="最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于， &hellip;">
+
+<meta name="keywords" content="hstore postgresql rails ">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Twitter Cards -->
 
   
-  <meta name="description" content="最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于， &hellip;">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content"">
+  
+  <meta name="twitter:title" content="在Rails中使用hstore和Array类型">
+  <meta name="twitter:description" content="最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于， &hellip;">
+  <meta name="twitter:creator" content="@wind_still">
+
+
+<!-- Open Graph -->
+<meta property="og:local" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://windstill.me/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails">
+<meta property="og:title" content="在Rails中使用hstore和Array类型">
+<meta property="og:description" content="最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于， &hellip;">
+
+  <meta property="og:image" content="">
+
+<meta property="og:site_name" content="风依旧">
+
+<link rel="canonical" href="http://windstill.me/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails">
+<link href="/favicon.png" rel="icon">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/atom.xml" rel="alternate" title="风依旧" type="application/atom+xml">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+<script>Modernizr || document.write('<script src="/javascripts/vendor/modernizr-2.6.2.custom.min.js"><\/script>') </script>
+
+
+  
+      
   
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://windstill.me/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
-  <link href="/atom.xml" rel="alternate" title="风依旧" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<!--
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
--->
-
+    
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-46781558-1']);
-    _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+  <style type="text/css">body {background-image:url(/images/witewall_3.png);}</style>
+
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
 
 </head>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">风依旧</a></h1>
-  
-    <h2>取次花丛懒回顾，半缘修道半缘君</h2>
-  
-</hgroup>
+<body id="post" >
 
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:windstill.me" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">首页</a></li>
-  <li><a href="/blog/archives">归档</a></li>
-  <li><a href="/about">关于</a></li>
-</ul>
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+<nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="/">首页</a></li>
+		<li>
+			<a href="#">关于</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="/images/avatar.png" alt="WindStill photo" class="author-photo">
+					<h4>WindStill</h4>
+					<p>ruby开发者<br>iOS爱好者</p>
+				</li>
+				<li><a href="//www.zimmerman.io">Learn More</a></li>
+				
+				<li>
+					<a href="http://twitter.com/wind_still"><i class="fa fa-twitter"></i> Twitter</a>
+				</li>
+				<li>
+					<a href="https://www.facebook.com/"><i class="fa fa-facebook"></i> Facebook</a>
+				</li>
+				
+				<li>
+					<a href="http://github.com/WindStill"><i class="fa fa-github"></i> GitHub</a>
+				</li>
+			</ul><!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">博客</a>
+			<ul class="dl-submenu">
+				<li><a href="/posts/">所有</a></li>
+				<li><a href="/categories/">分类</a></li>
+			</ul>
+		</li>
+		
+	</ul><!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
 
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">在Rails中使用hstore和Array类型</h1>
-    
-    
-      <p class="meta">
+
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    <header class="header-title">
+      <div class="header-title-wrap">
         
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-21T12:05:15+08:00" pubdate data-updated="true">2014-10-21</time>
+          <h1 class="entry-title"><a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/" rel="bookmark" title="在Rails中使用hstore和Array类型">在Rails中使用hstore和Array类型</a></h1>
         
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于，一般编辑联系人的时候，会同时增删改N个号码 + N条地址，这是再去操作三个表逻辑上也会复杂不少。但是如果把多个号码和多个地址以 JSON 的 array 及 key-value 形式存储在同一个字段中，这样曾删改的时候会方便很多。索性PostgreSQL，也有相应的字段类型来支持此场景，比如 hstore。</p>
+        <h2>October 21, 2014</h2>
+      </div><!-- /.header-title-wrap -->
+    </header>
+    <div class="entry-content">
+      <p>最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于，一般编辑联系人的时候，会同时增删改N个号码 + N条地址，这是再去操作三个表逻辑上也会复杂不少。但是如果把多个号码和多个地址以 JSON 的 array 及 key-value 形式存储在同一个字段中，这样曾删改的时候会方便很多。索性PostgreSQL，也有相应的字段类型来支持此场景，比如 hstore。</p>
 
 <!-- more -->
 
@@ -118,7 +141,7 @@
 
 <p>首先创建一个migration，启用 hstore extension。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -127,20 +150,21 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class AddHstoreExtension &lt; ActiveRecord::Migration
-</span><span class='line'>  def self.up
-</span><span class='line'>    execute "CREATE EXTENSION IF NOT EXISTS hstore"
-</span><span class='line'>  end
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddHstoreExtension</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">execute</span> <span class="s2">&quot;CREATE EXTENSION IF NOT EXISTS hstore&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
 </span><span class='line'>
-</span><span class='line'>  def self.down
-</span><span class='line'>    execute "DROP EXTENSION IF EXISTS hstore"
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">execute</span> <span class="s2">&quot;DROP EXTENSION IF EXISTS hstore&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>还有一种更简便的写法，不需要用 execute 执行原生的 SQL 语句。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -149,20 +173,21 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class AddHstoreExtension &lt; ActiveRecord::Migration
-</span><span class='line'>  def self.up
-</span><span class='line'>    enable_extension :hstore
-</span><span class='line'>  end
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddHstoreExtension</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">enable_extension</span> <span class="ss">:hstore</span>
+</span><span class='line'>  <span class="k">end</span>
 </span><span class='line'>
-</span><span class='line'>  def self.down
-</span><span class='line'>    disable_extension :hstore
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">disable_extension</span> <span class="ss">:hstore</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>使用 hstore 创建 model</h3>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -175,19 +200,20 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class CreateContacts &lt; ActiveRecord::Migration
-</span><span class='line'>  def change
-</span><span class='line'>    create_table :contacts do |t|
-</span><span class='line'>      t.references :user, index: true
-</span><span class='line'>      t.string :name
-</span><span class='line'>      t.string :gender
-</span><span class='line'>      t.hstore :telphones, :array =&gt; true
-</span><span class='line'>      t.hstore :settings
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateContacts</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
+</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:contacts</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="ss">:user</span><span class="p">,</span> <span class="ss">index</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:gender</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">hstore</span> <span class="ss">:telphones</span><span class="p">,</span> <span class="ss">:array</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">hstore</span> <span class="ss">:settings</span>
 </span><span class='line'>
-</span><span class='line'>      t.timestamps
-</span><span class='line'>    end        
-</span><span class='line'>  end
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p><code>:array =&gt; true</code> 表示当前字段是数组类型。字段 <code>telphones</code> 是 <code>hstore</code> 类型的数组，字段 <code>settings</code> 是 <code>hstore</code> 类型。</p>
@@ -196,28 +222,30 @@
 
 <h4>创建 model</h4>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>contact = Contact.create(user_id: 1, name: 'windstill', gender: '先生', telphones: 
-</span><span class='line'>[{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}], 
-</span><span class='line'>settings: {theme: 'white', language: 'cn'})</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">contact</span> <span class="o">=</span> <span class="no">Contact</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;windstill&#39;</span><span class="p">,</span> <span class="ss">gender</span><span class="p">:</span> <span class="s1">&#39;先生&#39;</span><span class="p">,</span> <span class="ss">telphones</span><span class="p">:</span>
+</span><span class='line'><span class="o">[</span><span class="p">{</span><span class="ss">type</span><span class="p">:</span> <span class="s1">&#39;手机&#39;</span><span class="p">,</span> <span class="ss">num</span><span class="p">:</span> <span class="s1">&#39;15155556666&#39;</span><span class="p">},</span> <span class="p">{</span><span class="ss">type</span><span class="p">:</span> <span class="s1">&#39;工作&#39;</span><span class="p">,</span> <span class="ss">num</span><span class="p">:</span> <span class="s1">&#39;010-86118233&#39;</span><span class="p">}</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'><span class="ss">settings</span><span class="p">:</span> <span class="p">{</span><span class="ss">theme</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="ss">language</span><span class="p">:</span> <span class="s1">&#39;cn&#39;</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h4>获取字段</h4>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>contact.settings                     # =&gt; {theme: 'white', language: 'cn'}
-</span><span class='line'>contact.settings["theme"]             # =&gt; "white"
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">settings</span>                    <span class="c1"># =&gt; {theme: &#39;white&#39;, language: &#39;cn&#39;}</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">settings</span><span class="o">[</span><span class="s2">&quot;theme&quot;</span><span class="o">]</span>            <span class="c1"># =&gt; &quot;white&quot;</span>
 </span><span class='line'>
-</span><span class='line'>contact.telphones                     # =&gt; [{type: '手机', num: '15155556666'}, {type: '工作', num: '010-86118233'}]
-</span><span class='line'>contact.telphones[0]              # =&gt; {type: '手机', num: '15155556666'}
-</span><span class='line'>contact.telphones[0]["num"]       # =&gt; "15155556666"</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span>                    <span class="c1"># =&gt; [{type: &#39;手机&#39;, num: &#39;15155556666&#39;}, {type: &#39;工作&#39;, num: &#39;010-86118233&#39;}]</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>               <span class="c1"># =&gt; {type: &#39;手机&#39;, num: &#39;15155556666&#39;}</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="s2">&quot;num&quot;</span><span class="o">]</span>       <span class="c1"># =&gt; &quot;15155556666&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h4>更新字段</h4>
@@ -225,36 +253,39 @@
 <p>如果是直接对 contact 的字段（比如name、settings、telphones）进行赋值，那么可以直接 save。
 但是如果对 settings 和 telphones 里面的 hash 值进行修改，需要用 <code>attr_will_change</code> 通知 rails，因为 hash 的key-value不是 Active Record model 对象。如下所示：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>contact.settings = {theme: 'blue', language: 'en'}
-</span><span class='line'>contact.save
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="p">{</span><span class="ss">theme</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="ss">language</span><span class="p">:</span> <span class="s1">&#39;en&#39;</span><span class="p">}</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">save</span>
 </span><span class='line'>
-</span><span class='line'>contact.telphones[1]["type"] = "手机"
-</span><span class='line'>contact.telphones[1]["num"] = "137700001111"
-</span><span class='line'>contact.telphones_will_change!
-</span><span class='line'>contact.save</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;手机&quot;</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="s2">&quot;num&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;137700001111&quot;</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">telphones_will_change!</span>
+</span><span class='line'><span class="n">contact</span><span class="o">.</span><span class="n">save</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h4>查询</h4>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Contact.where("settings -&gt; 'language' = 'en'")
-</span><span class='line'>Contact.where("'15155556666' = ANY (SELECT unnest(telphones) -&gt; 'num')")</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Contact</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;settings -&gt; &#39;language&#39; = &#39;en&#39;&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">Contact</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;&#39;15155556666&#39; = ANY (SELECT unnest(telphones) -&gt; &#39;num&#39;)&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>也可以写个 scope：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>scope :where_any, -&gt;(column, key, value) { where("? = ANY (SELECT unnest(#{column}) -&gt; ?)", value, key) }
-</span><span class='line'>scope :where_all, -&gt;(column, key, value) { where("? = ALL (SELECT unnest(#{column}) -&gt; ?)", value, key) }</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scope</span> <span class="ss">:where_any</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="s2">&quot;? = ANY (SELECT unnest(</span><span class="si">#{</span><span class="n">column</span><span class="si">}</span><span class="s2">) -&gt; ?)&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'><span class="n">scope</span> <span class="ss">:where_all</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="s2">&quot;? = ALL (SELECT unnest(</span><span class="si">#{</span><span class="n">column</span><span class="si">}</span><span class="s2">) -&gt; ?)&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>建立索引</h3>
@@ -263,8 +294,9 @@
 
 <p>下面是对 hstore 建立索引的示例：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>add_index :contacts, :telphones, :using =&gt; :gin</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">add_index</span> <span class="ss">:contacts</span><span class="p">,</span> <span class="ss">:telphones</span><span class="p">,</span> <span class="ss">:using</span> <span class="o">=&gt;</span> <span class="ss">:gin</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>这里有两种索引可以选择：gist 和 gin。他们的性能区别如下：</p>
@@ -284,56 +316,46 @@
 <li><a href="http://jes.al/2013/11/using-postgres-hstore-rails4/">Using Postgres Hstore with Rails 4</a></li>
 </ul>
 
-</div>
 
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">WindStill</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-21T12:05:15+08:00" pubdate data-updated="true">2014-10-21</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/hstore/'>Hstore</a>, <a class='category' href='/blog/categories/postgresql/'>PostgreSQL</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
-  
-</span>
-
-
-    </p>
+      <footer class="entry-meta">
+        <span class="entry-tags"><a href="/categories/#hstore" title="Pages tagged hstore" class="tag">hstore</a><a href="/categories/#postgresql" title="Pages tagged postgresql" class="tag">postgresql</a><a href="/categories/#rails" title="Pages tagged rails" class="tag">rails</a></span>
+        <span><a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/" rel="bookmark" title="在Rails中使用hstore和Array类型">在Rails中使用hstore和Array类型</a> was published on <span class="entry-date date published updated"><time datetime="2014-10-21T12:05:15+08:00">October 21, 2014</time></span></span>
+        
+        <span class="author vcard"><span class="fn"><a href="" title="About WindStill">WindStill</a></span></span>
+        
+      </footer>
+    </div><!-- /.entry-content -->
     
-      <div class="sharing">
-  
-  
-  
-</div>
-
+      <div class="read-more">
+        
+          <div class="read-more-header">
+            <a href="/blog/2014/10/15/rails-with-postgis/" class="btn">Read More</a>
+          </div><!-- /.read-more-header -->
+          <div class="read-more-content">
+            <h3><a href="/blog/2014/10/15/rails-with-postgis/" title="使用Rails和Postgis开发基于地理位置应用的安装与配置">使用Rails和Postgis开发基于地理位置应用的安装与配置</a></h3>
+            <p>PostGIS 是关系型数据库 PostgreSQL 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。 &hellip;&hellip; <a href="/blog/2014/10/15/rails-with-postgis/"> Continue reading</a></p>
+          </div><!-- /.read-more-content -->
+        
+        <div class="read-more-list">
+          
+            <div class="list-item">
+              <h4><a href="/blog/2014/07/16/imagemagick-rmagick-osx/" title="解决ImageMagick和RMagick在OS X下使用出现的问题">解决ImageMagick和RMagick在OS X下使用出现的问题</a></h4>
+              <span>Published on July 16, 2014</span>
+            </div><!-- /.list-item -->
+          
+            <div class="list-item">
+              <h4><a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/" title="'Mysql2::Error: Got error 28 from storage engine'问题解决">&#8216;Mysql2::Error: Got error 28 from storage engine&#8217;问题解决</a></h4>
+              <span>Published on July 02, 2014</span>
+            </div><!-- /.list-item -->
+          
+        </div><!-- /.read-more-list -->
+      </div><!-- /.read-more -->
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/10/15/rails-with-postgis/" title="Previous Post: 使用Rails和Postgis开发基于地理位置应用的安装与配置">&laquo; 使用Rails和Postgis开发基于地理位置应用的安装与配置</a>
-      
-      
-    </p>
     
-      <section>
-        <div id="duoshuo_thread" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+    
+      <section class="read-more">
+        <h1>评论</h1>
+        <div id="comments" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
 <div class="ds-thread"  data-title="在Rails中使用hstore和Array类型"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"windstill"};
@@ -350,92 +372,40 @@ var duoshuoQuery = {short_name:"windstill"};
 </div>
       </section>
     
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 WindStill. Powered by <a href="http://octopress.org">Octopress</a> using the <a href="https://github.com/Z1MM32M4N/hpstr-theme/">HPSTR Theme for Octopress</a>.</span>
+
   </footer>
-</article>
+</div><!-- /.footer-wrapper -->
 
 
-</div>
+	        
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/javascripts/octopress.js" type="text/javascript"></script>
+<script src="/javascripts/scripts.min.js"></script>
 
-<aside class="sidebar">
-  
-    <section>
-  <h1>标签云</h1>
-  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fhstore%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EHstore%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fimagemagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EImageMagick%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flbs%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ELBS%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+36.66666666666667%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmysql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMySQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fpostgis%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EPostgis%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fpostgresql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EPostgreSQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frails%27+style%3D%27font-size%3A+50.0%25%27%3ERails%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frmagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ERMagick%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
-</section>
-<section>
-  <h1>最新文章</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/">在Rails中使用hstore和Array类型</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/15/rails-with-postgis/">使用Rails和Postgis开发基于地理位置应用的安装与配置</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/16/imagemagick-rmagick-osx/">解决ImageMagick和RMagick在OS X下使用出现的问题</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">'Mysql2::Error: Got Error 28 From Storage Engine'问题解决</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/03/mavericks-unidentified-developer-app/">Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法</a>
-      </li>
-    
-  </ul>
-</section>
-<section>
-  <h1>分类目录</h1>
-    <ul id="category-list"><li><a href='/blog/categories/hstore/'>Hstore (1)</a></li><li><a href='/blog/categories/imagemagick/'>ImageMagick (1)</a></li><li><a href='/blog/categories/lbs/'>LBS (1)</a></li><li><a href='/blog/categories/linux/'>Linux (2)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/mysql/'>MySQL (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (3)</a></li><li><a href='/blog/categories/postgis/'>Postgis (1)</a></li><li><a href='/blog/categories/postgresql/'>PostgreSQL (1)</a></li><li><a href='/blog/categories/rails/'>Rails (3)</a></li><li><a href='/blog/categories/rmagick/'>RMagick (1)</a></li></ul>
-</section>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46781558-1']);
+    _gaq.push(['_trackPageview']);
 
-
-
-<section>
-  <h1>最近评论</h1>
-  <div class="ds-recent-comments" data-num-items="10"></div>
-  
-</section>
-<section>
-  <h1>新浪微博</h1>
-  <ul id="weibo">
-    <li>
-      <iframe width="100%" height="350" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=350&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2128377840&verifier=7b807bb3&dpc=1"></iframe>
-    </li>
-  </ul>
-</section>
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - WindStill -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 
 
 
 
 
-
-
-
-
-
-<script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff70a687f43fb831ebcbf513d64749148' type='text/javascript'%3E%3C/script%3E"));
-</script>
+	        
 
 </body>
 </html>

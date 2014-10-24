@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: MySQL | 风依旧]]></title>
+  <title><![CDATA[Category: Mysql | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T17:39:45+08:00</updated>
+  <updated>2014-10-24T16:48:46+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -27,49 +27,27 @@
 
 <p>使用 <code>df -h</code> 命令，结果如下：</p>
 
-<p>```
-root@windstill:/# df -h
+<pre><code>root@windstill:/# df -h
 Filesystem            Size  Used Avail Use% Mounted on
-/dev/mapper/windstill-root</p>
-
-<pre><code>                   28G   28G    0G   0% /
-</code></pre>
-
-<p>none                   16G  220K   16G   1% /dev
+/dev/mapper/windstill-root
+                       28G   28G    0G   0% /
+none                   16G  220K   16G   1% /dev
 none                   16G     0   16G   0% /dev/shm
 none                   16G   52K   16G   1% /var/run
 none                   16G     0   16G   0% /var/lock
-/dev/mapper/windstill-data_backup</p>
-
-<pre><code>                   28G   16G   11G  59% /data_backup
+/dev/mapper/windstill-data_backup
+                       28G   16G   11G  59% /data_backup
+/dev/mapper/windstill-mysql
+                       65G   15G   47G  24% /mysql
+/dev/mapper/windstill-opt
+                       28G   15G   12G  55% /opt
+/dev/mapper/windstill-redis
+                       28G   17G  9.8G  63% /redis
+/dev/mapper/windstill-prod
+                       28G   13G   14G  50% /prod
+/dev/mapper/windstill-mongodb
+                       65G   50G   12G  82% /mongodb
 </code></pre>
-
-<p>/dev/mapper/windstill-mysql</p>
-
-<pre><code>                   65G   15G   47G  24% /mysql
-</code></pre>
-
-<p>/dev/mapper/windstill-opt</p>
-
-<pre><code>                   28G   15G   12G  55% /opt
-</code></pre>
-
-<p>/dev/mapper/windstill-redis</p>
-
-<pre><code>                   28G   17G  9.8G  63% /redis
-</code></pre>
-
-<p>/dev/mapper/windstill-prod</p>
-
-<pre><code>                   28G   13G   14G  50% /prod
-</code></pre>
-
-<p>/dev/mapper/windstill-mongodb</p>
-
-<pre><code>                   65G   50G   12G  82% /mongodb
-</code></pre>
-
-<p>```</p>
 
 <p>可以看出 <code>/mysql</code> 空间还是很足的，还有47G空间可用，那是什么原因呢。随着深入了解，原来MySQL查询的时候会生成一些临时的表，在默认的配置里，这些表会被创建在 <code>/</code> 挂载点（目录）中。再结合上述结果中，我的 <code>/</code> 已经没有可用空间了，那这就是问题所在了。</p>
 
@@ -78,21 +56,20 @@ none                   16G     0   16G   0% /var/lock
 <p>既然知道问题的原因是 <code>/</code> 空间不足，那么解决方法就是清理 <code>/</code> 无用的文件。
 使用 <code>ls -alh</code> 命令，结果如下：</p>
 
-<p><code>
--rw-r--r--  1 nobody   root     15G 2014-07-02 11:04 nginx.access.log
+<pre><code>-rw-r--r--  1 nobody   root     15G 2014-07-02 11:04 nginx.access.log
 -rw-r--r--  1 nobody   root      2G 2014-07-02 11:04 nginx_assets.error.log
-</code>
-发现nginx的log文件都太大，于是使用 <code>rm</code> 命令把他们一一删除了。但是另外的一个小问题出现了，我再次使用 <code>df -h</code> 命令发现 <code>/</code> 可用空间仍然是0。</p>
+</code></pre>
+
+<p>发现nginx的log文件都太大，于是使用 <code>rm</code> 命令把他们一一删除了。但是另外的一个小问题出现了，我再次使用 <code>df -h</code> 命令发现 <code>/</code> 可用空间仍然是0。</p>
 
 <p>后来了解到，在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink)。然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。而我删除的是Nginx的log文件，删除的时候文件应该正在被使用。</p>
 
 <p>通过 <code>lsof |grep deleted</code> 命令可以获得一个已经被删除但是仍然被应用程序占用的文件列表，如下所示：</p>
 
-<p><code>
-root@windstill:/# lsof |grep deleted
+<pre><code>root@windstill:/# lsof |grep deleted
 nginx      6316   nobody    3w      REG              251,4 15966896128    1471723 /tmp/nginx.access.log (deleted)
 nginx      6316   nobody    4w      REG              251,4  2815307776    1471730 /tmp/nginx.error.log (deleted)
-</code></p>
+</code></pre>
 
 <p>从输出结果可以看到log文件还在被使用，未被释放空间。一种方法是kill掉Nginx进程，让os自动回收磁盘空间。但这种方法显然不好，会影响线上应用。索性Nginx有个重新打开日志文件的方法：<br/>
 <code>

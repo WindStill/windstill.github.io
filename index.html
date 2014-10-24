@@ -3,37 +3,516 @@
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
 <head>
-  <meta charset="utf-8">
-  <title>风依旧</title>
-  <meta name="author" content="WindStill">
+
+
+<meta charset="utf-8">
+<meta http-equiv="cleartype" content="on">
+
+<title>A Tech Blog by Jake Zimmerman - 风依旧</title>
+<meta name="author" content="WindStill">
+
+
+
+
+<meta name="description" content="A tech blog by Jake Zimmerman. Updates occaisonally with tips, tricks, and hacks that have helped me out.">
+
+<meta name="keywords" content="Jekyll theme themes responsive blog modern tech hacks ">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Twitter Cards -->
 
   
-  <meta name="description" content="最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于， &hellip;">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="/images/abstract-12.jpg"
+  
+  <meta name="twitter:title" content="A Tech Blog by Jake Zimmerman">
+  <meta name="twitter:description" content="A tech blog by Jake Zimmerman. Updates occaisonally with tips, tricks, and hacks that have helped me out.">
+  <meta name="twitter:creator" content="@wind_still">
+
+
+<!-- Open Graph -->
+<meta property="og:local" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://windstill.me">
+<meta property="og:title" content="A Tech Blog by Jake Zimmerman">
+<meta property="og:description" content="A tech blog by Jake Zimmerman. Updates occaisonally with tips, tricks, and hacks that have helped me out.">
+
+  <meta property="og:image" content="/images/abstract-12.jpg">
+
+<meta property="og:site_name" content="风依旧">
+
+<link rel="canonical" href="http://windstill.me">
+<link href="/favicon.png" rel="icon">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/atom.xml" rel="alternate" title="风依旧" type="application/atom+xml">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+<script>Modernizr || document.write('<script src="/javascripts/vendor/modernizr-2.6.2.custom.min.js"><\/script>') </script>
+
+
+  
+      
   
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    
+  
+
+  <style type="text/css">body {background-image:url(/images/witewall_3.png);}</style>
+
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body id="post-index" class="feature">
+  <!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+  <nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="/">首页</a></li>
+		<li>
+			<a href="#">关于</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="/images/avatar.png" alt="WindStill photo" class="author-photo">
+					<h4>WindStill</h4>
+					<p>ruby开发者<br>iOS爱好者</p>
+				</li>
+				<li><a href="//www.zimmerman.io">Learn More</a></li>
+				
+				<li>
+					<a href="http://twitter.com/wind_still"><i class="fa fa-twitter"></i> Twitter</a>
+				</li>
+				<li>
+					<a href="https://www.facebook.com/"><i class="fa fa-facebook"></i> Facebook</a>
+				</li>
+				
+				<li>
+					<a href="http://github.com/WindStill"><i class="fa fa-github"></i> GitHub</a>
+				</li>
+			</ul><!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">博客</a>
+			<ul class="dl-submenu">
+				<li><a href="/posts/">所有</a></li>
+				<li><a href="/categories/">分类</a></li>
+			</ul>
+		</li>
+		
+	</ul><!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
+
+
+  <div class="entry-header">
+    
+    
+      <div class="entry-image">
+        <img src="/images/abstract-12.jpg" alt="A Tech Blog by Jake Zimmerman">
+      </div><!-- /.entry-image -->
+    
+    <div class="header-title">
+      <div class="header-title-wrap">
+        <h1>风依旧</h1>
+        <h2>取次花丛懒回顾，半缘修道半缘君</h2>
+      </div><!-- /.header-title-wrap -->
+    </div><!-- /.header-title -->
+  </div><!-- /.entry-header -->
+
+  <div id="main" role="main">
+    
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2014-10-21T12:05:15+08:00">
+        <a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/">October 21, 2014</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/" rel="bookmark" title="在Rails中使用hstore和Array类型" itemprop="url">在Rails中使用hstore和Array类型</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <p>最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于，一般编辑联系人的时候，会同时增删改N个号码 + N条地址，这是再去操作三个表逻辑上也会复杂不少。但是如果把多个号码和多个地址以 JSON 的 array 及 key-value 形式存储在同一个字段中，这样曾删改的时候会方便很多。索性PostgreSQL，也有相应的字段类型来支持此场景，比如 hstore。</p>
+
 
   
-  <link rel="canonical" href="http://windstill.me">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
-  <link href="/atom.xml" rel="alternate" title="风依旧" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2014-10-15T15:24:58+08:00">
+        <a href="/blog/2014/10/15/rails-with-postgis/">October 15, 2014</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2014/10/15/rails-with-postgis/" rel="bookmark" title="使用Rails和Postgis开发基于地理位置应用的安装与配置" itemprop="url">使用Rails和Postgis开发基于地理位置应用的安装与配置</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <p><a href="http://postgis.refractions.net/"><code>PostGIS</code></a> 是关系型数据库 <a href="http://www.postgresql.org/"><code>PostgreSQL</code></a> 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。所以处理地理空间数据还是比较简单的，但是开发环境配置还有不少工作要做。</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2014/10/15/rails-with-postgis/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2014-07-16T10:50:42+08:00">
+        <a href="/blog/2014/07/16/imagemagick-rmagick-osx/">July 16, 2014</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2014/07/16/imagemagick-rmagick-osx/" rel="bookmark" title="解决ImageMagick和RMagick在OS X下使用出现的问题" itemprop="url">解决ImageMagick和RMagick在OS X下使用出现的问题</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <p>每次安装 <code>RMagick</code> 这个gem都会遇到问题，并且每次的问题还都不一样，有的时候是 <code>ImageMagick</code> 的问题，有时候是 <code>RMagick</code> 不能安装，这次是安装了以后，启动Rails的时候，报错说是 <code>libMagickCore-6.Q16.2.dylib</code> 版本不对。错误详情如下：</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2014/07/16/imagemagick-rmagick-osx/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2014-07-02T10:35:17+08:00">
+        <a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">July 02, 2014</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/" rel="bookmark" title="'Mysql2::Error: Got Error 28 From Storage Engine'问题解决" itemprop="url">&#8216;Mysql2::Error: Got Error 28 From Storage Engine&#8217;问题解决</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <h3>问题原因</h3>
+
+<p>今天发现MySQL数据库中没有写入新数据，于是看了下Rails后端的日志，发现报了一个<code>Error: Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM plays</code>错误。网上搜了一通说是空间不足造成的。</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2014-01-03T17:29:52+08:00">
+        <a href="/blog/2014/01/03/mavericks-unidentified-developer-app/">January 03, 2014</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2014/01/03/mavericks-unidentified-developer-app/" rel="bookmark" title="Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法" itemprop="url">Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <p>自从 <code>10.7 Lion</code> 升级到新系统<code>10.9 Mavericks</code> 后，一些小问题也就跟着来了。听说苹果是从 <code>10.8 Mountain Lion</code> （这个版本系统我没装过）系统开始启用了新的安全机制，默认只信任 App Store 下载的软件和拥有开发者 ID 签名的应用程序。也就是说新系统默认只能安装正规渠道（App Store 或被认可的开发人员）的软件，否则安装的时候就会弹出下图所示警告框：<code>打不开“xxx”，因为它来自身份不明的开发者</code>，如下图所示：</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2014/01/03/mavericks-unidentified-developer-app/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2014-01-02T11:46:08+08:00">
+        <a href="/blog/2014/01/02/linux-set-time/">January 02, 2014</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2014/01/02/linux-set-time/" rel="bookmark" title="Linux设置系统时间和硬件时间" itemprop="url">Linux设置系统时间和硬件时间</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2014/01/02/linux-set-time/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2013-12-29T18:26:08+08:00">
+        <a href="/blog/2013/12/29/macvim-osx-mavericks/">December 29, 2013</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2013/12/29/macvim-osx-mavericks/" rel="bookmark" title="Mac OSX 10.9 Mavericks系统安装MacVim" itemprop="url">Mac OSX 10.9 Mavericks系统安装MacVim</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <p>今天下午把Mac系统从Lion直接升级到了Mavericks，增加了不少新的功能和体验，具体参考官方说明 <a href="https://help.apple.com/osx-mavericks/whats-new-from-lion">OS X Mavericks的全新功能</a>。这次升级基本保持了原有的数据和配置，但是个别应用会因为系统升级瘦到影响，比如这次所说的<code>MacVim</code>应用。</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2013/12/29/macvim-osx-mavericks/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2013-12-26T21:07:44+08:00">
+        <a href="/blog/2013/12/26/octopress-with-github-pages/">December 26, 2013</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2013/12/26/octopress-with-github-pages/" rel="bookmark" title="用Octopress和Github-pages搭建博客" itemprop="url">用Octopress和Github-pages搭建博客</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <h3>1 相关介绍</h3>
+
+<h4>Octopress</h4>
+
+<p><a href="http://octopress.org/"><code>Octopress</code></a>是利用<a href="http://github.com/mojombo/jekyll"><code>Jekyll</code></a>博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。如果用<a href="http://github.com/mojombo/jekyll"><code>Jekyll</code></a>写博客的话，得要自己写HTML模板、CSS、Javascript，并且要自己做配置。但是如果用<a href="http://octopress.org/"><code>Octopress</code></a>，这些都帮你做好了，只要<a href="https://github.com/imathis/octopress"><code>clone or fork Octopress</code></a>，安装些依赖的库和主题就行了。</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2013/12/26/octopress-with-github-pages/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+
+<div class="pagination">
+  
+  <a href="/archives">Blog Archives</a>
+  
+</div><!-- /.pagination -->
+
+  </div><!-- /#main -->
+
+  <div class="footer-wrapper">
+    <footer role="contentinfo">
+      <span>&copy; 2014 WindStill. Powered by <a href="http://octopress.org">Octopress</a> using the <a href="https://github.com/Z1MM32M4N/hpstr-theme/">HPSTR Theme for Octopress</a>.</span>
+
+    </footer>
+  </div><!-- /.footer-wrapper -->
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<!--
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
--->
+<script>window.jQuery || document.write('<script src="/javascripts/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/javascripts/octopress.js" type="text/javascript"></script>
+<script src="/javascripts/scripts.min.js"></script>
 
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-46781558-1']);
@@ -47,474 +526,9 @@
   </script>
 
 
-</head>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">风依旧</a></h1>
+          
   
-    <h2>取次花丛懒回顾，半缘修道半缘君</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:windstill.me" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">首页</a></li>
-  <li><a href="/blog/archives">归档</a></li>
-  <li><a href="/about">关于</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/">在Rails中使用hstore和Array类型</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-21T12:05:15+08:00" pubdate data-updated="true">2014-10-21</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于，一般编辑联系人的时候，会同时增删改N个号码 + N条地址，这是再去操作三个表逻辑上也会复杂不少。但是如果把多个号码和多个地址以 JSON 的 array 及 key-value 形式存储在同一个字段中，这样曾删改的时候会方便很多。索性PostgreSQL，也有相应的字段类型来支持此场景，比如 hstore。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/15/rails-with-postgis/">使用Rails和Postgis开发基于地理位置应用的安装与配置</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-15T15:24:58+08:00" pubdate data-updated="true">2014-10-15</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://postgis.refractions.net/"><code>PostGIS</code></a> 是关系型数据库 <a href="http://www.postgresql.org/"><code>PostgreSQL</code></a> 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。所以处理地理空间数据还是比较简单的，但是开发环境配置还有不少工作要做。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/10/15/rails-with-postgis/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/16/imagemagick-rmagick-osx/">解决ImageMagick和RMagick在OS X下使用出现的问题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-16T10:50:42+08:00" pubdate data-updated="true">2014-07-16</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>每次安装 <code>RMagick</code> 这个gem都会遇到问题，并且每次的问题还都不一样，有的时候是 <code>ImageMagick</code> 的问题，有时候是 <code>RMagick</code> 不能安装，这次是安装了以后，启动Rails的时候，报错说是 <code>libMagickCore-6.Q16.2.dylib</code> 版本不对。错误详情如下：</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/07/16/imagemagick-rmagick-osx/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">&#8216;Mysql2::Error: Got Error 28 From Storage Engine&#8217;问题解决</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-02T10:35:17+08:00" pubdate data-updated="true">2014-07-02</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>问题原因</h3>
-
-<p>今天发现MySQL数据库中没有写入新数据，于是看了下Rails后端的日志，发现报了一个<code>Error: Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM plays</code>错误。网上搜了一通说是空间不足造成的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/03/mavericks-unidentified-developer-app/">Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-03T17:29:52+08:00" pubdate data-updated="true">2014-01-03</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>自从 <code>10.7 Lion</code> 升级到新系统<code>10.9 Mavericks</code> 后，一些小问题也就跟着来了。听说苹果是从 <code>10.8 Mountain Lion</code> （这个版本系统我没装过）系统开始启用了新的安全机制，默认只信任 App Store 下载的软件和拥有开发者 ID 签名的应用程序。也就是说新系统默认只能安装正规渠道（App Store 或被认可的开发人员）的软件，否则安装的时候就会弹出下图所示警告框：<code>打不开“xxx”，因为它来自身份不明的开发者</code>，如下图所示：</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/01/03/mavericks-unidentified-developer-app/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/02/linux-set-time/">Linux设置系统时间和硬件时间</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-02T11:46:08+08:00" pubdate data-updated="true">2014-01-02</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/01/02/linux-set-time/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/29/macvim-osx-mavericks/">Mac OSX 10.9 Mavericks系统安装MacVim</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-29T18:26:08+08:00" pubdate data-updated="true">2013-12-29</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天下午把Mac系统从Lion直接升级到了Mavericks，增加了不少新的功能和体验，具体参考官方说明 <a href="https://help.apple.com/osx-mavericks/whats-new-from-lion">OS X Mavericks的全新功能</a>。这次升级基本保持了原有的数据和配置，但是个别应用会因为系统升级瘦到影响，比如这次所说的<code>MacVim</code>应用。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/29/macvim-osx-mavericks/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/26/octopress-with-github-pages/">用Octopress和Github-pages搭建博客</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-26T21:07:44+08:00" pubdate data-updated="true">2013-12-26</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>1 相关介绍</h3>
-
-<h4>Octopress</h4>
-
-<p><a href="http://octopress.org/"><code>Octopress</code></a>是利用<a href="http://github.com/mojombo/jekyll"><code>Jekyll</code></a>博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。如果用<a href="http://github.com/mojombo/jekyll"><code>Jekyll</code></a>写博客的话，得要自己写HTML模板、CSS、Javascript，并且要自己做配置。但是如果用<a href="http://octopress.org/"><code>Octopress</code></a>，这些都帮你做好了，只要<a href="https://github.com/imathis/octopress"><code>clone or fork Octopress</code></a>，安装些依赖的库和主题就行了。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/26/octopress-with-github-pages/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>标签云</h1>
-  <ul id="tag-cloud"><embed type='application/x-shockwave-flash' src='/javascripts/tagcloud.swf'width='100%' height='250' bgcolor='#f2f2f2' id='tagcloudflash' name='tagcloudflash' quality='high' allowscriptaccess='always'flashvars="tcolor=0x333333&amp;tcolor2=0x333333&amp;hicolor=0x000000&amp;tspeed=100&amp;distr=true&amp;mode=tags&amp;tagcloud=%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fhstore%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EHstore%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fimagemagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EImageMagick%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flbs%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ELBS%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Flinux%27+style%3D%27font-size%3A+36.66666666666667%25%27%3ELinux%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmacvim%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMacVim%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fmysql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EMySQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Foctopress%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EOctopress%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fos-x%27+style%3D%27font-size%3A+50.0%25%27%3EOS+X%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fpostgis%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EPostgis%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Fpostgresql%27+style%3D%27font-size%3A+23.333333333333336%25%27%3EPostgreSQL%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frails%27+style%3D%27font-size%3A+50.0%25%27%3ERails%3C%2Fa%3E+%3Ca+href%3D%27http%3A%2F%2Fwindstill.me%2Fblog%2Fcategories%2Frmagick%27+style%3D%27font-size%3A+23.333333333333336%25%27%3ERMagick%3C%2Fa%3E+%3C%2Ftags%3E"></ul>
-</section>
-<section>
-  <h1>最新文章</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/">在Rails中使用hstore和Array类型</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/15/rails-with-postgis/">使用Rails和Postgis开发基于地理位置应用的安装与配置</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/16/imagemagick-rmagick-osx/">解决ImageMagick和RMagick在OS X下使用出现的问题</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">&#8216;Mysql2::Error: Got Error 28 From Storage Engine&#8217;问题解决</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/03/mavericks-unidentified-developer-app/">Mac Mavericks系统因为‘来自身份不明开发者’不能打开软件的解决方法</a>
-      </li>
-    
-  </ul>
-</section>
-<section>
-  <h1>分类目录</h1>
-    <ul id="category-list"><li><a href='/blog/categories/hstore/'>Hstore (1)</a></li><li><a href='/blog/categories/imagemagick/'>ImageMagick (1)</a></li><li><a href='/blog/categories/lbs/'>LBS (1)</a></li><li><a href='/blog/categories/linux/'>Linux (2)</a></li><li><a href='/blog/categories/macvim/'>MacVim (1)</a></li><li><a href='/blog/categories/mysql/'>MySQL (1)</a></li><li><a href='/blog/categories/octopress/'>Octopress (1)</a></li><li><a href='/blog/categories/os-x/'>OS X (3)</a></li><li><a href='/blog/categories/postgis/'>Postgis (1)</a></li><li><a href='/blog/categories/postgresql/'>PostgreSQL (1)</a></li><li><a href='/blog/categories/rails/'>Rails (3)</a></li><li><a href='/blog/categories/rmagick/'>RMagick (1)</a></li></ul>
-</section>
-
-
-
-<section>
-  <h1>最近评论</h1>
-  <div class="ds-recent-comments" data-num-items="10"></div>
-  
-  <!--多说js加载开始，一个页面只需要加载一次 -->
-  <script type="text/javascript">
-  var duoshuoQuery = {short_name:"windstill"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = 'http://static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-  <!--多说js加载结束，一个页面只需要加载一次 -->
-  
-</section>
-<section>
-  <h1>新浪微博</h1>
-  <ul id="weibo">
-    <li>
-      <iframe width="100%" height="350" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=350&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=2128377840&verifier=7b807bb3&dpc=1"></iframe>
-    </li>
-  </ul>
-</section>
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - WindStill -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff70a687f43fb831ebcbf513d64749148' type='text/javascript'%3E%3C/script%3E"));
-</script>
 
 </body>
 </html>

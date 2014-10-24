@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Postgis | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/postgis/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-21T17:39:45+08:00</updated>
+  <updated>2014-10-24T16:48:46+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -41,17 +41,15 @@
 
 <h4>安装 Postgresql 和 Postgis</h4>
 
-<p><code>
-brew install postgresql
+<pre><code>brew install postgresql
 brew install postgis
-</code></p>
+</code></pre>
 
 <h4>检查系统是否正确安装 postgis</h4>
 
-<p><code>
-~$ psql -U username
+<pre><code>~$ psql -U username
 =# select pg_available_extensions where name like ‘postgis%’;
-</code></p>
+</code></pre>
 
 <p>Mac 用户还可以直接下载 <a href="http://postgresapp.com/"><code>Postgres.app</code></a>，拖入applications文件夹。Postgres.app 包含 PostgreSQL 常用的扩展和工具：</p>
 
@@ -70,9 +68,8 @@ brew install postgis
 
 <p>先使用 postgresql 适配器新建应用（database参数可选，默认sqlite）</p>
 
-<p><code>
-rails new my_app --database=postgresql
-</code></p>
+<pre><code>rails new my_app --database=postgresql
+</code></pre>
 
 <h4>配置 Gemfile</h4>
 
@@ -85,42 +82,38 @@ rails new my_app --database=postgresql
 </ul>
 
 
-<p><code>
-gem 'pg'
+<pre><code>gem 'pg'
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
-</code></p>
+</code></pre>
 
 <h4>配置 database.yml</h4>
 
 <p>打开 database.yml 文件，adapter 使用 postgis ：</p>
 
-<p><code>
-development:
+<pre><code>development:
   username:           your_username
   adapter:            postgis
   host:               localhost
   postgis_extension: postgis
   schema_search_path: public
-</code>
-postgis_extension 表明应用在创建数据库的时候安装 postgis extension。当执行 <code>rake db:create</code> 命令的时候，postgresql会有类似如下的操作：</p>
+</code></pre>
 
-<p><code>
-CREATE SCHEMA postgis;
+<p>postgis_extension 表明应用在创建数据库的时候安装 postgis extension。当执行 <code>rake db:create</code> 命令的时候，postgresql会有类似如下的操作：</p>
+
+<pre><code>CREATE SCHEMA postgis;
 CREATE EXTENSION postgis WITH SCHEMA postgis;
-</code></p>
+</code></pre>
 
 <p>如果 postgis extension 不是安装在 public schema (默认安装在 public schema)，还得把 postgis 的 schema 添加到 <code>schema_search_path</code>：</p>
 
-<p><code>
-development:
+<pre><code>development:
   schema_search_path: public, postgis
-</code></p>
+</code></pre>
 
 <p>其他支持的选项：</p>
 
-<p><code>
-development:
+<pre><code>development:
   adapter: postgis
   encoding: unicode
   postgis_extension: postgis      # default is postgis
@@ -131,35 +124,32 @@ development:
   password: my_app_password       # the user's password
   su_username: my_global_user     # a superuser for the database
   su_password: my_global_pasword  # the superuser's password
-</code></p>
+</code></pre>
 
 <h4>创建 model 和 table</h4>
 
-<p><code>
-rails g model earthquake location:point
-</code>
-要存储空间数据，必须得创建空间类型的字段。Postgis 提供了很多空间类型，包括：point, linestring, polygon以及不同类型的集合。activerecord-postgis-adapter 继承了 ActiveRecord 的 migration 句法，可以支持空间类型。</p>
+<pre><code>rails g model earthquake location:point
+</code></pre>
 
-<p>```
-class CreateEarthquakes &lt; ActiveRecord::Migration</p>
+<p>要存储空间数据，必须得创建空间类型的字段。Postgis 提供了很多空间类型，包括：point, linestring, polygon以及不同类型的集合。activerecord-postgis-adapter 继承了 ActiveRecord 的 migration 句法，可以支持空间类型。</p>
 
-<pre><code>def change    
-    create_table :earthquakes do |t|   
-        t.column :shape1, :geometry
-        t.geometry :shape2
-        t.line_string :path, :srid =&gt; 3785   
-        t.point :location, :geographic =&gt; true
-        t.point :lonlatheight, :geographic =&gt; true, :has_z =&gt; true    
-        t.timestamps    
-    end  
+<pre><code>class CreateEarthquakes &lt; ActiveRecord::Migration  
+    def change    
+        create_table :earthquakes do |t|   
+            t.column :shape1, :geometry
+            t.geometry :shape2
+            t.line_string :path, :srid =&gt; 3785   
+            t.point :location, :geographic =&gt; true
+            t.point :lonlatheight, :geographic =&gt; true, :has_z =&gt; true    
+            t.timestamps    
+        end  
 
-    add_index :earthquakes, :location, :spatial =&gt; true
+        add_index :earthquakes, :location, :spatial =&gt; true
+    end
 end
 </code></pre>
 
-<p>end
-```
-第一个字段“shape1”，使用的是“geometry”类型，这是空间数据的基础类型（base class），表明可以容纳任何空间类型的数据。</p>
+<p>第一个字段“shape1”，使用的是“geometry”类型，这是空间数据的基础类型（base class），表明可以容纳任何空间类型的数据。</p>
 
 <p>第二个字段“shape2”，使用的是第一个字段定义的简写句法。</p>
 
@@ -172,40 +162,35 @@ end
 <p>以下是activerecord-postgis-adapter所支持的postgis类型：</p>
 
 <ul>
-<li>:geometry &mdash; Any geometric type</li>
-<li>:point &mdash; Point data</li>
-<li>:line_string &mdash; LineString data</li>
-<li>:polygon &mdash; Polygon data</li>
-<li>:geometry_collection &mdash; Any collection type</li>
-<li>:multi_point &mdash; A collection of Points</li>
-<li>:multi_line_string &mdash; A collection of LineStrings</li>
-<li>:multi_polygon &mdash; A collection of Polygons</li>
+<li>:geometry &ndash; Any geometric type</li>
+<li>:point &ndash; Point data</li>
+<li>:line_string &ndash; LineString data</li>
+<li>:polygon &ndash; Polygon data</li>
+<li>:geometry_collection &ndash; Any collection type</li>
+<li>:multi_point &ndash; A collection of Points</li>
+<li>:multi_line_string &ndash; A collection of LineStrings</li>
+<li>:multi_polygon &ndash; A collection of Polygons</li>
 </ul>
 
 
 <p>最后，还支持创建空间索引：</p>
 
-<p>```
-def change</p>
-
-<pre><code>add_index :earthquakes, :location, :spatial =&gt; true
+<pre><code>def change
+    add_index :earthquakes, :location, :spatial =&gt; true
+end
 </code></pre>
-
-<p>end
-```</p>
 
 <h4>配置 Model</h4>
 
-<p>```
-class Earthquake &lt; ActiveRecord::Base</p>
+<pre><code>class Earthquake &lt; ActiveRecord::Base
 
-<p>  # 默认使用 Geos 空间字段实现
-  self.rgeo_factory_generator = RGeo::Geos.factory_generator</p>
+  # 默认使用 Geos 空间字段实现
+  self.rgeo_factory_generator = RGeo::Geos.factory_generator
 
-<p>  # 也可以设置某个字段为 geographic 空间字段实现
-  set_rgeo_factory_for_column(:location, RGeo::Geographic.spherical_factory(:srid => 4326))
+  # 也可以设置某个字段为 geographic 空间字段实现
+  set_rgeo_factory_for_column(:location, RGeo::Geographic.spherical_factory(:srid =&gt; 4326))
 end
-```</p>
+</code></pre>
 
 <h3>空间数据操作</h3>
 
@@ -215,48 +200,42 @@ end
 
 <h4>空间数据读写</h4>
 
-<p>```
-record = Earthquake.find(1)
+<pre><code>record = Earthquake.find(1)
 p = record.location                # Returns an RGeo::Feature::Point
 puts p.x                           # displays the x coordinate
-puts p.geometry_type.type_name     # displays &ldquo;Point&rdquo;</p>
+puts p.geometry_type.type_name     # displays "Point"
 
-<p>record.location = &lsquo;POINT(-122 47)&rsquo;  # sets the value with WKT string
-record.save</p>
+record.location = 'POINT(-122 47)'  # sets the value with WKT string
+record.save
 
-<p>factory = p.factory                # returns a spherical factory</p>
-
-<h1>factory = Earthquake.rgeo_factory_for_column(:location)</h1>
-
-<p>p2 = factory.point(-122, 47)       # p2 is a point in a spherical factory
+factory = p.factory                # returns a spherical factory
+# factory = Earthquake.rgeo_factory_for_column(:location)
+p2 = factory.point(-122, 47)       # p2 is a point in a spherical factory
 record.lonlat = p2                 # sets the value to the given point
-record.shape1 = p2                 # shape1 uses a flat geos factory, so it</p>
-
-<pre><code>                               # will cast p2 into that coordinate system
-                               # before setting the value
+record.shape1 = p2                 # shape1 uses a flat geos factory, so it
+                                   # will cast p2 into that coordinate system
+                                   # before setting the value
+record.save
 </code></pre>
-
-<p>record.save
-```</p>
 
 <h4>空间数据查询</h4>
 
 <p>location距离坐标(116.458104 39.966293) 10公里以内的Earthquake：</p>
 
-<p><code>
-Earthquake.where("st_dwithin(location, 'point(116.458104 39.966293)', 10000)").count
-</code>
-location距离坐标(116.458104 39.966293) 10公里以内的Earthquake，并按距离排序：</p>
+<pre><code>Earthquake.where("st_dwithin(location, 'point(116.458104 39.966293)', 10000)").count
+</code></pre>
 
-<p><code>
-Order.select("orders.*, st_distance(location, 'point(116.458104 39.966293)') as distance").where("st_dwithin(location, 'point(116.458104 39.966293)', 10000)").order("distance”)
-</code>
-location在矩形区域POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))内的Earthquake：</p>
+<p>location距离坐标(116.458104 39.966293) 10公里以内的Earthquake，并按距离排序：</p>
 
-<p><code>
-Order.where("ST_Intersects('SRID=4326;POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))',location)")
-</code>
-<small>说明：矩形是由4个点组成，但是使用POLYGON需要5个点，其中第一个和最后一个是同一个点，个人理解是为了形成一个闭合。另外使用此方法可以构建任意的多边形。</small></p>
+<pre><code>Order.select("orders.*, st_distance(location, 'point(116.458104 39.966293)') as distance").where("st_dwithin(location, 'point(116.458104 39.966293)', 10000)").order("distance”)
+</code></pre>
+
+<p>location在矩形区域POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))内的Earthquake：</p>
+
+<pre><code>Order.where("ST_Intersects('SRID=4326;POLYGON((116.424031 39.955045, 116.468731 39.955045, 116.468731 39.983357, 116.424031 39.983357, 116.424031 39.955045))',location)")
+</code></pre>
+
+<p><small>说明：矩形是由4个点组成，但是使用POLYGON需要5个点，其中第一个和最后一个是同一个点，个人理解是为了形成一个闭合。另外使用此方法可以构建任意的多边形。</small></p>
 
 <h3>参考文章</h3>
 
