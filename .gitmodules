@@ -1,0 +1,3 @@
+[submodule ".themes/hpstr"]
+	path = .themes/hpstr
+	url = https://github.com/Z1MM32M4N/hpstr-theme.git

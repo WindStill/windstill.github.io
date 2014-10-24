@@ -20,6 +20,7 @@ subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
+email_md5: e70db1850da072b3a9e1575c7078ae63
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -63,14 +64,14 @@ default_asides: [custom/asides/category_cumulus.html, asides/recent_posts.html, 
 # ----------------------- #
 
 # Github repositories
-github_user:
+github_user: WindStill
 github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-# twitter_user:
-# twitter_tweet_button: true
+twitter_user: wind_still
+twitter_tweet_button: false
 
 # Google +1
 google_plus_one: false
@@ -97,6 +98,7 @@ disqus_show_comment_count: false
 google_analytics_tracking_id: UA-46781558-1
 
 # Facebook Like
+facebook_user: wind.still.1
 facebook_like: false
 
 # duoshuo comments
