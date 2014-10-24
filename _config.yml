@@ -2,19 +2,11 @@
 #      Main Configs       #
 # ----------------------- #
 
-<<<<<<< HEAD
 url: http://windstill.me
 title: 风依旧
 subtitle: 取次花丛懒回顾，半缘修道半缘君
 author: WindStill
 simple_search: http://google.com/search
-=======
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
-simple_search: https://www.google.com/search
->>>>>>> c6c5b74f4d5dc4cc0a34e97c918e0b1a59954a16
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -119,3 +111,10 @@ duoshuo_asides_time: 1      # 侧边栏评论是否显示时间
 duoshuo_asides_title: 1     # 侧边栏评论是否显示标题
 duoshuo_asides_admin: 0     # 侧边栏评论是否显示作者评论
 duoshuo_asides_length: 32   # 侧边栏评论截取的长度
+
+# ----------------------------- #
+#    HPSTR Theme Properties     #
+# ----------------------------- #
+avatar: /images/avatar.png
+author_bio: ruby开发者<br>iOS爱好者
+background: witewall_3.png
