@@ -118,3 +118,7 @@ duoshuo_asides_length: 32   # 侧边栏评论截取的长度
 avatar: /images/avatar.png
 author_bio: ruby开发者<br>iOS爱好者
 background: witewall_3.png
+# links:
+    # - title: 归档
+      # url: /archives
+weibo_user: windstill

@@ -23,6 +23,25 @@ body {
 			border-bottom-style: solid;
 		}
 	}
+	img.center {
+	  display: block;
+	  margin: auto;
+	}
+	#blog-archives {
+	  article {
+	    h1{ margin-bottom: 0; line-height: 44px;}
+  	  footer{ 
+  	    display: inline;
+  	  }
+	  }
+	  .categories {
+	    a {
+	      padding: 0 5px;
+	      border: 1px solid #e6e6e6;
+	      background-color: #f2f2f2;
+	    }
+	  }
+	}
 }
 
 // Single Post and Page
@@ -39,6 +58,16 @@ body {
 			content: " by ";
 		}
 	}
+}
+.entry-top {
+  width: 100%;
+  display: inline-block;
+  .entry-tags {
+    float: right;
+    margin-right: 5px;
+  }
+}
+.entry-meta, .entry-top{
 	.tag {
 		display: inline-block;
 		margin: 4px;
@@ -76,7 +105,7 @@ body {
 		@media #{$large} {
 			max-width: 800px;
 			margin: 50px auto 30px auto;
-			padding: 50px 80px;
+			padding: 30px 80px;
 			> p:first-child {
 				@include font-rem($p1_fs);
 				@include line-height($p1_lh);

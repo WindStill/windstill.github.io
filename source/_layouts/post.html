@@ -30,6 +30,9 @@
       </div><!-- /.header-title-wrap -->
     </header>
     <div class="entry-content">
+      <div class="entry-top">
+        <span class="entry-tags">{% for tag in page.categories %}<a href="{{ root_url }}/categories/#{{ tag | cgi_encode }}" title="Pages tagged {{ tag }}" class="tag">{{ tag }}</a>{% endfor %}</span>
+      </div>
       {{ content }}
       <footer class="entry-meta">
         <span class="entry-tags">{% for tag in page.categories %}<a href="{{ root_url }}/categories/#{{ tag | cgi_encode }}" title="Pages tagged {{ tag }}" class="tag">{{ tag }}</a>{% endfor %}</span>

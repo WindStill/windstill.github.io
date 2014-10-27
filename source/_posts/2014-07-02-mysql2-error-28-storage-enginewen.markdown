@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "'Mysql2::Error: Got error 28 from storage engine'问题解决"
+title: "Mysql2::Error: Got error 28 from storage engine问题解决"
 date: 2014-07-02 10:35:17 +0800
 comments: true
 categories: 
