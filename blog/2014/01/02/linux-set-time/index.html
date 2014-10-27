@@ -91,24 +91,28 @@
 					<h4>WindStill</h4>
 					<p>ruby开发者<br>iOS爱好者</p>
 				</li>
-				<li><a href="//www.zimmerman.io">Learn More</a></li>
+				<li><a href="/about">更多</a></li>
+				<li>
+					<a href="http://weibo.com/windstill" target="_blank"><i class="fa fa-weibo"></i> 微博</a>
+				</li>
+				<li>
+					<a href="http://twitter.com/wind_still" target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
+				</li>
+				<li>
+					<a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i> Facebook</a>
+				</li>
 				
 				<li>
-					<a href="http://twitter.com/wind_still"><i class="fa fa-twitter"></i> Twitter</a>
-				</li>
-				<li>
-					<a href="https://www.facebook.com/"><i class="fa fa-facebook"></i> Facebook</a>
-				</li>
+					<a href="http://github.com/WindStill" target="_blank"><i class="fa fa-github"></i> GitHub</a>
+				</li>		
 				
-				<li>
-					<a href="http://github.com/WindStill"><i class="fa fa-github"></i> GitHub</a>
-				</li>
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
 			<a href="#">博客</a>
 			<ul class="dl-submenu">
-				<li><a href="/posts/">所有</a></li>
+				<li><a href="/posts/">博文</a></li>
+				<li><a href="/archives/">归档</a></li>
 				<li><a href="/categories/">分类</a></li>
 			</ul>
 		</li>
@@ -130,6 +134,9 @@
       </div><!-- /.header-title-wrap -->
     </header>
     <div class="entry-content">
+      <div class="entry-top">
+        <span class="entry-tags"><a href="/categories/#linux" title="Pages tagged linux" class="tag">linux</a></span>
+      </div>
       <p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
 
 <!-- more -->
@@ -391,8 +398,7 @@ var duoshuoQuery = {short_name:"windstill"};
 
 <div class="footer-wrapper">
   <footer role="contentinfo">
-    <span>&copy; 2014 WindStill. Powered by <a href="http://octopress.org">Octopress</a> using the <a href="https://github.com/Z1MM32M4N/hpstr-theme/">HPSTR Theme for Octopress</a>.</span>
-
+    <span>&copy; 2014 WindStill
   </footer>
 </div><!-- /.footer-wrapper -->
 
