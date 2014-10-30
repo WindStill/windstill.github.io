@@ -4,7 +4,7 @@
   <title><![CDATA[风依旧]]></title>
   <link href="http://windstill.me/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-30T15:45:55+08:00</updated>
+  <updated>2014-10-30T16:18:24+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -214,6 +214,8 @@
 <p><img class="center" src="http://windstill.qiniudn.com/domain_list.png"></p>
 
 <p><em>5.</em> 如果要添加二级域名，在 <strong>Custom domains</strong> 页面的第二个步骤中，点击第二个选项。在下拉列表中选择想要的域名，在文本框中输入二级域名。第三步骤中会出现与之相关的说明：需要在域名注册商或者DNS解析服务商创建一条 <code>CNAME</code> 记录，指向 <code>ghs.googlehosted.com</code> 子域名。添加完后回到刚才的 <strong>Custom domains</strong> 页面，点击 <strong>Add</strong> 按钮。这样域名和应用关联以后，就会出现在页面底部的 <strong>Custom domain names</strong> 列表中。</p>
+
+<p>恭喜，你可以用你自己的域名访问了。</p>
 
 <h3>参考文章</h3>
 

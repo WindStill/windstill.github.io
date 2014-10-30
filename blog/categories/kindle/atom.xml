@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Kindle | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/kindle/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-30T15:45:55+08:00</updated>
+  <updated>2014-10-30T16:18:24+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -148,7 +148,7 @@
 </span><span class='line'><span class="n">KindleEar</span><span class="err">配置文件，请务必修改开始两个配置（如果使用</span><span class="n">uploader</span><span class="err">，则</span><span class="n">uploader</span><span class="err">自动帮你修改）</span>
 </span><span class='line'><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">SRC_EMAIL</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#x61;&amp;#99;&amp;#99;&amp;#x6f;&amp;#117;&amp;#110;&amp;#x74;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&quot;</span><span class="o">&gt;&amp;</span><span class="c">#x61;&amp;#99;&amp;#x63;&amp;#111;&amp;#x75;&amp;#110;&amp;#x74;&amp;#64;&amp;#103;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109;&lt;/a&gt;&amp;rdquo;  #Your gmail account for sending mail to Kindle</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">SRC_EMAIL</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#97;&amp;#99;&amp;#x63;&amp;#x6f;&amp;#x75;&amp;#x6e;&amp;#x74;&amp;#64;&amp;#103;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&quot;</span><span class="o">&gt;&amp;</span><span class="c">#x61;&amp;#99;&amp;#x63;&amp;#111;&amp;#117;&amp;#x6e;&amp;#x74;&amp;#x40;&amp;#x67;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&amp;rdquo;  #Your gmail account for sending mail to Kindle</span>
 </span><span class='line'><span class="n">DOMAIN</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;https://appname.appspot.com&quot;</span><span class="o">&gt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">appname</span><span class="o">.</span><span class="n">appspot</span><span class="o">.</span><span class="n">com</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="c">#Your domain of app</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
@@ -215,6 +215,8 @@
 <p><img class="center <a" src="href="http://windstill.qiniudn.com/domain_list.png">http://windstill.qiniudn.com/domain_list.png</a>&#8221;></p>
 
 <p><em>5.</em> 如果要添加二级域名，在 <strong>Custom domains</strong> 页面的第二个步骤中，点击第二个选项。在下拉列表中选择想要的域名，在文本框中输入二级域名。第三步骤中会出现与之相关的说明：需要在域名注册商或者DNS解析服务商创建一条 <code>CNAME</code> 记录，指向 <code>ghs.googlehosted.com</code> 子域名。添加完后回到刚才的 <strong>Custom domains</strong> 页面，点击 <strong>Add</strong> 按钮。这样域名和应用关联以后，就会出现在页面底部的 <strong>Custom domain names</strong> 列表中。</p>
+
+<p>恭喜，你可以用你自己的域名访问了。</p>
 
 <h3>参考文章</h3>
 
