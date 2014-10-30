@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Os X | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/os-x/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-30T16:18:24+08:00</updated>
+  <updated>2014-10-30T16:30:28+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -79,10 +79,10 @@ To list all files that would be deleted:
 
 <p><img class="center <a" src="href="http://blog-picture.qiniudn.com/94C990E2-7FC8-4117-B9EC-F17C338A2F96.png">http://blog-picture.qiniudn.com/94C990E2-7FC8-4117-B9EC-F17C338A2F96.png</a>&#8221;></p>
 
+<p>这个问题解决方法就是到 <code>系统偏好设置</code> 里设置一下就行了，步骤如下：</p>
+
 <!-- more -->
 
-
-<p>这个问题解决方法就是到 <code>系统偏好设置</code> 里设置一下就行了，步骤如下：</p>
 
 <ul>
 <li>点击 Mac 屏幕左上角的苹果标志，在下拉菜单里选择 <code>系统偏好设置…</code>，或者到 <code>应用程序</code> 里找到 <code>系统偏好设置</code> 应用。在弹出的设置面板里，点击第一行的小房子图标 <code>安全性与隐私</code> 。</li>
