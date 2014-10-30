@@ -8,8 +8,6 @@ categories: Linux
 
 今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 `系统时钟`（System Clock）和 `硬件时钟`（Real Time Clock，简称RTC）。`系统时钟是`指当前Linux Kernel中的时钟，而`硬件时钟`则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。
 
-<!-- more -->
-
 Linux中的所有命令都是采用的系统时钟设置。在Linux中，用于时钟查看和设置的命令主要有`date`、`hwclock`和`clock`。其中，`clock`和`hwclock`用法相近，只用一个就行，只不过clock命令除了支持x86硬件体系外，还支持Alpha硬件体系。看了下我们的测试环境止只有hwclock可用，clock没有安装。
 
 ###1. date 
@@ -32,6 +30,8 @@ Linux中的所有命令都是采用的系统时钟设置。在Linux中，用于�
 或者
 # clock --show
 ```
+
+<!-- more -->
 
 * 设置硬件时间
 

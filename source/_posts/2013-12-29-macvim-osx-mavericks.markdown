@@ -8,8 +8,6 @@ categories: [MacVim, OS X]
 
 今天下午把Mac系统从Lion直接升级到了Mavericks，增加了不少新的功能和体验，具体参考官方说明 [OS X Mavericks的全新功能](https://help.apple.com/osx-mavericks/whats-new-from-lion)。这次升级基本保持了原有的数据和配置，但是个别应用会因为系统升级瘦到影响，比如这次所说的`MacVim`应用。
 
-<!-- more -->
-
 ###问题及解决
 升级完系统后，终端输入`mvim .`会出现以下错误信息：
 
@@ -21,6 +19,8 @@ Trace/BPT trap: 5
 ```
 
 原因是Mac X Mavericks 只有5.12 、5.16 已经没有了5.10。解决办法就是下载最新的Mavericks版本的MacVim [MacVim-snapshot-72-Mavericks.tbz](https://github.com/b4winckler/macvim/releases/download/snapshot-72/MacVim-snapshot-72-Mavericks.tbz)。
+
+<!-- more -->
 
 其他OSX系统版本可以到 https://github.com/b4winckler/macvim/releases 下载。
 

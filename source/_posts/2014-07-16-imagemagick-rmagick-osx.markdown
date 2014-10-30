@@ -9,8 +9,6 @@ categories: [ImageMagick, RMagick, OS X, Rails]
 
 每次安装 `RMagick` 这个gem都会遇到问题，并且每次的问题还都不一样，有的时候是 `ImageMagick` 的问题，有时候是 `RMagick` 不能安装，这次是安装了以后，启动Rails的时候，报错说是 `libMagickCore-6.Q16.2.dylib` 版本不对。错误详情如下：
 
-<!-- more -->
-
 ```
 /Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `require': dlopen(/Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle, 9): Library not loaded: /usr/local/lib/libltdl.7.dylib (LoadError)
   Referenced from: /usr/local/lib/libMagickCore-6.Q16.2.dylib
@@ -34,6 +32,8 @@ categories: [ImageMagick, RMagick, OS X, Rails]
 ```
 
 使用 `brew unlink libtool && brew link libtool` 命令解决问题。可能会出现如下问题：  
+
+<!-- more -->
 
 ```  
 Linking /usr/local/Cellar/libtool/2.4.2...

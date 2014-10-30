@@ -9,8 +9,6 @@ categories: [Rails, Postgis, LBS]
 
 [`PostGIS`](http://postgis.refractions.net/) 是关系型数据库 [`PostgreSQL`](http://www.postgresql.org/) 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。所以处理地理空间数据还是比较简单的，但是开发环境配置还有不少工作要做。
 
-<!-- more -->
-
 ###环境依赖
 本文以 Mac OS X系统为例，需要安装以下内容：
 
@@ -36,6 +34,8 @@ brew install postgis
 ```
 
 Mac 用户还可以直接下载 [`Postgres.app`](http://postgresapp.com/)，拖入applications文件夹。Postgres.app 包含 PostgreSQL 常用的扩展和工具：
+
+<!-- more -->
 
 * PostgreSQL 9.3.5
 * PostGIS 2.1.3

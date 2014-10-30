@@ -10,14 +10,14 @@ categories: "Octopress"
 ####Octopress
 [`Octopress`](http://octopress.org/)是利用[`Jekyll`](http://github.com/mojombo/jekyll)博客引擎开发的一个博客系统，生成的静态页面能够很好的在github page上展现。如果用[`Jekyll`](http://github.com/mojombo/jekyll)写博客的话，得要自己写HTML模板、CSS、Javascript，并且要自己做配置。但是如果用[`Octopress`](http://octopress.org/)，这些都帮你做好了，只要[`clone or fork Octopress`](https://github.com/imathis/octopress)，安装些依赖的库和主题就行了。
 
-<!-- more -->
-
 ####Github pages
 [`GitHub`](https://github.com/)是全球最大的社交编程及代码托管网站，GitHub可以托管、分享各种代码库或项目，并提供一个web界面。 
   
 [`Github Pages`](http://pages.github.com/)就是为你或你的项目提供一个静态的网站。原理就是把你的一个特殊的repository (yourname.github.io)，或者某个repository特殊分支(gh-pages)的静态文件以网页形式展现出来，前者一般作为个人主页，后面一般作为项目的主页，这两种情况后面会说到。  
 
 这种方案优势：1.搭建、发布简单；2.免费、无限流量，3.绑定自己域名
+
+<!-- more -->
 
 ###2 安装Octopress
 ####安装前准备

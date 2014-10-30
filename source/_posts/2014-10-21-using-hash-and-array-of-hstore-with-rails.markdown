@@ -9,7 +9,6 @@ categories: [Rails, PostgreSQL, Hstore]
 
 最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于，一般编辑联系人的时候，会同时增删改N个号码 + N条地址，这是再去操作三个表逻辑上也会复杂不少。但是如果把多个号码和多个地址以 JSON 的 array 及 key-value 形式存储在同一个字段中，这样曾删改的时候会方便很多。索性PostgreSQL，也有相应的字段类型来支持此场景，比如 hstore。
 
-<!-- more -->
 
 Rails 4.1 中的一个新特性就是对 PostgreSQL 的hstore类型的支持。而 Rails 之前的版本需要安装 [`activerecord-postgres-hstore`](https://github.com/diogob/activerecord-postgres-hstore) gem。下面说说 Rails 中使用 hstore 的方法。
 
@@ -41,6 +40,8 @@ class AddHstoreExtension < ActiveRecord::Migration
   end
 end
 ```
+
+<!-- more -->
 
 ###使用 hstore 创建 model
 
