@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-27T16:40:13+08:00</updated>
+  <updated>2014-10-30T15:45:55+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -19,9 +19,6 @@
     <updated>2014-10-21T12:05:15+08:00</updated>
     <id>http://windstill.me/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails</id>
     <content type="html"><![CDATA[<p>最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息；另一个问题在于，一般编辑联系人的时候，会同时增删改N个号码 + N条地址，这是再去操作三个表逻辑上也会复杂不少。但是如果把多个号码和多个地址以 JSON 的 array 及 key-value 形式存储在同一个字段中，这样曾删改的时候会方便很多。索性PostgreSQL，也有相应的字段类型来支持此场景，比如 hstore。</p>
-
-<!-- more -->
-
 
 <p>Rails 4.1 中的一个新特性就是对 PostgreSQL 的hstore类型的支持。而 Rails 之前的版本需要安装 <a href="https://github.com/diogob/activerecord-postgres-hstore"><code>activerecord-postgres-hstore</code></a> gem。下面说说 Rails 中使用 hstore 的方法。</p>
 
@@ -52,6 +49,9 @@ end
   end
 end
 </code></pre>
+
+<!-- more -->
+
 
 <h3>使用 hstore 创建 model</h3>
 
@@ -153,9 +153,6 @@ scope :where_all, -&gt;(column, key, value) { where("? = ALL (SELECT unnest(#{co
     <id>http://windstill.me/blog/2014/10/15/rails-with-postgis</id>
     <content type="html"><![CDATA[<p><a href="http://postgis.refractions.net/"><code>PostGIS</code></a> 是关系型数据库 <a href="http://www.postgresql.org/"><code>PostgreSQL</code></a> 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。所以处理地理空间数据还是比较简单的，但是开发环境配置还有不少工作要做。</p>
 
-<!-- more -->
-
-
 <h3>环境依赖</h3>
 
 <p>本文以 Mac OS X系统为例，需要安装以下内容：</p>
@@ -185,6 +182,9 @@ brew install postgis
 </code></pre>
 
 <p>Mac 用户还可以直接下载 <a href="http://postgresapp.com/"><code>Postgres.app</code></a>，拖入applications文件夹。Postgres.app 包含 PostgreSQL 常用的扩展和工具：</p>
+
+<!-- more -->
+
 
 <ul>
 <li>PostgreSQL 9.3.5</li>
@@ -387,9 +387,6 @@ record.save
     <id>http://windstill.me/blog/2014/07/16/imagemagick-rmagick-osx</id>
     <content type="html"><![CDATA[<p>每次安装 <code>RMagick</code> 这个gem都会遇到问题，并且每次的问题还都不一样，有的时候是 <code>ImageMagick</code> 的问题，有时候是 <code>RMagick</code> 不能安装，这次是安装了以后，启动Rails的时候，报错说是 <code>libMagickCore-6.Q16.2.dylib</code> 版本不对。错误详情如下：</p>
 
-<!-- more -->
-
-
 <pre><code>/Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `require': dlopen(/Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle, 9): Library not loaded: /usr/local/lib/libltdl.7.dylib (LoadError)
   Referenced from: /usr/local/lib/libMagickCore-6.Q16.2.dylib
   Reason: Incompatible library version: libMagickCore-6.Q16.2.dylib requires version 11.0.0 or later, but libltdl.7.dylib provides version 10.0.0 - /Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle
@@ -412,6 +409,9 @@ record.save
 </code></pre>
 
 <p>使用 <code>brew unlink libtool &amp;&amp; brew link libtool</code> 命令解决问题。可能会出现如下问题：</p>
+
+<!-- more -->
+
 
 <pre><code class="">Linking /usr/local/Cellar/libtool/2.4.2...
 Error: Could not symlink include/ltdl.h

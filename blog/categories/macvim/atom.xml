@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Macvim | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/macvim/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-27T16:40:13+08:00</updated>
+  <updated>2014-10-30T15:45:55+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -20,9 +20,6 @@
     <id>http://windstill.me/blog/2013/12/29/macvim-osx-mavericks</id>
     <content type="html"><![CDATA[<p>今天下午把Mac系统从Lion直接升级到了Mavericks，增加了不少新的功能和体验，具体参考官方说明 <a href="https://help.apple.com/osx-mavericks/whats-new-from-lion">OS X Mavericks的全新功能</a>。这次升级基本保持了原有的数据和配置，但是个别应用会因为系统升级瘦到影响，比如这次所说的<code>MacVim</code>应用。</p>
 
-<!-- more -->
-
-
 <h3>问题及解决</h3>
 
 <p>升级完系统后，终端输入<code>mvim .</code>会出现以下错误信息：</p>
@@ -34,6 +31,9 @@ Trace/BPT trap: 5
 </code></pre>
 
 <p>原因是Mac X Mavericks 只有5.12 、5.16 已经没有了5.10。解决办法就是下载最新的Mavericks版本的MacVim <a href="https://github.com/b4winckler/macvim/releases/download/snapshot-72/MacVim-snapshot-72-Mavericks.tbz">MacVim-snapshot-72-Mavericks.tbz</a>。</p>
+
+<!-- more -->
+
 
 <p>其他OSX系统版本可以到 <a href="https://github.com/b4winckler/macvim/releases">https://github.com/b4winckler/macvim/releases</a> 下载。</p>
 

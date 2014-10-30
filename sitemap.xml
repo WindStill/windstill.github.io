@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://windstill.me/blog/2014/10/29/kindleear-rss-kindle/</loc>
+    <lastmod>2014-10-29T09:58:44+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>http://windstill.me/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/</loc>
     <lastmod>2014-10-21T12:05:15+08:00</lastmod>
     <priority>0.8</priority>
@@ -42,43 +47,43 @@
   </url>
   <url>
     <loc>http://windstill.me/categories/</loc>
-    <lastmod>2014-10-27T16:40:13+08:00</lastmod>
+    <lastmod>2014-10-30T15:45:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://windstill.me/archives/</loc>
-    <lastmod>2014-10-27T16:40:13+08:00</lastmod>
+    <lastmod>2014-10-30T15:45:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://windstill.me/blog/archives/</loc>
-    <lastmod>2014-10-27T16:40:13+08:00</lastmod>
+    <lastmod>2014-10-30T15:45:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://windstill.me/</loc>
-    <lastmod>2014-10-27T16:40:13+08:00</lastmod>
+    <lastmod>2014-10-30T15:45:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://windstill.me/blog/categories/</loc>
-    <lastmod>2014-10-27T16:40:13+08:00</lastmod>
+    <lastmod>2014-10-30T15:45:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://windstill.me/about/</loc>
-    <lastmod>2014-10-27T16:40:13+08:00</lastmod>
+    <lastmod>2014-10-30T15:45:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://windstill.me/posts/</loc>
-    <lastmod>2014-10-27T16:40:13+08:00</lastmod>
+    <lastmod>2014-10-30T15:45:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-27T16:40:13+08:00</updated>
+  <updated>2014-10-30T15:45:55+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -21,9 +21,6 @@
     <content type="html"><![CDATA[<h3>问题原因</h3>
 
 <p>今天发现MySQL数据库中没有写入新数据，于是看了下Rails后端的日志，发现报了一个<code>Error: Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM plays</code>错误。网上搜了一通说是空间不足造成的。</p>
-
-<!--more-->
-
 
 <p>使用 <code>df -h</code> 命令，结果如下：</p>
 
@@ -50,6 +47,11 @@ none                   16G     0   16G   0% /var/lock
 </code></pre>
 
 <p>可以看出 <code>/mysql</code> 空间还是很足的，还有47G空间可用，那是什么原因呢。随着深入了解，原来MySQL查询的时候会生成一些临时的表，在默认的配置里，这些表会被创建在 <code>/</code> 挂载点（目录）中。再结合上述结果中，我的 <code>/</code> 已经没有可用空间了，那这就是问题所在了。</p>
+
+<!--more-->
+
+
+<p></p>
 
 <h3>解决方法</h3>
 
@@ -96,9 +98,6 @@ nginx -s reopen
     <id>http://windstill.me/blog/2014/01/02/linux-set-time</id>
     <content type="html"><![CDATA[<p>今天发现我们测试环境的服务器时间不对，居然超前了。然后谷歌了下linux系统相的关时间查看与设置。Linux时钟分为 <code>系统时钟</code>（System Clock）和 <code>硬件时钟</code>（Real Time Clock，简称RTC）。<code>系统时钟是</code>指当前Linux Kernel中的时钟，而<code>硬件时钟</code>则是主板上由电池供电的时钟，这个硬件时钟可以在BIOS中进行设置。当Linux启动时，硬件时钟会去读取系统时钟的设置，然后系统时钟就会独立于硬件运作。</p>
 
-<!-- more -->
-
-
 <p>Linux中的所有命令都是采用的系统时钟设置。在Linux中，用于时钟查看和设置的命令主要有<code>date</code>、<code>hwclock</code>和<code>clock</code>。其中，<code>clock</code>和<code>hwclock</code>用法相近，只用一个就行，只不过clock命令除了支持x86硬件体系外，还支持Alpha硬件体系。看了下我们的测试环境止只有hwclock可用，clock没有安装。</p>
 
 <h3>1. date</h3>
@@ -130,6 +129,9 @@ nginx -s reopen
 或者
 # clock --show
 </code></pre>
+
+<!-- more -->
+
 
 <ul>
 <li>设置硬件时间</li>

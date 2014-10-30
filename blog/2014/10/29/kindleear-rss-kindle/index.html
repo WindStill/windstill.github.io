@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+<head>
+
+
+<meta charset="utf-8">
+<meta http-equiv="cleartype" content="on">
+
+<title>使用KindleEar免费把RSS订阅定时推送到Kindle - 风依旧</title>
+<meta name="author" content="WindStill">
+
+
+
+
+<meta name="description" content="Kindle是亚马逊推出的电纸书阅读器，采用电子墨水屏幕，其优点是非常省电且显示效果非常接近纸，可以在太阳底下阅读。前段时间入手Kindle PaperWhite后，就一直琢磨着如何把原来用Rss订阅的内容推送到kindle上来看。 可选择的方式 目前通过搜集的可行的方式大概有三种 Rss推送网站 &hellip;">
+
+<meta name="keywords" content="kindle kindleear rss ">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Twitter Cards -->
+
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content"">
+  
+  <meta name="twitter:title" content="使用KindleEar免费把RSS订阅定时推送到Kindle">
+  <meta name="twitter:description" content="Kindle是亚马逊推出的电纸书阅读器，采用电子墨水屏幕，其优点是非常省电且显示效果非常接近纸，可以在太阳底下阅读。前段时间入手Kindle PaperWhite后，就一直琢磨着如何把原来用Rss订阅的内容推送到kindle上来看。 可选择的方式 目前通过搜集的可行的方式大概有三种 Rss推送网站 &hellip;">
+  <meta name="twitter:creator" content="@wind_still">
+
+
+<!-- Open Graph -->
+<meta property="og:local" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://windstill.me/blog/2014/10/29/kindleear-rss-kindle">
+<meta property="og:title" content="使用KindleEar免费把RSS订阅定时推送到Kindle">
+<meta property="og:description" content="Kindle是亚马逊推出的电纸书阅读器，采用电子墨水屏幕，其优点是非常省电且显示效果非常接近纸，可以在太阳底下阅读。前段时间入手Kindle PaperWhite后，就一直琢磨着如何把原来用Rss订阅的内容推送到kindle上来看。 可选择的方式 目前通过搜集的可行的方式大概有三种 Rss推送网站 &hellip;">
+
+  <meta property="og:image" content="">
+
+<meta property="og:site_name" content="风依旧">
+
+<link rel="canonical" href="http://windstill.me/blog/2014/10/29/kindleear-rss-kindle">
+<link href="/favicon.png" rel="icon">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/atom.xml" rel="alternate" title="风依旧" type="application/atom+xml">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+<script>Modernizr || document.write('<script src="/javascripts/vendor/modernizr-2.6.2.custom.min.js"><\/script>') </script>
+
+
+  
+      
+  
+
+  
+    
+  
+
+  <style type="text/css">body {background-image:url(/images/witewall_3.png);}</style>
+
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body id="post" >
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+<nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="/">首页</a></li>
+		<li>
+			<a href="#">关于</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="/images/avatar.png" alt="WindStill photo" class="author-photo">
+					<h4>WindStill</h4>
+					<p>ruby开发者<br>iOS爱好者</p>
+				</li>
+				<li><a href="/about">更多</a></li>
+				<li>
+					<a href="http://weibo.com/windstill" target="_blank"><i class="fa fa-weibo"></i> 微博</a>
+				</li>
+				<li>
+					<a href="http://twitter.com/wind_still" target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
+				</li>
+				<li>
+					<a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i> Facebook</a>
+				</li>
+				
+				<li>
+					<a href="http://github.com/WindStill" target="_blank"><i class="fa fa-github"></i> GitHub</a>
+				</li>		
+				
+			</ul><!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">博客</a>
+			<ul class="dl-submenu">
+				<li><a href="/posts/">博文</a></li>
+				<li><a href="/categories/">分类</a></li>
+				<li><a href="/archives/">归档</a></li>
+			</ul>
+		</li>
+		
+	</ul><!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
+
+
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    <header class="header-title">
+      <div class="header-title-wrap">
+        
+          <h1 class="entry-title"><a href="/blog/2014/10/29/kindleear-rss-kindle/" rel="bookmark" title="使用KindleEar免费把RSS订阅定时推送到Kindle">使用KindleEar免费把RSS订阅定时推送到Kindle</a></h1>
+        
+        <h2>October 29, 2014</h2>
+      </div><!-- /.header-title-wrap -->
+    </header>
+    <div class="entry-content">
+      <div class="entry-top">
+        <span class="entry-tags"><a href="/categories/#kindle" title="Pages tagged kindle" class="tag">kindle</a><a href="/categories/#kindleear" title="Pages tagged kindleear" class="tag">kindleear</a><a href="/categories/#rss" title="Pages tagged rss" class="tag">rss</a></span>
+      </div>
+      <p>Kindle是亚马逊推出的电纸书阅读器，采用电子墨水屏幕，其优点是非常省电且显示效果非常接近纸，可以在太阳底下阅读。前段时间入手Kindle PaperWhite后，就一直琢磨着如何把原来用Rss订阅的内容推送到kindle上来看。</p>
+
+<h3>可选择的方式</h3>
+
+<p>目前通过搜集的可行的方式大概有三种</p>
+
+<h4>Rss推送网站</h4>
+
+<p>现在有不少把RSS订阅推送到Kindle的服务，比较流行的有以下三个：</p>
+
+<p>1.ReadCola</p>
+
+<p><a href="http://readcola.com/">ReadCola</a>可以生成期刊格式，便于翻阅，媲美纸质杂志；针对阅读器对图片优化，内容重新排版，提升阅读体验。支持定时推送，相比其它推送站最大的特色就是可以推送自定义的Rss并且带有图片，缺点是只支持16个订阅。</p>
+
+<p>2.狗耳朵</p>
+
+<p><a href="http://www.mydogear.com/">狗耳朵</a>内置资源非常多，包括RSS和微信公众号，支持定时推送。缺点是免费用户无法推送图片，不能添加自定义Rss，付费用户是可以的，不过费用也不算贵，现在是3元每月或30元每年。</p>
+
+<p>3.Kindle4Rss</p>
+
+<p><a href="http://kindle4rss.com/">Kindle4Rss</a>也分免费和付费用户，二则的区别如下:
+<img class="center" src="http://windstill.qiniudn.com/QQ20141029-1.png"></p>
+
+<!-- more -->
+
+
+<h4>使用IFTTT创建一个Recipe</h4>
+
+<p>这种方式要完成一个推送动作，需要一个订阅网站，一个稍后阅读网站，一个负责检查更新并保存到稍后阅读的触发器网站。大概过程是：触发器网站监控订阅的Rss，如果Rss有更新，就保存到稍后阅读网站中，稍后阅读网站会在设定的时间将更新的内容推送到kindle。</p>
+
+<p>这里三个网站对应的分别是：</p>
+
+<blockquote><p>触发器网站 <a href="https://ifttt.com/">IFTTT</a><br/>
+订阅网站 <a href="http://feedly.com/">Feedly</a><br/>
+稍后阅读网站 <a href="http://www.readability.com/">Readability</a></p></blockquote>
+
+<p>首先要注册这三个网站的帐号，然后在Feedly中为想要推送的Rss新建一个分类并添加Rss订阅（若所有网站都推送的话也可不建）；接着在IFTTT中创建一个新的Recipe，按提示来，this部分点击Feedly图标，然后根据需要选择New article saved for later或New article from category，that部分选择Readability，在Read later URL部分根据需要选上ArticleTitle、ArticleContent等等，最后再到Readability网站Kindle Setting中设置下推送的模式。</p>
+
+<h4>使用开源应用KindleEar</h4>
+
+<p>这个是我目前正在使用的方法，也是我下面要具体说明的。具有免费，自定义Rss，定时推送，带图片的mobi格式，排版精美等一系列优点。</p>
+
+<h3>安装KindleEar并部署到GAE</h3>
+
+<h4>KindleEar简介</h4>
+
+<p>KindleEar是一个运行在Google App Engine(GAE)上的Kindle个人推送服务器，可以生成排版精美的杂志模式MOBI格式自动每天推送至您的kindle。</p>
+
+<p>此网站应用目前的功能有：</p>
+
+<blockquote><p>1.支持类似calibre的recipe格式的自定义RSS收集，需要写代码，需要有一点点python基础<br/>
+2.自定义RSS，不需要python基础，直接输入RSS链接和标题即可自动推送<br/>
+3.多账号管理，也就是支持多kindle<br/>
+4.带图的杂志格式MOBI<br/>
+5.自动每天定时推送<br/>
+6.强大而且方便的邮件中转服务</p></blockquote>
+
+<h4>安装及部署</h4>
+
+<p>以下都是基于Mac OS X系统上操作的步骤：</p>
+
+<ul>
+<li><p>申请GAE账号并创建一个application。 <a href="https://appengine.google.com/">https://appengine.google.com/</a></p></li>
+<li><p>下载GAE SDK。 <a href="https://developers.google.com/appengine/downloads?hl=zh-CN">https://developers.google.com/appengine/downloads?hl=zh-CN</a></p></li>
+<li><p>安装Python 2.7（Mac系统默认已安装）</p></li>
+<li><p>下载 <a href="https://github.com/cdhigh/KindleEar">KindleEar源码</a>，放到一个特定的目录。</p></li>
+<li><p>修改app.yaml 和 module-worker.yaml的第一行：将kindleear修改为你申请的application名字</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>app.yaml </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="ss">application</span><span class="p">:</span> <span class="n">app_name</span>
+</span><span class='line'><span class="ss">version</span><span class="p">:</span> <span class="mi">1</span>
+</span><span class='line'><span class="ss">runtime</span><span class="p">:</span> <span class="n">python27</span>
+</span><span class='line'><span class="ss">api_version</span><span class="p">:</span> <span class="mi">1</span>
+</span><span class='line'><span class="ss">threadsafe</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'><span class="ss">instance_class</span><span class="p">:</span> <span class="no">F1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>module-worker.yaml </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="ss">application</span><span class="p">:</span> <span class="n">app_name</span>
+</span><span class='line'><span class="ss">module</span><span class="p">:</span> <span class="n">worker</span>
+</span><span class='line'><span class="ss">version</span><span class="p">:</span> <span class="mi">1</span>
+</span><span class='line'><span class="ss">runtime</span><span class="p">:</span> <span class="n">python27</span>
+</span><span class='line'><span class="ss">api_version</span><span class="p">:</span> <span class="mi">1</span>
+</span><span class='line'><span class="ss">threadsafe</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'><span class="ss">instance_class</span><span class="p">:</span> <span class="no">B2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>修改config.py中的这几个变量 SRC_EMAIL ：你申请GAE账号时的GMAIL邮箱 DOMAIN ：你申请的应用的域名</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>config.py </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># -*- coding:utf-8 -*-</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;Configures for KindleEar, the First two variable is must to modify.</span>
+</span><span class='line'><span class="sd">KindleEar配置文件，请务必修改开始两个配置（如果使用uploader，则uploader自动帮你修改）</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">SRC_EMAIL</span> <span class="o">=</span> <span class="s">&quot;account@gmail.com&quot;</span>  <span class="c">#Your gmail account for sending mail to Kindle</span>
+</span><span class='line'><span class="n">DOMAIN</span> <span class="o">=</span> <span class="s">&quot;https://appname.appspot.com&quot;</span> <span class="c">#Your domain of app</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>转到KindleEar目录，执行命令：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>appcfg.py update app.yaml module-worker.yaml
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>依次输入Google邮箱帐号和密码（如果Google帐号开启了两步验证，请使用应用专用密码）。</p>
+
+<p>等结束后就可以打开域名： app_name.appspot.com (app_name是你申请的application名字) 如果出现如下界面，就表示安装部署成功了。</p>
+
+<p><img class="center" src="http://windstill.qiniudn.com/QQ20141030-1.png"></p>
+
+<p>初始用户为admin，密码为admin，建议登陆后及时修改密码。</p>
+
+<h4>设置推送</h4>
+
+<p><img class="center" src="http://windstill.qiniudn.com/QQ20141030-2.png"></p>
+
+<p>登录后，可以根据自己的需要进行设置了：</p>
+
+<ol>
+<li>我的订阅 <br/>
+可以在这里添加自定义的RSS地址。也可以在下方预置的一些订阅里选择自己感兴趣的。</li>
+<li>设置 <br/>
+这里是推送的详细设置，在这里填写你要推送的“Kindle E-mail”，选择投递日，投递时间。建议勾选“多本书籍合并投递为一本”、“使能自动定时投递”、“自动定时投递自定义RSS”。同时还可以在“书籍标题”项填写显示在Kindle里的个性名称。当所有设置完后还可以点击“现在投递”测试一下。</li>
+<li>投递日志 <br/>
+每次投递的记录。</li>
+<li>账户管理 <br/>
+可以更改密码，添加多用户等。</li>
+<li>高级设置 <br/>
+有邮件白名单、归档和分享、URL过滤、导入订阅列表设置。</li>
+</ol>
+
+
+<p>至此，一个完整的RSS订阅定时推送服务完成了，如果你想为你的KindleEar配置自定域名可以继续往下看。</p>
+
+<h4>绑定自定义域名</h4>
+
+<p>如果你还没有自己的域名，得先去域名注册商（比如国内的<a href="http://www.net.cn/">万网</a>，国外的<a href="http://www.godaddy.com/">Godaddy</a>）那里购买一个，然后就可以按照以下步骤设置你的App Engine application了。</p>
+
+<p><em>1.</em>  登录到 <a href="https://console.developers.google.com/?_ga=1.117873033.1850141824.1414462870">Google Developers Console</a>，然后的选择你的project（即与上文app_name同名的project）点击进入到dashboard页面。在左侧目录树中一次选择 <strong>Compute > App Engine > Settings</strong> 。然后右侧的设置页面的顶部可以看到两个标签页：<strong>Application settings 和 Custom domains</strong>。选择 <strong>Custom domains</strong>，就会看到带有如下三个选项的页面：</p>
+
+<p><img class="center" src="http://windstill.qiniudn.com/domain_new_1.png"></p>
+
+<p><em>2.</em>  在图中的第一个步骤中填入你的域名，然后点击 <strong>Verify</strong> 按钮，会跳转到<code>网站管理员中心</code>页面，在这里你需要证明你拥有这个域名。选择好域名提供商后，页面如下：</p>
+
+<p><img class="center" src="http://windstill.qiniudn.com/QQ20141030-4.png"></p>
+
+<p>然后点击 <strong>添加 TXT 记录</strong>，然后就会出现对应域名提供商添加TXT记录的教程。如果你的域名已经交由第三方DNS管理，例如DNSPOD，就需要到DNSPOD中为域名添加一个TXT记录了。</p>
+
+<p><em>3.</em>  添加完TXT记录后，回到<code>网站管理员中心</code>页面，点击验证按钮。</p>
+
+<p><em>4.</em>  验证成功后，到 <strong>Custom domains</strong> 页面的第二个步骤中，添加一个域名或者二级域名。如果要添加一个顶级域名，请选择第一个选项，然后在下拉框中选择你想要的域名：</p>
+
+<p><img class="center" src="http://windstill.qiniudn.com/domain_new_2.png"></p>
+
+<p>第三步骤中会出现与之相关的说明。这里列出了你需要在域名注册商或者DNS解析服务商那里创建的指向Google服务器DNS记录。然后到你的域名注册商或者DNS解析服务商添加上述记录。添加完后回到刚才的 <strong>Custom domains</strong> 页面，点击 <strong>Add</strong> 按钮。这样域名和应用关联以后，就会出现在页面底部的 <strong>Custom domain names</strong> 列表中。</p>
+
+<p><img class="center" src="http://windstill.qiniudn.com/domain_list.png"></p>
+
+<p><em>5.</em> 如果要添加二级域名，在 <strong>Custom domains</strong> 页面的第二个步骤中，点击第二个选项。在下拉列表中选择想要的域名，在文本框中输入二级域名。第三步骤中会出现与之相关的说明：需要在域名注册商或者DNS解析服务商创建一条 <code>CNAME</code> 记录，指向 <code>ghs.googlehosted.com</code> 子域名。添加完后回到刚才的 <strong>Custom domains</strong> 页面，点击 <strong>Add</strong> 按钮。这样域名和应用关联以后，就会出现在页面底部的 <strong>Custom domain names</strong> 列表中。</p>
+
+<h3>参考文章</h3>
+
+<ul>
+<li><a href="http://xuhehuan.com/1368.html">Rss订阅推送到Kindle的几种方法</a></li>
+<li><a href="http://runbing.me/archives/kindleear-rss-kindle.html">KindleEar：免费把RSS订阅定时推送到Kindle</a></li>
+<li><a href="https://cloud.google.com/appengine/docs/domain">Using a Custom Domain</a></li>
+</ul>
+
+
+      <footer class="entry-meta">
+        <span class="entry-tags"><a href="/categories/#kindle" title="Pages tagged kindle" class="tag">kindle</a><a href="/categories/#kindleear" title="Pages tagged kindleear" class="tag">kindleear</a><a href="/categories/#rss" title="Pages tagged rss" class="tag">rss</a></span>
+        <span><a href="/blog/2014/10/29/kindleear-rss-kindle/" rel="bookmark" title="使用KindleEar免费把RSS订阅定时推送到Kindle">使用KindleEar免费把RSS订阅定时推送到Kindle</a> was published on <span class="entry-date date published updated"><time datetime="2014-10-29T09:58:44+08:00">October 29, 2014</time></span></span>
+        
+        <span class="author vcard"><span class="fn"><a href="" title="About WindStill">WindStill</a></span></span>
+        
+      </footer>
+    </div><!-- /.entry-content -->
+    
+      <div class="read-more">
+        
+          <div class="read-more-header">
+            <a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/" class="btn">Read More</a>
+          </div><!-- /.read-more-header -->
+          <div class="read-more-content">
+            <h3><a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/" title="在Rails中使用hstore和Array类型">在Rails中使用hstore和Array类型</a></h3>
+            <p>最近项目技术选型从 MySQL+MongoDB 转到 PostgreSQL，但是 MongoDB 支持存储 Array 和 JSON 数据类型在某些场景下还是很方便的。比如手机通讯录里的联系人，一个联系人有多个号码、多个地址，如果使用传统的数据类型，可能要三个表来存储这些信息； &hellip;&hellip; <a href="/blog/2014/10/21/using-hash-and-array-of-hstore-with-rails/"> Continue reading</a></p>
+          </div><!-- /.read-more-content -->
+        
+        <div class="read-more-list">
+          
+            <div class="list-item">
+              <h4><a href="/blog/2014/10/15/rails-with-postgis/" title="使用Rails和Postgis开发基于地理位置应用的安装与配置">使用Rails和Postgis开发基于地理位置应用的安装与配置</a></h4>
+              <span>Published on October 15, 2014</span>
+            </div><!-- /.list-item -->
+          
+            <div class="list-item">
+              <h4><a href="/blog/2014/07/16/imagemagick-rmagick-osx/" title="解决ImageMagick和RMagick在OS X下使用出现的问题">解决ImageMagick和RMagick在OS X下使用出现的问题</a></h4>
+              <span>Published on July 16, 2014</span>
+            </div><!-- /.list-item -->
+          
+        </div><!-- /.read-more-list -->
+      </div><!-- /.read-more -->
+    
+    
+    
+      <section class="read-more">
+        <h1>评论</h1>
+        <div id="comments" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"  data-title="使用KindleEar免费把RSS订阅定时推送到Kindle"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"windstill"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- Duoshuo Comment END -->
+</div>
+      </section>
+    
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 WindStill
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+
+	        
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/javascripts/octopress.js" type="text/javascript"></script>
+<script src="/javascripts/scripts.min.js"></script>
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46781558-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+
+
+	        
+
+</body>
+</html>

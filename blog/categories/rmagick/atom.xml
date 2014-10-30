@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rmagick | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/rmagick/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-27T16:40:13+08:00</updated>
+  <updated>2014-10-30T15:45:55+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -19,9 +19,6 @@
     <updated>2014-07-16T10:50:42+08:00</updated>
     <id>http://windstill.me/blog/2014/07/16/imagemagick-rmagick-osx</id>
     <content type="html"><![CDATA[<p>每次安装 <code>RMagick</code> 这个gem都会遇到问题，并且每次的问题还都不一样，有的时候是 <code>ImageMagick</code> 的问题，有时候是 <code>RMagick</code> 不能安装，这次是安装了以后，启动Rails的时候，报错说是 <code>libMagickCore-6.Q16.2.dylib</code> 版本不对。错误详情如下：</p>
-
-<!-- more -->
-
 
 <pre><code>/Users/windstill/.rvm/gems/ruby-1.9.3-p194/gems/activesupport-3.2.12/lib/active_support/dependencies.rb:251:in `require': dlopen(/Users/windstill/.rvm/gems/ruby-1.9.3-p194/extensions/x86_64-darwin-13/1.9.1/rmagick-2.13.2/RMagick2.bundle, 9): Library not loaded: /usr/local/lib/libltdl.7.dylib (LoadError)
   Referenced from: /usr/local/lib/libMagickCore-6.Q16.2.dylib
@@ -45,6 +42,9 @@
 </code></pre>
 
 <p>使用 <code>brew unlink libtool &amp;&amp; brew link libtool</code> 命令解决问题。可能会出现如下问题：</p>
+
+<!-- more -->
+
 
 <pre><code class="">Linking /usr/local/Cellar/libtool/2.4.2...
 Error: Could not symlink include/ltdl.h

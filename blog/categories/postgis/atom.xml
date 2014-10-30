@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Postgis | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/postgis/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-10-27T16:40:13+08:00</updated>
+  <updated>2014-10-30T15:45:55+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -19,9 +19,6 @@
     <updated>2014-10-15T15:24:58+08:00</updated>
     <id>http://windstill.me/blog/2014/10/15/rails-with-postgis</id>
     <content type="html"><![CDATA[<p><a href="http://postgis.refractions.net/"><code>PostGIS</code></a> 是关系型数据库 <a href="http://www.postgresql.org/"><code>PostgreSQL</code></a> 一个扩展，它为PostgreSQL提供了存储空间地理数据的支持，使PostgreSQL成为了一个空间数据库，能够进行空间数据管理、数量测量与几何拓扑分析。现在已经有好多为 Rails 提供地理空间数据操作的 gem。所以处理地理空间数据还是比较简单的，但是开发环境配置还有不少工作要做。</p>
-
-<!-- more -->
-
 
 <h3>环境依赖</h3>
 
@@ -52,6 +49,9 @@ brew install postgis
 </code></pre>
 
 <p>Mac 用户还可以直接下载 <a href="http://postgresapp.com/"><code>Postgres.app</code></a>，拖入applications文件夹。Postgres.app 包含 PostgreSQL 常用的扩展和工具：</p>
+
+<!-- more -->
+
 
 <ul>
 <li>PostgreSQL 9.3.5</li>
