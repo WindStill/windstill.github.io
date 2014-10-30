@@ -18,13 +18,13 @@ image:
 <div class="pagination">
   {% if paginator.previous_page %}
     {% if paginator.previous_page == 1 %}
-      <a href="/" class="btn">Previous</a>
+      <a href="/" class="btn">上一页</a>
     {% else %}
-      <a href="{{ root_url }}{ paginator.previous_page_path }}" class="btn">Previous</a>
+      <a href="{{ root_url }}{ paginator.previous_page_path }}" class="btn">上一页</a>
     {% endif %}
   {% endif %}
-  <a href="{{ root_url }}/archives">Blog Archives</a>
+  <a href="{{ root_url }}/archives" class="archives">博客归档</a>
   {% if paginator.next_page %}
-    <a href="{{ root_url }}{{ paginator.next_page_path }}" class="btn">Next</a>
+    <a href="{{ root_url }}{{ paginator.next_page_path }}" class="btn">下一页</a>
   {% endif %}
 </div><!-- /.pagination -->
