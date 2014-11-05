@@ -146,6 +146,148 @@
 <header>
   <div class="entry-meta">
     <span class="entry-date date published updated">
+      <time datetime="2014-11-05T14:23:45+08:00">
+        <a href="/blog/2014/11/05/ssl-with-nginx/">November 05, 2014</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2014/11/05/ssl-with-nginx/" rel="bookmark" title="SSL证书申请与在Nginx下的配置" itemprop="url">SSL证书申请与在Nginx下的配置</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <p>http协议默认情况下是不加密的，各种信息都是明文传送。SSL是Secure Socket Layer的简称，具体的作用就是在部署了SSL证书的网站跟用户浏览器之间建立一个安全的会话。以防止信息在互联网任何中间节点上被盗用。</p>
+
+<h4>购买SSL</h4>
+
+<p>如果购买就不赘述了，我是从 <a href="https://www.ssls.com/">SSLs.com</a>购买的<strong>Positive SSL</strong>，$4.99/年。可以比较下其他提供商，按需购买。</p>
+
+<h4>申请证书</h4>
+
+<p>一般购买SSL后，激活的时候会要求提供一下 CSR 的内容。CSR 就是 Certificate Signing Request 简称，需要去部署的服务器上生成一个。步骤如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mkdir /etc/nginx/ssl
+</span><span class='line'>cd /etc/nginx/ssl  
+</span><span class='line'>
+</span><span class='line'>#生成private key
+</span><span class='line'>sudo openssl genrsa -des3 -out server.key 2048
+</span><span class='line'>这里问你输入一个passphrase，选择一个容易记得，后面会用到
+</span><span class='line'>
+</span><span class='line'>#生成 CSR
+</span><span class='line'>sudo openssl req -new -key server.key -out server.csr
+</span><span class='line'>
+</span><span class='line'>Country Name (2 letter code) [AU]:
+</span><span class='line'>State or Province Name (full name) [Some-State]:
+</span><span class='line'>Locality Name (eg, city) []:
+</span><span class='line'>Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+</span><span class='line'>Organizational Unit Name (eg, section) []:
+</span><span class='line'>Common Name (e.g. server FQDN or YOUR name) []:                  
+</span><span class='line'>Email Address []:
+</span><span class='line'>A challenge password []:
+</span><span class='line'>An optional company name []:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>输入内容说明：</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> 输入内容</th>
+<th style="text-align:left;"> 说明 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">Country Name (2 letter code) </td>
+<td style="text-align:left;"> 使用国际标准组织(ISO)国码格式，填写2个字母的国家代号。中国请填写CN</td>
+</tr>
+<tr>
+<td style="text-align:left;">State or Province Name (full name)</td>
+<td style="text-align:left;"> 省份，如 Beijing</td>
+</tr>
+<tr>
+<td style="text-align:left;">Locality Name (eg, city)</td>
+<td style="text-align:left;"> 城市，如 Beijing</td>
+</tr>
+<tr>
+<td style="text-align:left;">Organization Name (eg, company)</td>
+<td style="text-align:left;">公司名称</td>
+</tr>
+<tr>
+<td style="text-align:left;">Organizational Unit Name</td>
+<td style="text-align:left;">部门名称</td>
+</tr>
+<tr>
+<td style="text-align:left;">Common Name (eg, your websites domain name)</td>
+<td style="text-align:left;">网站域名，注意区分abc.com和www.abc.com是不同的</td>
+</tr>
+<tr>
+<td style="text-align:left;">Email Address</td>
+<td style="text-align:left;">邮件地址，可不填</td>
+</tr>
+<tr>
+<td style="text-align:left;">A challenge password</td>
+<td style="text-align:left;">可不填</td>
+</tr>
+<tr>
+<td style="text-align:left;">An optional company name</td>
+<td style="text-align:left;">可不填</td>
+</tr>
+</tbody>
+</table>
+
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2014/11/05/ssl-with-nginx/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
       <time datetime="2014-10-29T09:58:44+08:00">
         <a href="/blog/2014/10/29/kindleear-rss-kindle/">October 29, 2014</a>
       </time>
@@ -453,102 +595,6 @@
   
     <footer>
       <a class="btn" rel="full-article" href="/blog/2014/07/16/imagemagick-rmagick-osx/">阅读全文 &rarr;</a>
-    </footer>
-  
-</div><!-- /.entry-content -->
-
-
-
-
-
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  
-
-
-
-<header>
-  <div class="entry-meta">
-    <span class="entry-date date published updated">
-      <time datetime="2014-07-02T10:35:17+08:00">
-        <a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">July 02, 2014</a>
-      </time>
-    </span>
-    <span class="author vcard">
-      <span class="fn">
-        <a href="" title="About WindStill">WindStill</a>
-      </span>
-    </span>
-    
-  </div><!-- /.entry-meta -->
-  
-    <h1 class="entry-title">
-      <a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/" rel="bookmark" title="Mysql2::Error: Got Error 28 From Storage Engine问题解决" itemprop="url">Mysql2::Error: Got Error 28 From Storage Engine问题解决</a>
-    </h1>
-  
-</header>
-
-<div class="entry-content">
-  <h3>问题原因</h3>
-
-<p>今天发现MySQL数据库中没有写入新数据，于是看了下Rails后端的日志，发现报了一个<code>Error: Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM plays</code>错误。网上搜了一通说是空间不足造成的。</p>
-
-<p>使用 <code>df -h</code> 命令，结果如下：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>root@windstill:/# df -h
-</span><span class='line'>Filesystem            Size  Used Avail Use% Mounted on
-</span><span class='line'>/dev/mapper/windstill-root
-</span><span class='line'>                       28G   28G    0G   0% /
-</span><span class='line'>none                   16G  220K   16G   1% /dev
-</span><span class='line'>none                   16G     0   16G   0% /dev/shm
-</span><span class='line'>none                   16G   52K   16G   1% /var/run
-</span><span class='line'>none                   16G     0   16G   0% /var/lock
-</span><span class='line'>/dev/mapper/windstill-data_backup
-</span><span class='line'>                       28G   16G   11G  59% /data_backup
-</span><span class='line'>/dev/mapper/windstill-mysql
-</span><span class='line'>                       65G   15G   47G  24% /mysql
-</span><span class='line'>/dev/mapper/windstill-opt
-</span><span class='line'>                       28G   15G   12G  55% /opt
-</span><span class='line'>/dev/mapper/windstill-redis
-</span><span class='line'>                       28G   17G  9.8G  63% /redis
-</span><span class='line'>/dev/mapper/windstill-prod
-</span><span class='line'>                       28G   13G   14G  50% /prod
-</span><span class='line'>/dev/mapper/windstill-mongodb
-</span><span class='line'>                       65G   50G   12G  82% /mongodb
-</span><span class='line'>                       </span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>可以看出 <code>/mysql</code> 空间还是很足的，还有47G空间可用，那是什么原因呢。随着深入了解，原来MySQL查询的时候会生成一些临时的表，在默认的配置里，这些表会被创建在 <code>/</code> 挂载点（目录）中。再结合上述结果中，我的 <code>/</code> 已经没有可用空间了，那这就是问题所在了。</p>
-
-
-  
-  
-    <footer>
-      <a class="btn" rel="full-article" href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">阅读全文 &rarr;</a>
     </footer>
   
 </div><!-- /.entry-content -->

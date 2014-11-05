@@ -146,6 +146,102 @@
 <header>
   <div class="entry-meta">
     <span class="entry-date date published updated">
+      <time datetime="2014-07-02T10:35:17+08:00">
+        <a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">July 02, 2014</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About WindStill">WindStill</a>
+      </span>
+    </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/" rel="bookmark" title="Mysql2::Error: Got Error 28 From Storage Engine问题解决" itemprop="url">Mysql2::Error: Got Error 28 From Storage Engine问题解决</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <h3>问题原因</h3>
+
+<p>今天发现MySQL数据库中没有写入新数据，于是看了下Rails后端的日志，发现报了一个<code>Error: Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM plays</code>错误。网上搜了一通说是空间不足造成的。</p>
+
+<p>使用 <code>df -h</code> 命令，结果如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@windstill:/# df -h
+</span><span class='line'>Filesystem            Size  Used Avail Use% Mounted on
+</span><span class='line'>/dev/mapper/windstill-root
+</span><span class='line'>                       28G   28G    0G   0% /
+</span><span class='line'>none                   16G  220K   16G   1% /dev
+</span><span class='line'>none                   16G     0   16G   0% /dev/shm
+</span><span class='line'>none                   16G   52K   16G   1% /var/run
+</span><span class='line'>none                   16G     0   16G   0% /var/lock
+</span><span class='line'>/dev/mapper/windstill-data_backup
+</span><span class='line'>                       28G   16G   11G  59% /data_backup
+</span><span class='line'>/dev/mapper/windstill-mysql
+</span><span class='line'>                       65G   15G   47G  24% /mysql
+</span><span class='line'>/dev/mapper/windstill-opt
+</span><span class='line'>                       28G   15G   12G  55% /opt
+</span><span class='line'>/dev/mapper/windstill-redis
+</span><span class='line'>                       28G   17G  9.8G  63% /redis
+</span><span class='line'>/dev/mapper/windstill-prod
+</span><span class='line'>                       28G   13G   14G  50% /prod
+</span><span class='line'>/dev/mapper/windstill-mongodb
+</span><span class='line'>                       65G   50G   12G  82% /mongodb
+</span><span class='line'>                       </span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>可以看出 <code>/mysql</code> 空间还是很足的，还有47G空间可用，那是什么原因呢。随着深入了解，原来MySQL查询的时候会生成一些临时的表，在默认的配置里，这些表会被创建在 <code>/</code> 挂载点（目录）中。再结合上述结果中，我的 <code>/</code> 已经没有可用空间了，那这就是问题所在了。</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2014/07/02/mysql2-error-28-storage-enginewen/">阅读全文 &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
       <time datetime="2014-01-03T17:29:52+08:00">
         <a href="/blog/2014/01/03/mavericks-unidentified-developer-app/">January 03, 2014</a>
       </time>

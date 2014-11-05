@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ssl | 风依旧]]></title>
+  <link href="http://windstill.me/blog/categories/ssl/atom.xml" rel="self"/>
+  <link href="http://windstill.me/"/>
+  <updated>2014-11-05T15:59:23+08:00</updated>
+  <id>http://windstill.me/</id>
+  <author>
+    <name><![CDATA[WindStill]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SSL证书申请与在Nginx下的配置]]></title>
+    <link href="http://windstill.me/blog/2014/11/05/ssl-with-nginx/"/>
+    <updated>2014-11-05T14:23:45+08:00</updated>
+    <id>http://windstill.me/blog/2014/11/05/ssl-with-nginx</id>
+    <content type="html"><![CDATA[<p>http协议默认情况下是不加密的，各种信息都是明文传送。SSL是Secure Socket Layer的简称，具体的作用就是在部署了SSL证书的网站跟用户浏览器之间建立一个安全的会话。以防止信息在互联网任何中间节点上被盗用。</p>
+
+<h4>购买SSL</h4>
+
+<p>如果购买就不赘述了，我是从 <a href="https://www.ssls.com/">SSLs.com</a>购买的<strong>Positive SSL</strong>，$4.99/年。可以比较下其他提供商，按需购买。</p>
+
+<h4>申请证书</h4>
+
+<p>一般购买SSL后，激活的时候会要求提供一下 CSR 的内容。CSR 就是 Certificate Signing Request 简称，需要去部署的服务器上生成一个。步骤如下：</p>
+
+<pre><code>sudo mkdir /etc/nginx/ssl
+cd /etc/nginx/ssl  
+
+#生成private key
+sudo openssl genrsa -des3 -out server.key 2048
+这里问你输入一个passphrase，选择一个容易记得，后面会用到
+
+#生成 CSR
+sudo openssl req -new -key server.key -out server.csr
+
+Country Name (2 letter code) [AU]:
+State or Province Name (full name) [Some-State]:
+Locality Name (eg, city) []:
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:                  
+Email Address []:
+A challenge password []:
+An optional company name []:
+</code></pre>
+
+<p>输入内容说明：</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> 输入内容</th>
+<th style="text-align:left;"> 说明 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">Country Name (2 letter code) </td>
+<td style="text-align:left;"> 使用国际标准组织(ISO)国码格式，填写2个字母的国家代号。中国请填写CN</td>
+</tr>
+<tr>
+<td style="text-align:left;">State or Province Name (full name)</td>
+<td style="text-align:left;"> 省份，如 Beijing</td>
+</tr>
+<tr>
+<td style="text-align:left;">Locality Name (eg, city)</td>
+<td style="text-align:left;"> 城市，如 Beijing</td>
+</tr>
+<tr>
+<td style="text-align:left;">Organization Name (eg, company)</td>
+<td style="text-align:left;">公司名称</td>
+</tr>
+<tr>
+<td style="text-align:left;">Organizational Unit Name</td>
+<td style="text-align:left;">部门名称</td>
+</tr>
+<tr>
+<td style="text-align:left;">Common Name (eg, your websites domain name)</td>
+<td style="text-align:left;">网站域名，注意区分abc.com和www.abc.com是不同的</td>
+</tr>
+<tr>
+<td style="text-align:left;">Email Address</td>
+<td style="text-align:left;">邮件地址，可不填</td>
+</tr>
+<tr>
+<td style="text-align:left;">A challenge password</td>
+<td style="text-align:left;">可不填</td>
+</tr>
+<tr>
+<td style="text-align:left;">An optional company name</td>
+<td style="text-align:left;">可不填</td>
+</tr>
+</tbody>
+</table>
+
+
+<!-- more -->
+
+
+<p>然后将CSR文件内容复制到激活SSL时需要填写CSR的地方，过程中还会要求选择你的管理员邮箱，一定要选择可靠、存在的邮箱，因为证书是通过邮箱发送给你的。</p>
+
+<p>完成之后，邮箱会收到一个Approval的邮件，点击连接Approve。下一个邮件就会收到证书了。收到证书后，再/etc/nginx/ssl文件夹下面新建一个server.crt的文件，把证书内容粘贴进去。</p>
+
+<h4>配置Nginx</h4>
+
+<pre><code>server {
+        listen 443;
+        server_name example.com;
+
+        root /usr/share/nginx/www;
+        index index.html index.htm;
+
+        ssl on;
+        ssl_certificate /etc/nginx/ssl/server.crt;
+        ssl_certificate_key /etc/nginx/ssl/server.key; 
+}
+</code></pre>
+
+<p>重启 Nginx，需要输入之前生成 private key 时填写的 passphrase。可以去掉private key的 passphrase 让 Nginx 自由启动，不再输入。</p>
+
+<pre><code>sudo cp server.key server.key.org
+sudo openssl rsa -in server.key.org -out server.key
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
