@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Lbs | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/lbs/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-11-05T15:59:23+08:00</updated>
+  <updated>2014-11-19T11:44:32+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -99,11 +99,7 @@ gem 'activerecord-postgis-adapter'
   schema_search_path: public
 </code></pre>
 
-<p>postgis_extension 表明应用在创建数据库的时候安装 postgis extension。当执行 <code>rake db:create</code> 命令的时候，postgresql会有类似如下的操作：</p>
-
-<pre><code>CREATE SCHEMA postgis;
-CREATE EXTENSION postgis WITH SCHEMA postgis;
-</code></pre>
+<p>postgis_extension 表明应用在创建数据库的时候安装 postgis extension</p>
 
 <p>如果 postgis extension 不是安装在 public schema (默认安装在 public schema)，还得把 postgis 的 schema 添加到 <code>schema_search_path</code>：</p>
 
