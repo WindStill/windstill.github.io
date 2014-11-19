@@ -76,12 +76,7 @@ development:
   postgis_extension: postgis
   schema_search_path: public
 ```
-postgis_extension 表明应用在创建数据库的时候安装 postgis extension。当执行 `rake db:create` 命令的时候，postgresql会有类似如下的操作：
-
-```
-CREATE SCHEMA postgis;
-CREATE EXTENSION postgis WITH SCHEMA postgis;
-```
+postgis_extension 表明应用在创建数据库的时候安装 postgis extension
 
 如果 postgis extension 不是安装在 public schema (默认安装在 public schema)，还得把 postgis 的 schema 添加到 `schema_search_path`：
 
