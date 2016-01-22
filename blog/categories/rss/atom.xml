@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rss | 风依旧]]></title>
   <link href="http://windstill.me/blog/categories/rss/atom.xml" rel="self"/>
   <link href="http://windstill.me/"/>
-  <updated>2014-11-19T11:44:32+08:00</updated>
+  <updated>2016-01-22T18:25:23+08:00</updated>
   <id>http://windstill.me/</id>
   <author>
     <name><![CDATA[WindStill]]></name>
@@ -148,7 +148,7 @@
 </span><span class='line'><span class="n">KindleEar</span><span class="err">配置文件，请务必修改开始两个配置（如果使用</span><span class="n">uploader</span><span class="err">，则</span><span class="n">uploader</span><span class="err">自动帮你修改）</span>
 </span><span class='line'><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">SRC_EMAIL</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#x74;&amp;#111;&amp;#58;&amp;#x61;&amp;#x63;&amp;#99;&amp;#x6f;&amp;#x75;&amp;#x6e;&amp;#x74;&amp;#x40;&amp;#x67;&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#111;&amp;#109;&quot;</span><span class="o">&gt;&amp;</span><span class="c">#97;&amp;#x63;&amp;#99;&amp;#x6f;&amp;#x75;&amp;#x6e;&amp;#116;&amp;#64;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#109;&lt;/a&gt;&amp;rdquo;  #Your gmail account for sending mail to Kindle</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">SRC_EMAIL</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#x61;&amp;#99;&amp;#x63;&amp;#111;&amp;#x75;&amp;#x6e;&amp;#x74;&amp;#x40;&amp;#x67;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&quot;</span><span class="o">&gt;&amp;</span><span class="c">#97;&amp;#99;&amp;#x63;&amp;#x6f;&amp;#x75;&amp;#110;&amp;#116;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109;&lt;/a&gt;&amp;rdquo;  #Your gmail account for sending mail to Kindle</span>
 </span><span class='line'><span class="n">DOMAIN</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;https://appname.appspot.com&quot;</span><span class="o">&gt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">appname</span><span class="o">.</span><span class="n">appspot</span><span class="o">.</span><span class="n">com</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="c">#Your domain of app</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
