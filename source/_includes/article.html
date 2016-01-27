@@ -11,7 +11,7 @@ the index page or a normal post page.
   <div class="entry-meta">
     <span class="entry-date date published updated">
       <time datetime="{{ post.date | date_to_xmlschema }}">
-        <a href="{{ root_url }}{{ post.url }}">{{ post.date | date: "%B %d, %Y" }}</a>
+        <a href="{{ root_url }}{{ post.url }}">{{ post.date | date: "%Y-%m-%d" }}</a>
       </time>
     </span>
     <span class="author vcard">
